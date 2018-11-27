@@ -7,11 +7,40 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
 import { WebBrowser, MapView } from 'expo';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { MonoText } from '../components/StyledText';
+
+const WIDTH = Dimensions.get('window').width
+const HEIGHT = Dimensions.get('window').height
+
+function TopView() {
+  return(
+    <View style={{
+      position: 'absolute', 
+      width: WIDTH,
+      height: HEIGHT,
+      zIndex: 9,
+      backgroundColor: 'transparent', 
+      justifyContent: 'space-around', 
+      flexDirection: 'row',
+    }}>
+      <Icon name="md-menu" color="#000000" size={35} style={{zIndex: 9, position: 'absolute', top: 40, left: 20}}/>
+      <View style={{flex: 1, backgroundColor: 'transparent'}}></View>
+      <View style={{
+        zIndex: 9,  
+        flex: 20,
+        backgroundColor: 'transparent',
+      }}>
+      </View>
+      <View style={{flex: 1, backgroundColor: 'transparent'}}></View>
+    </View>
+  )
+  
+}
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -21,7 +50,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Icon name="md-menu" color="#000000" size={35} style={{zIndex: 9, position: 'absolute', top: 40, left: 15}}/>
+        <TopView />
         <MapView
           initialRegion={{
             latitude: 37.78825,
@@ -29,7 +58,7 @@ export default class HomeScreen extends React.Component {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-          style={{flex: 1}}
+          style={{width: WIDTH, height: HEIGHT, zIndex: 0}}
         />
       </View>
     );
