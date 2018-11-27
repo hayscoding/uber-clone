@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { WebBrowser, MapView } from 'expo';
+import { 
+  WebBrowser, MapView } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
