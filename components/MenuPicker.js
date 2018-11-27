@@ -1,12 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Picker, Button, Modal, TouchableHighlight } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
 
-export default class LinksScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Links',
-  };
-constructor(props) {
+export default class MenuPicker extends React.Component {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -87,7 +83,8 @@ constructor(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
