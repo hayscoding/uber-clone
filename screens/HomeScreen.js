@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { 
-  WebBrowser, MapView } from 'expo';
+import { WebBrowser, MapView } from 'expo';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import { MonoText } from '../components/StyledText';
 
@@ -21,14 +21,15 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Icon name="md-menu" color="#000000" size={35} style={{zIndex: 9, position: 'absolute', top: 40, left: 15}}/>
         <MapView
-          style={{ flex: 1 }}
           initialRegion={{
             latitude: 37.78825,
             longitude: -122.4324,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
+          style={{flex: 1}}
         />
       </View>
     );
