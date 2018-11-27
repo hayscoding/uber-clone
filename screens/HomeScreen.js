@@ -30,6 +30,10 @@ function DestinationButton() {
       borderRadius: 2,
       backgroundColor: 'white',
       alignItems: 'center',
+      shadowColor: '#000000',
+      elevation: 7,
+      shadowRadius: 5,
+      shadowOpacity: 1.0
     }}>
       <View style={{flex: 1, alignItems: 'center'}}>
         <Text style={{fontSize: 8}}>{'\u25A0'}</Text>
