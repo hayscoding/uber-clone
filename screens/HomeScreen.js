@@ -17,27 +17,18 @@ import { MonoText } from '../components/StyledText';
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
-function TopView() {
+function DestinationButton() {
   return(
     <View style={{
-      position: 'absolute', 
-      width: WIDTH,
-      height: HEIGHT,
       zIndex: 9,
-      backgroundColor: 'transparent', 
-      justifyContent: 'space-around', 
-      flexDirection: 'row',
+      position: 'absolute',
+      width: (WIDTH-40), //40 because of left property multiplied by 2
+      height: 65,
+      top: 110,
+      left: 20,
+      borderRadius: 4,
+      backgroundColor: 'white',
     }}>
-      <Icon name="md-menu" color="#000000" size={35} style={{zIndex: 9, position: 'absolute', top: 40, left: 20}}/>
-      <View style={{flex: 1, backgroundColor: 'transparent'}}></View>
-      <View style={{
-        flex: 20,
-        height: HEIGHT/9,
-        marginTop: 100,
-        backgroundColor: 'white',
-      }}>
-      </View>
-      <View style={{flex: 1, backgroundColor: 'transparent'}}></View>
     </View>
   )
   
@@ -51,7 +42,8 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <TopView />
+        <Icon name="md-menu" color="#000000" size={35} style={{zIndex: 9, position: 'absolute', top: 40, left: 20}}/>
+        <DestinationButton />
         <MapView
           initialRegion={{
             latitude: 37.78825,
