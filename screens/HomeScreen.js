@@ -31,9 +31,10 @@ function TopView() {
       <Icon name="md-menu" color="#000000" size={35} style={{zIndex: 9, position: 'absolute', top: 40, left: 20}}/>
       <View style={{flex: 1, backgroundColor: 'transparent'}}></View>
       <View style={{
-        zIndex: 9,  
         flex: 20,
-        backgroundColor: 'transparent',
+        height: HEIGHT/9,
+        marginTop: 100,
+        backgroundColor: 'white',
       }}>
       </View>
       <View style={{flex: 1, backgroundColor: 'transparent'}}></View>
