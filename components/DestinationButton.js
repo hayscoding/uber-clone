@@ -1,18 +1,13 @@
 import React from 'react';
 import {
-  Image,
-  Platform,
-  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const WIDTH = Dimensions.get('window').width
-const HEIGHT = Dimensions.get('window').height
 
 export const DestinationButton = function() {
   return(
@@ -52,5 +47,4 @@ export const DestinationButton = function() {
       </View>
     </View>
   )
-  
 }
