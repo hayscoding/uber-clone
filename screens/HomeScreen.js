@@ -29,7 +29,7 @@ function SuggestedDesinationButton() {
       position: 'absolute',
       flexDirection: 'row',
       width: (WIDTH-40), //40 because of left property multiplied by 2
-      height: 50,
+      height: 55,
       top: 170,
       left: 20,
       borderBottomLeftRadius: 10,
