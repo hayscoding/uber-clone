@@ -84,8 +84,8 @@ export default class HomeScreen extends React.Component {
       return({  //Users current position
         latitude: this.state.location.coords.latitude, 
         longitude: this.state.location.coords.longitude,
-        latitudeDelta: 0.005, //Deltas set the zoom of the map on screen
-        longitudeDelta: 0.005,
+        latitudeDelta: 0.015, //Deltas set the zoom of the map on screen
+        longitudeDelta: 0.015,
       })
     else
       return({  //Default to coordinates of San Francisco
@@ -111,6 +111,8 @@ export default class HomeScreen extends React.Component {
           <MapView
             region={this.getCoordsFromLocation()}
             showsCompass={false}
+            showsUserLocation={true}
+            followsUserLocation={true}
             style={styles.map}
           />
       </View>
