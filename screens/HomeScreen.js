@@ -22,10 +22,16 @@ import { CurrentLocationButton } from '../components/CurrentLocationButton';
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
-function RideRequestSection() {
+function RideRequestSection(props) {
+  const locationCb = props.locationCb ? props.locationCb : console.log('Callback function for current location button not passed to RideRequestSection()')
+  const backCb = props.backCb ? props.backCb : console.log('Callback function for back button not passed to RideRequestSection()')
+
   return(
     <View>
-      <CurrentLocationButton bottom={400} cb={() => { this.setRegionToCurrentLocation() }} />
+      <CurrentLocationButton bottom={400} cb={() => { locationCb() }} />
+      <Icon name="md-menu" color="#000000" size={35} style={styles.menuIcon}
+            onPress={() => { backCb() }}
+          />
       <View style={{
         zIndex: 9,
         position: 'absolute',
@@ -45,25 +51,30 @@ function RideRequestSection() {
   )
 }
 
-function SuggestedDesinationButton() {
+function SuggestedDesinationButton(props) {
+  const cb = props.cb ? props.cb : console.log('Callback function not passed to SuggestedDesinationButton()')
+
   return(
-    <View style={{
-      zIndex: 9,
-      position: 'absolute',
-      flexDirection: 'row',
-      width: (WIDTH-40), //40 because of left property multiplied by 2
-      height: 55,
-      top: 170,
-      left: 20,
-      borderBottomLeftRadius: 10,
-      borderBottomRightRadius: 10,
-      backgroundColor: 'white',
-      alignItems: 'center',
-      shadowColor: '#000000',
-      elevation: 3,
-      shadowRadius: 5,
-      shadowOpacity: 1.0,
-    }}>
+    <TouchableOpacity 
+      onPress={() => { cb() }}
+      style={{
+        zIndex: 9,
+        position: 'absolute',
+        flexDirection: 'row',
+        width: (WIDTH-40), //40 because of left property multiplied by 2
+        height: 55,
+        top: 170,
+        left: 20,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        shadowColor: '#000000',
+        elevation: 3,
+        shadowRadius: 5,
+        shadowOpacity: 1.0,
+      }}
+    >
       <View style={{flex: 1, alignItems: 'center',}}>
         <MaterialIcon name="location-on" color="gray" size={15} />
       </View>
@@ -71,7 +82,7 @@ function SuggestedDesinationButton() {
         <Text style={{fontFamily: 'sans-serif', fontSize: 15, color: "#545454"}}>Suggested Address</Text>
         <Text style={{fontFamily: 'sans-serif', fontSize: 13, color: "#9b9b9b"}}>City, State</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -125,6 +136,20 @@ export default class HomeScreen extends React.Component {
       return null
   }
 
+  toggleComponentOverlay() {
+    console.log('TOGGLE CALLED')
+    this.setState({requestSectionOpen: !this.state.requestSectionOpen})
+  }
+
+  componentOverlay() {
+    if(this.state.requestSectionOpen)
+      return <RideRequestSection 
+        backCb={() => { this.toggleComponentOverlay() }} 
+        locationCb={() => { this.setRegionToCurrentLocation() }} />
+    else
+      return this.showMainButtons()
+  }
+
   showMainButtons() {
     return(
       <View>
@@ -132,17 +157,10 @@ export default class HomeScreen extends React.Component {
             onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
           />
         <DestinationButton />
-        <SuggestedDesinationButton />
+        <SuggestedDesinationButton cb={() => { this.toggleComponentOverlay() }}/>
         <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
       </View>
     )
-  }
-
-  componentOverlay() {
-    if(this.state.requestSectionOpen)
-      return <RideRequestSection />
-    else
-      return this.showMainButtons()
   }
 
   render() {
