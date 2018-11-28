@@ -77,7 +77,8 @@ export default class HomeScreen extends React.Component {
     if(this.state.location)
       console.log("HOMESCREEN OUTPUT: \n", 
         "LOCATION COORDS: ", this.state.location.coords,
-        "REGION: ", this.state.region)
+        "REGION: ", this.state.region
+      );
 
     return (
       <View style={styles.container}>
