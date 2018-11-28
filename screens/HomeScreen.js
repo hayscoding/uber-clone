@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
+  InteractionManager,
 } from 'react-native';
 import { DrawerActions } from 'react-navigation-drawer';
 import { WebBrowser, MapView, Constants, Location, Permissions, } from 'expo';
@@ -20,7 +21,9 @@ import { DestinationButton } from '../components/DestinationButton';
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
-function CurrentLocationButton() {
+function CurrentLocationButton(props) {
+  const cb = props.cb ? props.cb : console.log('Callback function not passed to CurrentLocationButton()')
+
   return(
     <View style={{zIndex: 9, 
       position: 'absolute', 
@@ -40,7 +43,9 @@ function CurrentLocationButton() {
     <MaterialIcon name="my-location" color="#000000" size={25} 
       style={{
       }}
-      onPress={() => {}}
+      onPress={() => {
+
+      }}
     />
     </View>
   )
@@ -53,6 +58,7 @@ export default class HomeScreen extends React.Component {
 
   state = {
     location: null,
+    region: null,
     errorMessage: null,
   };
 
@@ -76,30 +82,34 @@ export default class HomeScreen extends React.Component {
     }
 
     let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
-    this.setState({ location });
+
+    this.setState({location: location,  region: this.getRegionFromLocation(location)});
   };
 
-  getCoordsFromLocation() {
-    if(this.state.location)
+  getRegionFromLocation(location) {
+    if(location)
       return({  //Users current position
-        latitude: this.state.location.coords.latitude, 
-        longitude: this.state.location.coords.longitude,
-        latitudeDelta: 0.015, //Deltas set the zoom of the map on screen
-        longitudeDelta: 0.015,
+        latitude: location.coords.latitude, 
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.012, //Deltas set the zoom of the map on screen
+        longitudeDelta: 0.012,
       })
     else
-      return({  //Default to coordinates of San Francisco
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      })
+      return null
+  }
+
+
+  onRegionChange = (region) => {
+    // console.log('CHANGED REGION: ', region)
+    // this.setState({ region: region });
   }
 
   render() {
 
     if(this.state.location)
-      console.log("HOMESCREEN OUTPUT: ", this.state.location.coords)
+      console.log("HOMESCREEN OUTPUT: \n", 
+        "LOCATION COORDS: ", this.state.location.coords,
+        "REGION: ", this.state.region)
 
     return (
       <View style={styles.container}>
@@ -109,7 +119,8 @@ export default class HomeScreen extends React.Component {
         <DestinationButton />
         <CurrentLocationButton />
           <MapView
-            region={this.getCoordsFromLocation()}
+            region={this.state.region}
+            onRegionChange={this.onRegionChange}
             showsCompass={false}
             showsUserLocation={true}
             followsUserLocation={true}
