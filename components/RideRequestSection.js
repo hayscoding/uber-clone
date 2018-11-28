@@ -25,20 +25,7 @@ export const RideRequestSection = function(props) {
       <Icon name="md-arrow-back" color="#000000" size={35} style={styles.backIcon}
             onPress={() => { backCb() }}
           />
-      <View style={{
-        zIndex: 9,
-        position: 'absolute',
-        flexDirection: 'row',
-        width: WIDTH,
-        height: 340,
-        top: HEIGHT-340,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        shadowColor: '#000000',
-        elevation: 3,
-        shadowRadius: 5,
-        shadowOpacity: 1.0,
-      }}>
+      <View style={styles.container}>
       </View>
     </View>
   )
@@ -46,6 +33,20 @@ export const RideRequestSection = function(props) {
 
 
 const styles = StyleSheet.create({
+  container: {
+    zIndex: 9,
+    position: 'absolute',
+    flexDirection: 'row',
+    width: WIDTH,
+    height: 340,
+    top: HEIGHT-340,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    shadowColor: '#000000',
+    elevation: 3,
+    shadowRadius: 5,
+    shadowOpacity: 1.0,
+  },
   backIcon: {
     zIndex: 9, 
     position: 'absolute', 
