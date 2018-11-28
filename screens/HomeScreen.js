@@ -13,51 +13,15 @@ import {
 import { DrawerActions } from 'react-navigation-drawer';
 import { WebBrowser, MapView, Constants, Location, Permissions, } from 'expo';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { MonoText } from '../components/StyledText';
 import { DestinationButton } from '../components/DestinationButton';
 import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import { RideRequestSection } from '../components/RideRequestSection';
+import { SuggestedDestinationButton } from '../components/SuggestedDestinationButton';
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
-
-
-function SuggestedDesinationButton(props) {
-  const cb = props.cb ? props.cb : console.log('Callback function not passed to SuggestedDesinationButton()')
-
-  return(
-    <TouchableOpacity 
-      onPress={() => { cb() }}
-      style={{
-        zIndex: 9,
-        position: 'absolute',
-        flexDirection: 'row',
-        width: (WIDTH-40), //40 because of left property multiplied by 2
-        height: 55,
-        top: 170,
-        left: 20,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        shadowColor: '#000000',
-        elevation: 3,
-        shadowRadius: 5,
-        shadowOpacity: 1.0,
-      }}
-    >
-      <View style={{flex: 1, alignItems: 'center',}}>
-        <MaterialIcon name="location-on" color="gray" size={15} />
-      </View>
-      <View style={{flex: 5}}>
-        <Text style={{fontFamily: 'sans-serif', fontSize: 15, color: "#545454"}}>Suggested Address</Text>
-        <Text style={{fontFamily: 'sans-serif', fontSize: 13, color: "#9b9b9b"}}>City, State</Text>
-      </View>
-    </TouchableOpacity>
-  )
-}
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -130,7 +94,7 @@ export default class HomeScreen extends React.Component {
             onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
           />
         <DestinationButton />
-        <SuggestedDesinationButton cb={() => { this.toggleComponentOverlay() }}/>
+        <SuggestedDestinationButton cb={() => { this.toggleComponentOverlay() }}/>
         <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
       </View>
     )

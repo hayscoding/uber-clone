@@ -31,7 +31,6 @@ export const RideRequestSection = function(props) {
   )
 }
 
-
 const styles = StyleSheet.create({
   container: {
     zIndex: 9,
