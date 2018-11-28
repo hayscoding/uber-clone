@@ -25,7 +25,7 @@ const HEIGHT = Dimensions.get('window').height
 function RideRequestSection() {
   return(
     <View>
-      <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
+      <CurrentLocationButton bottom={400} cb={() => { this.setRegionToCurrentLocation() }} />
       <View style={{
         zIndex: 9,
         position: 'absolute',
