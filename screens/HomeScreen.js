@@ -21,6 +21,36 @@ import { CurrentLocationButton } from '../components/CurrentLocationButton';
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
+
+function SuggestedDesinationButton() {
+  return(
+    <View style={{
+      zIndex: 9,
+      position: 'absolute',
+      flexDirection: 'row',
+      width: (WIDTH-40), //40 because of left property multiplied by 2
+      height: 50,
+      top: 170,
+      left: 20,
+      borderBottomLeftRadius: 10,
+      borderBottomRightRadius: 10,
+      backgroundColor: 'white',
+      alignItems: 'center',
+      shadowColor: '#000000',
+      elevation: 3,
+      shadowRadius: 5,
+      shadowOpacity: 1.0,
+    }}>
+      <View style={{flex: 1, alignItems: 'center',}}>
+        <Text style={{fontSize: 8}}>{'\u25A0'}</Text>
+      </View>
+      <View style={{flex: 5}}>
+        <Text style={{fontFamily: 'sans-serif-thin', fontSize: 21, color: "#545454"}}>Suggested Address</Text>
+      </View>
+    </View>
+  )
+}
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -86,6 +116,7 @@ export default class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
         />
         <DestinationButton />
+        <SuggestedDesinationButton />
         <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
         <MapView
           region={this.state.region}
