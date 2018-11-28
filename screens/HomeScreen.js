@@ -86,7 +86,6 @@ export default class HomeScreen extends React.Component {
     errorMessage: null,
   };
 
-
   componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
@@ -126,8 +125,27 @@ export default class HomeScreen extends React.Component {
       return null
   }
 
-  render() {
+  showMainButtons() {
+    return(
+      <View>
+        <Icon name="md-menu" color="#000000" size={35} style={styles.menuIcon}
+            onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
+          />
+        <DestinationButton />
+        <SuggestedDesinationButton />
+        <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
+      </View>
+    )
+  }
 
+  componentOverlay() {
+    if(this.state.requestSectionOpen)
+      return <RideRequestSection />
+    else
+      return this.showMainButtons()
+  }
+
+  render() {
     if(this.state.location)
       console.log("HOMESCREEN OUTPUT: \n", 
         "LOCATION COORDS: ", this.state.location.coords,
@@ -136,13 +154,7 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Icon name="md-menu" color="#000000" size={35} style={styles.menuIcon}
-          onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
-        />
-        <DestinationButton />
-        <SuggestedDesinationButton />
-        <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
-        <RideRequestSection />
+        {this.componentOverlay()}
         <MapView
           region={this.state.region}
           showsCompass={false}
