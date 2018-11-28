@@ -13,6 +13,7 @@ import {
 import { DrawerActions } from 'react-navigation-drawer';
 import { WebBrowser, MapView, Constants, Location, Permissions, } from 'expo';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { MonoText } from '../components/StyledText';
 import { DestinationButton } from '../components/DestinationButton';
@@ -42,10 +43,11 @@ function SuggestedDesinationButton() {
       shadowOpacity: 1.0,
     }}>
       <View style={{flex: 1, alignItems: 'center',}}>
-        <Text style={{fontSize: 8}}>{'\u25A0'}</Text>
+        <MaterialIcon name="location-on" color="gray" size={15} />
       </View>
       <View style={{flex: 5}}>
-        <Text style={{fontFamily: 'sans-serif-thin', fontSize: 21, color: "#545454"}}>Suggested Address</Text>
+        <Text style={{fontFamily: 'sans-serif', fontSize: 15, color: "#545454"}}>Suggested Address</Text>
+        <Text style={{fontFamily: 'sans-serif', fontSize: 13, color: "#9b9b9b"}}>City, State</Text>
       </View>
     </View>
   )
