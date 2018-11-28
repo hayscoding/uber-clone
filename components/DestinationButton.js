@@ -29,20 +29,20 @@ export const DestinationButton = function() {
 
 const styles = StyleSheet.create({
 	container: {
-			zIndex: 9,
-      position: 'absolute',
-      flexDirection: 'row',
-      width: (WIDTH-40), //40 because of left property multiplied by 2
-      height: 60,
-      top: 110,
-      left: 20,
-      borderRadius: 2,
-      backgroundColor: 'white',
-      alignItems: 'center',
-      shadowColor: '#000000',
-      elevation: 7,
-      shadowRadius: 5,
-      shadowOpacity: 1.0,
+		zIndex: 9,
+    position: 'absolute',
+    flexDirection: 'row',
+    width: (WIDTH-40), //40 because of left property multiplied by 2
+    height: 60,
+    top: 110,
+    left: 20,
+    borderRadius: 2,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    shadowColor: '#000000',
+    elevation: 7,
+    shadowRadius: 5,
+    shadowOpacity: 1.0,
 	},
 	leftCol: {
 		flex: 1, 
