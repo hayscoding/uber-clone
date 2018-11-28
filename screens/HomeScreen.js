@@ -18,38 +18,11 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { MonoText } from '../components/StyledText';
 import { DestinationButton } from '../components/DestinationButton';
 import { CurrentLocationButton } from '../components/CurrentLocationButton';
+import { RideRequestSection } from '../components/RideRequestSection';
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
-function RideRequestSection(props) {
-  const locationCb = props.locationCb ? props.locationCb : console.log('Callback function for current location button not passed to RideRequestSection()')
-  const backCb = props.backCb ? props.backCb : console.log('Callback function for back button not passed to RideRequestSection()')
-
-  return(
-    <View>
-      <CurrentLocationButton bottom={400} cb={() => { locationCb() }} />
-      <Icon name="md-arrow-back" color="#000000" size={35} style={styles.menuIcon}
-            onPress={() => { backCb() }}
-          />
-      <View style={{
-        zIndex: 9,
-        position: 'absolute',
-        flexDirection: 'row',
-        width: WIDTH,
-        height: 340,
-        top: HEIGHT-340,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        shadowColor: '#000000',
-        elevation: 3,
-        shadowRadius: 5,
-        shadowOpacity: 1.0,
-      }}>
-      </View>
-    </View>
-  )
-}
 
 function SuggestedDesinationButton(props) {
   const cb = props.cb ? props.cb : console.log('Callback function not passed to SuggestedDesinationButton()')
