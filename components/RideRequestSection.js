@@ -22,7 +22,7 @@ export const RideRequestSection = function(props) {
   return(
     <View>
       <CurrentLocationButton bottom={400} cb={() => { locationCb() }} />
-      <Icon name="md-arrow-back" color="#000000" size={35} style={styles.menuIcon}
+      <Icon name="md-arrow-back" color="#000000" size={35} style={styles.backIcon}
             onPress={() => { backCb() }}
           />
       <View style={{
@@ -46,7 +46,7 @@ export const RideRequestSection = function(props) {
 
 
 const styles = StyleSheet.create({
-  menuIcon: {
+  backIcon: {
     zIndex: 9, 
     position: 'absolute', 
     top: 40, 
