@@ -29,7 +29,7 @@ function RideRequestSection(props) {
   return(
     <View>
       <CurrentLocationButton bottom={400} cb={() => { locationCb() }} />
-      <Icon name="md-menu" color="#000000" size={35} style={styles.menuIcon}
+      <Icon name="md-arrow-back" color="#000000" size={35} style={styles.menuIcon}
             onPress={() => { backCb() }}
           />
       <View style={{
