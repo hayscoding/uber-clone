@@ -10,6 +10,7 @@ const HEIGHT = Dimensions.get('window').height
 
 export const CurrentLocationButton = function(props) {
   const cb = props.cb ? props.cb : console.log('Callback function not passed to CurrentLocationButton()')
+  const rideSectionOpen = props.rideSectionOpen ? props.rideSectionOpen : false;
 
   return(
     <View style={{zIndex: 9, 

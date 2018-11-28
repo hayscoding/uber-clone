@@ -24,24 +24,23 @@ const HEIGHT = Dimensions.get('window').height
 
 function RideRequestSection() {
   return(
-    <View style={{
-      zIndex: 9,
-      position: 'absolute',
-      flexDirection: 'row',
-      width: (WIDTH-40), //40 because of left property multiplied by 2
-      height: 500,
-      top: 170,
-      left: 20,
-      borderBottomLeftRadius: 10,
-      borderBottomRightRadius: 10,
-      backgroundColor: 'white',
-      alignItems: 'center',
-      shadowColor: '#000000',
-      elevation: 3,
-      shadowRadius: 5,
-      shadowOpacity: 1.0,
-    }}>
-
+    <View>
+      <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
+      <View style={{
+        zIndex: 9,
+        position: 'absolute',
+        flexDirection: 'row',
+        width: WIDTH,
+        height: 340,
+        top: HEIGHT-340,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        shadowColor: '#000000',
+        elevation: 3,
+        shadowRadius: 5,
+        shadowOpacity: 1.0,
+      }}>
+      </View>
     </View>
   )
 }
@@ -143,6 +142,7 @@ export default class HomeScreen extends React.Component {
         <DestinationButton />
         <SuggestedDesinationButton />
         <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
+        <RideRequestSection />
         <MapView
           region={this.state.region}
           showsCompass={false}
