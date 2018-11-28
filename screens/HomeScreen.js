@@ -43,9 +43,7 @@ function CurrentLocationButton(props) {
     <MaterialIcon name="my-location" color="#000000" size={25} 
       style={{
       }}
-      onPress={() => {
-
-      }}
+      onPress={() => { cb() }}
     />
     </View>
   )
@@ -86,6 +84,10 @@ export default class HomeScreen extends React.Component {
     this.setState({location: location,  region: this.getRegionFromLocation(location)});
   };
 
+  setRegionToCurrentLocation() {
+    this.setState({region: this.getRegionFromLocation(this.state.location)})
+  }
+
   getRegionFromLocation(location) {
     if(location)
       return({  //Users current position
@@ -96,12 +98,6 @@ export default class HomeScreen extends React.Component {
       })
     else
       return null
-  }
-
-
-  onRegionChange = (region) => {
-    // console.log('CHANGED REGION: ', region)
-    // this.setState({ region: region });
   }
 
   render() {
@@ -117,10 +113,9 @@ export default class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
         />
         <DestinationButton />
-        <CurrentLocationButton />
+        <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
           <MapView
             region={this.state.region}
-            onRegionChange={this.onRegionChange}
             showsCompass={false}
             showsUserLocation={true}
             followsUserLocation={true}
