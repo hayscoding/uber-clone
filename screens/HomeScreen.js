@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { WebBrowser, MapView } from 'expo';
+import { DrawerActions } from 'react-navigation-drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { MonoText } from '../components/StyledText';
@@ -66,7 +67,9 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Icon name="md-menu" color="#000000" size={35} style={{zIndex: 9, position: 'absolute', top: 40, left: 20}}/>
+        <Icon name="md-menu" color="#000000" size={35} style={{zIndex: 9, position: 'absolute', top: 40, left: 20}}
+          onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
+        />
         <DestinationButton />
         {/*
           <MapView
