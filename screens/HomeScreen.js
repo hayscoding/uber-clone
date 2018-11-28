@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { DrawerActions } from 'react-navigation-drawer';
-import { WebBrowser, MapView } from 'expo';
+import { WebBrowser, MapView, Constants, Location, Permissions, } from 'expo';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
@@ -51,7 +51,56 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
+  state = {
+    location: null,
+    errorMessage: null,
+  };
+
+
+  componentWillMount() {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+      });
+    } else {
+      this._getLocationAsync();
+    }
+  }
+
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+
+    let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
+    this.setState({ location });
+  };
+
+  getCoordsFromLocation() {
+    if(this.state.location)
+      return({  //Users current position
+        latitude: this.state.location.coords.latitude, 
+        longitude: this.state.location.coords.longitude,
+        latitudeDelta: 0.005, //Deltas set the zoom of the map on screen
+        longitudeDelta: 0.005,
+      })
+    else
+      return({  //Default to coordinates of San Francisco
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      })
+  }
+
   render() {
+
+    if(this.state.location)
+      console.log("HOMESCREEN OUTPUT: ", this.state.location.coords)
+
     return (
       <View style={styles.container}>
         <Icon name="md-menu" color="#000000" size={35} style={styles.menuIcon}
@@ -60,12 +109,8 @@ export default class HomeScreen extends React.Component {
         <DestinationButton />
         <CurrentLocationButton />
           <MapView
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
+            region={this.getCoordsFromLocation()}
+            showsCompass={false}
             style={styles.map}
           />
       </View>
