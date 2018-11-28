@@ -71,7 +71,6 @@ export default class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
         />
         <DestinationButton />
-        {/*
           <MapView
             initialRegion={{
               latitude: 37.78825,
@@ -81,7 +80,6 @@ export default class HomeScreen extends React.Component {
             }}
             style={{width: WIDTH, height: HEIGHT, zIndex: 0}}
           />
-        */}
       </View>
     );
   }
