@@ -68,15 +68,17 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <Icon name="md-menu" color="#000000" size={35} style={{zIndex: 9, position: 'absolute', top: 40, left: 20}}/>
         <DestinationButton />
-        <MapView
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          style={{width: WIDTH, height: HEIGHT, zIndex: 0}}
-        />
+        {/*
+          <MapView
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+            style={{width: WIDTH, height: HEIGHT, zIndex: 0}}
+          />
+        */}
       </View>
     );
   }
