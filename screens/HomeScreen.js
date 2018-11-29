@@ -72,7 +72,6 @@ export default class HomeScreen extends React.Component {
   }
 
   toggleComponentOverlay() {
-    console.log('TOGGLE CALLED')
     this.setState({requestSectionOpen: !this.state.requestSectionOpen})
   }
 
@@ -99,11 +98,10 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-    if(this.state.location)
-      console.log("HOMESCREEN OUTPUT: \n", 
-        "LOCATION COORDS: ", this.state.location.coords,
-        "REGION: ", this.state.region
-      );
+    // console.log("HOMESCREEN OUTPUT: \n", 
+    //   "LOCATION COORDS: ", this.state.location.coords,
+    //   "REGION: ", this.state.region
+    // );
 
     return (
       <View style={styles.container}>

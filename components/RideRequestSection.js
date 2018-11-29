@@ -23,9 +23,30 @@ export const RideRequestSection = function(props) {
     <View>
       <CurrentLocationButton bottom={400} cb={() => { locationCb() }} />
       <Icon name="md-arrow-back" color="#000000" size={35} style={styles.backIcon}
-            onPress={() => { backCb() }}
-          />
+        onPress={() => { backCb() }}
+      />
       <View style={styles.container}>
+        <View style={{flex: 5, width: WIDTH-40,}}>
+        </View>
+        <View style={{flex: 3, width: WIDTH-30, borderTopWidth: 1, borderColor: '#ededed'}}>
+          <View style={{height: 55, justifyContent: 'space-around'}}>
+          </View>
+          <TouchableOpacity style={{
+            height: 50, 
+            backgroundColor: 'black', 
+            justifyContent: 'space-around', 
+            borderRadius: 2
+          }}>
+            <Text style={{
+              color: '#fff',
+              fontSize: 18,
+              fontWeight: 'bold',
+              textAlign: 'center',
+            }}>
+              CONFIRM UBER
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   )
@@ -35,7 +56,6 @@ const styles = StyleSheet.create({
   container: {
     zIndex: 9,
     position: 'absolute',
-    flexDirection: 'row',
     width: WIDTH,
     height: 340,
     top: HEIGHT-340,
