@@ -19,11 +19,14 @@ const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
 function RideOption(props) {
+  const text = props.text ? props.text : 'Null'
+  const subText = props.subText ? props.subText : 'Null'
+
   return(
     <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center'}}>
       <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
-      <Text style={{color: '#000', fontSize: 18}}>$5.48</Text>
-      <Text style={{color: '#606060', fontSize: 14, letterSpacing: -0.5}}>12:48-12:4...</Text>
+      <Text style={{color: '#000', fontSize: 18}}>{text}</Text>
+      <Text style={{color: '#606060', fontSize: 14, letterSpacing: -0.5}}>{subText}</Text>
     </View>
   )
 }
@@ -56,13 +59,9 @@ export const RideRequestSection = function(props) {
             Affordable rides, all to yourself
           </Text>
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-            <RideOption />
-            <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
-              <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
-            </View>
-            <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
-              <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
-            </View>
+            <RideOption text={'$5.48'} subText={'12:48-12:4...'}/>
+            <RideOption text={'$5.48'} subText={'12:48-12:4...'}/>
+            <RideOption text={'$5.48'} subText={'12:48-12:4...'}/>
           </View>
         </View>
         <View style={{flex: 3, width: WIDTH-30, borderTopWidth: 1, borderColor: '#ededed'}}>
