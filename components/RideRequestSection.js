@@ -8,6 +8,7 @@ import {
   View,
   Dimensions,
   InteractionManager,
+  Image
 } from 'react-native';
 import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -27,6 +28,25 @@ export const RideRequestSection = function(props) {
       />
       <View style={styles.container}>
         <View style={{flex: 5, width: WIDTH-40,}}>
+          <Text style={{
+            fontSize: 18,
+            letterSpacing: 0.5,
+            textAlign: 'center',
+            paddingTop: 15,
+          }}>
+            Economy
+          </Text>
+          <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
+              <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
+            </View>
+            <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
+              <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
+            </View>
+            <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
+              <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
+            </View>
+          </View>
         </View>
         <View style={{flex: 3, width: WIDTH-30, borderTopWidth: 1, borderColor: '#ededed'}}>
           <View style={{height: 55, justifyContent: 'space-around'}}>
