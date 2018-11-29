@@ -75,15 +75,6 @@ export default class HomeScreen extends React.Component {
     this.setState({requestSectionOpen: !this.state.requestSectionOpen})
   }
 
-  componentOverlay() {
-    if(this.state.requestSectionOpen)
-      return <RideRequestSection 
-        backCb={() => { this.toggleComponentOverlay() }} 
-        locationCb={() => { this.setRegionToCurrentLocation() }} />
-    else
-      return this.showMainButtons()
-  }
-
   showMainButtons() {
     return(
       <View>
@@ -95,6 +86,16 @@ export default class HomeScreen extends React.Component {
         <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
       </View>
     )
+  }
+
+  componentOverlay() {
+    if(this.state.requestSectionOpen)
+      return <RideRequestSection 
+        backCb={() => { this.toggleComponentOverlay() }} 
+        locationCb={() => { this.setRegionToCurrentLocation() }} 
+      />
+    else
+      return this.showMainButtons()
   }
 
   render() {

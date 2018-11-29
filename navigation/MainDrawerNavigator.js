@@ -14,7 +14,7 @@ const HomeStack = createStackNavigator({
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  title: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -32,7 +32,7 @@ const LinksStack = createStackNavigator({
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  title: 'Links',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -46,7 +46,7 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  title: 'Settings',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -61,4 +61,5 @@ export default createDrawerNavigator({
     SettingsStack,
   }, {
     drawerWidth: WIDTH*0.83,
-  });
+  }
+);
