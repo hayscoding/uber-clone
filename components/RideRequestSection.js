@@ -46,8 +46,10 @@ export const RideRequestSection = function(props) {
             Affordable rides, all to yourself
           </Text>
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
+            <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center'}}>
               <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
+              <Text style={{color: '#000', fontSize: 18}}>$5.48</Text>
+              <Text style={{color: '#606060', fontSize: 14, letterSpacing: -0.5}}>12:48-12:4...</Text>
             </View>
             <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
               <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
@@ -63,7 +65,8 @@ export const RideRequestSection = function(props) {
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <FontAwesomeIcon name="cc-visa" color="#0c0068" size={24} />
                 <Text style={{color: '#000', fontSize: 21, fontWeight: 'bold', letterSpacing: -1}}>  {'\u00B7'}{'\u00B7'}{'\u00B7'}{'\u00B7'}</Text>
-                <Text style={{color: '#000', fontSize: 14}}> 4242</Text>
+                <Text style={{color: '#000', fontSize: 14}}> 4242  </Text>
+                <Icon name="ios-arrow-down" color="#aaaaaa" size={14} />
               </View>
               <View style={{flexDirection: 'row'}}>
                 <MaterialIcon name="person-outline" color="#aaaaaa" size={20} />
