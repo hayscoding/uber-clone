@@ -60,8 +60,8 @@ export const RideRequestSection = function(props) {
           </Text>
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
             <RideOption text={'$5.48'} subText={'12:48-12:4...'}/>
-            <RideOption text={'$5.48'} subText={'12:48-12:4...'}/>
-            <RideOption text={'$5.48'} subText={'12:48-12:4...'}/>
+            <RideOption text={'UberX'} subText={'$7.22'}/>
+            <RideOption text={'UberXL'} subText={'$13.44'}/>
           </View>
         </View>
         <View style={{flex: 3, width: WIDTH-30, borderTopWidth: 1, borderColor: '#ededed'}}>
