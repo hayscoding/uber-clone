@@ -87,7 +87,7 @@ export default class HomeScreen extends React.Component {
   showMainButtons() {
     return(
       <View>
-        <Icon name="md-menu" color="#000000" size={35} style={styles.menuIcon}
+        <Icon name="md-menu" color="#000000" size={32} style={styles.menuIcon}
             onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
           />
         <DestinationButton />
