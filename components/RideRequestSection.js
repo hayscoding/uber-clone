@@ -18,6 +18,16 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
+function RideOption(props) {
+  return(
+    <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center'}}>
+      <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
+      <Text style={{color: '#000', fontSize: 18}}>$5.48</Text>
+      <Text style={{color: '#606060', fontSize: 14, letterSpacing: -0.5}}>12:48-12:4...</Text>
+    </View>
+  )
+}
+
 export const RideRequestSection = function(props) {
   const locationCb = props.locationCb ? props.locationCb : console.log('Callback function for current location button not passed to RideRequestSection()')
   const backCb = props.backCb ? props.backCb : console.log('Callback function for back button not passed to RideRequestSection()')
@@ -46,11 +56,7 @@ export const RideRequestSection = function(props) {
             Affordable rides, all to yourself
           </Text>
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center'}}>
-              <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
-              <Text style={{color: '#000', fontSize: 18}}>$5.48</Text>
-              <Text style={{color: '#606060', fontSize: 14, letterSpacing: -0.5}}>12:48-12:4...</Text>
-            </View>
+            <RideOption />
             <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
               <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
             </View>
