@@ -57,9 +57,16 @@ export const RideRequestSection = function(props) {
           </View>
         </View>
         <View style={{flex: 3, width: WIDTH-30, borderTopWidth: 1, borderColor: '#ededed'}}>
-          <View style={{height: 55, justifyContent: 'space-around', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
-            <MaterialIcon name="person-outline" color="#aaaaaa" size={20} />
-            <Text style={{color: '#aaaaaa'}}> 1-2</Text>
+          <View style={{}}>
+            <View style={{height: 55, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{}}>
+                <Text style={{color: '#000', fontSize: 21, fontWeight: 'bold', letterSpacing: -1}}>{'\u00B7'}{'\u00B7'}{'\u00B7'}{'\u00B7'}</Text>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <MaterialIcon name="person-outline" color="#aaaaaa" size={20} />
+                <Text style={{color: '#aaaaaa'}}> 1-2</Text>
+              </View>
+            </View>
           </View>
           <TouchableOpacity style={{
             height: 50, 
