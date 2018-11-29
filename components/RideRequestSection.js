@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
@@ -36,6 +37,13 @@ export const RideRequestSection = function(props) {
           }}>
             Economy
           </Text>
+          <Text style={{
+            fontSize: 14,
+            color: '#606060',
+            textAlign: 'center',
+          }}>
+            Affordable rides, all to yourself
+          </Text>
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
               <Image style={{height: 65, width: 65}} source={require('../assets/images/ride-logo.png')} />
@@ -49,7 +57,9 @@ export const RideRequestSection = function(props) {
           </View>
         </View>
         <View style={{flex: 3, width: WIDTH-30, borderTopWidth: 1, borderColor: '#ededed'}}>
-          <View style={{height: 55, justifyContent: 'space-around'}}>
+          <View style={{height: 55, justifyContent: 'space-around', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+            <MaterialIcon name="person-outline" color="#aaaaaa" size={20} />
+            <Text style={{color: '#aaaaaa'}}> 1-2</Text>
           </View>
           <TouchableOpacity style={{
             height: 50, 
