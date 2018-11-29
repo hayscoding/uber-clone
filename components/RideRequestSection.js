@@ -13,6 +13,7 @@ import {
 import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
@@ -59,8 +60,10 @@ export const RideRequestSection = function(props) {
         <View style={{flex: 3, width: WIDTH-30, borderTopWidth: 1, borderColor: '#ededed'}}>
           <View style={{}}>
             <View style={{height: 55, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
-              <View style={{}}>
-                <Text style={{color: '#000', fontSize: 21, fontWeight: 'bold', letterSpacing: -1}}>{'\u00B7'}{'\u00B7'}{'\u00B7'}{'\u00B7'}</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <FontAwesomeIcon name="cc-visa" color="#0c0068" size={24} />
+                <Text style={{color: '#000', fontSize: 21, fontWeight: 'bold', letterSpacing: -1}}>  {'\u00B7'}{'\u00B7'}{'\u00B7'}{'\u00B7'}</Text>
+                <Text style={{color: '#000', fontSize: 14}}> 4242</Text>
               </View>
               <View style={{flexDirection: 'row'}}>
                 <MaterialIcon name="person-outline" color="#aaaaaa" size={20} />
