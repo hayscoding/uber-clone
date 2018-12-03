@@ -1,11 +1,5 @@
 import React from 'react';
-import { 
-  Platform, 
-  Dimensions, 
-  StyleSheet, 
-  View, 
-  Text, 
-} from 'react-native';
+import { Platform, Dimensions, } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
