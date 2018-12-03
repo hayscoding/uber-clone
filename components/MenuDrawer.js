@@ -19,7 +19,7 @@ export default class MenuDrawer extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={{flex: 1,}}>
-          <View style={{flex: 1, height: 250,}}>
+          <View style={{flex: 1, height: 270,}}>
           </View>
           <View style={{flex: 1, backgroundColor: 'white', paddingTop: 10}}>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
@@ -79,7 +79,14 @@ export default class MenuDrawer extends React.Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-        
+        <View style={{ height: 50, flexDirection: 'row', alignItems: 'center', backgroundColor: 'white', borderTopWidth: 1, borderTopColor: 'lightgray',}}>
+          <Text style={{flex: 1, marginLeft: 20, fontSize: 16}}>
+            Legal
+          </Text>
+          <Text style={{flex: 1, textAlign: 'right', marginRight: 20, color: '#9b9b9b'}}>
+           v4.238.10003
+          </Text>
+        </View>
       </View>
     )
   }
@@ -94,7 +101,7 @@ const styles = StyleSheet.create({
     flex: 1, 
     fontSize: 20,
     padding: 6,
-    paddingLeft: 10,
+    paddingLeft: 14,
     margin: 5,
     textAlign: 'left',
   },
