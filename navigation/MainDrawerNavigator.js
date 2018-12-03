@@ -81,16 +81,19 @@ class DrawerContainer extends React.Component {
     return (
       <View style={styles.container}>
         <Text
+          onPress={() => navigation.navigate('Home')}
           style={styles.uglyDrawerItem}>
-          Screen 1
+          Home
         </Text>
         <Text
+          onPress={() => navigation.navigate('Links')}
           style={styles.uglyDrawerItem}>
-          Screen 2
+          Links
         </Text>
         <Text
+          onPress={() => navigation.navigate('Settings')}
           style={styles.uglyDrawerItem}>
-          Screen 3
+          Settings  
         </Text>
       </View>
     )
