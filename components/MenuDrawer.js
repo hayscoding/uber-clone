@@ -3,9 +3,13 @@ import {
   Platform, 
   Dimensions, 
   StyleSheet, 
+  ScrollView,
   View, 
   Text, 
 } from 'react-native';
+
+const WIDTH = Dimensions.get('window').width
+const HEIGHT = Dimensions.get('window').height
 
 export default class MenuDrawer extends React.Component {
   render() {
@@ -13,21 +17,28 @@ export default class MenuDrawer extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text
-          onPress={() => navigation.navigate('Home')}
-          style={styles.uglyDrawerItem}>
-          Home
-        </Text>
-        <Text
-          onPress={() => navigation.navigate('Links')}
-          style={styles.uglyDrawerItem}>
-          Links
-        </Text>
-        <Text
-          onPress={() => navigation.navigate('Settings')}
-          style={styles.uglyDrawerItem}>
-          Settings  
-        </Text>
+        <ScrollView style={{flex: 1,}}>
+          <View style={{flex: 1}}>
+          </View>
+          <View style={{flex: 1, backgroundColor: 'white'}}>
+            <Text
+              onPress={() => navigation.navigate('Home')}
+              style={styles.uglyDrawerItem}>
+              Home
+            </Text>
+            <Text
+              onPress={() => navigation.navigate('Links')}
+              style={styles.uglyDrawerItem}>
+              Links
+            </Text>
+            <Text
+              onPress={() => navigation.navigate('Settings')}
+              style={styles.uglyDrawerItem}>
+              Settings  
+            </Text>
+          </View>
+        </ScrollView>
+        
       </View>
     )
   }
@@ -36,9 +47,8 @@ export default class MenuDrawer extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6f6',
+    backgroundColor: 'black',
     paddingTop: 40,
-    paddingHorizontal: 20
   },
   uglyDrawerItem: {
     fontSize: 30,
