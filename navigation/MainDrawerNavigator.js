@@ -1,7 +1,12 @@
 import React from 'react';
-import { Platform, Dimensions } from 'react-native';
+import { 
+  Platform, 
+  Dimensions, 
+  StyleSheet, 
+  View, 
+  Text, 
+} from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
-
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
@@ -55,11 +60,59 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const DrawerConfig = {
+  drawerWidth: WIDTH*0.83,
+  contentComponent: ({ navigation }) => {
+    return(<DrawerContainer navigation={navigation} />)
+  },
+}
+
 export default createDrawerNavigator({
     HomeStack,
     LinksStack,
     SettingsStack,
-  }, {
-    drawerWidth: WIDTH*0.83,
-  }
+  }, 
+  DrawerConfig
 );
+
+class DrawerContainer extends React.Component {
+  render() {
+    const { navigation } = this.props
+    return (
+      <View style={styles.container}>
+        <Text
+          style={styles.uglyDrawerItem}>
+          Screen 1
+        </Text>
+        <Text
+          style={styles.uglyDrawerItem}>
+          Screen 2
+        </Text>
+        <Text
+          style={styles.uglyDrawerItem}>
+          Screen 3
+        </Text>
+      </View>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f6f6f6',
+    paddingTop: 40,
+    paddingHorizontal: 20
+  },
+  uglyDrawerItem: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#E73536',
+    padding: 15,
+    margin: 5,
+    borderRadius: 2,
+    borderColor: '#E73536',
+    borderWidth: 1,
+    textAlign: 'center'
+  }
+})
