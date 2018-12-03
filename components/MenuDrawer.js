@@ -7,6 +7,7 @@ import {
   View, 
   Text, 
   TouchableOpacity,
+  Image,
 } from 'react-native';
 
 const WIDTH = Dimensions.get('window').width
@@ -19,7 +20,20 @@ export default class MenuDrawer extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={{flex: 1,}}>
-          <View style={{flex: 1, height: 270,}}>
+          <View style={{height: 270,}}>
+            <View style={{flex: 1, justifyContent: 'center',}}>
+              <View style={{}}>
+                <Image source={require('../assets/images/blank-profile.png')} 
+                  style={{height: 65, width: 65}}
+                />
+              </View>
+              <View style={{}}>
+                <Text style={{fontSize: 16, color: 'white', textAlign: 'center'}}>Hays Stanford</Text>
+                <Text style={{fontSize: 16, color: 'white', textAlign: 'center'}}>5.00 {'\u2605'}</Text>
+              </View>
+            </View>
+            <View style={{flex: 1,}}>
+            </View>
           </View>
           <View style={{flex: 1, backgroundColor: 'white', paddingTop: 10, paddingBottom: 10}}>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
