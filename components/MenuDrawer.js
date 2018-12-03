@@ -21,58 +21,51 @@ export default class MenuDrawer extends React.Component {
         <ScrollView style={{flex: 1,}}>
           <View style={{flex: 1, height: 270,}}>
           </View>
-          <View style={{flex: 1, backgroundColor: 'white', paddingTop: 10}}>
+          <View style={{flex: 1, backgroundColor: 'white', paddingTop: 10, paddingBottom: 10}}>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Text
                 style={styles.link}>
                 Home
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Links')}>
               <Text
-                onPress={() => navigation.navigate('Links')}
                 style={styles.link}>
                 Your Trips
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
               <Text
-                onPress={() => navigation.navigate('Settings')}
                 style={styles.link}>
                 Help  
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Text
-                onPress={() => navigation.navigate('Settings')}
                 style={styles.link}>
                 Payment  
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Text
-                onPress={() => navigation.navigate('Settings')}
                 style={styles.link}>
                 Ride Pass  
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Text
-                onPress={() => navigation.navigate('Settings')}
                 style={styles.link}>
                 Send a Gift  
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Text
-                onPress={() => navigation.navigate('Settings')}
                 style={styles.link}>
                 Free Rides  
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Text
-                onPress={() => navigation.navigate('Settings')}
                 style={styles.link}>
                 Settings  
               </Text>
