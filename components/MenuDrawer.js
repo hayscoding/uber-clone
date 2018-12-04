@@ -14,6 +14,15 @@ const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
 export default class MenuDrawer extends React.Component {
+
+  navLink(nav, text) {
+    return(
+      <TouchableOpacity onPress={() => navigation.navigate(nav)}>
+        <Text style={styles.link}>{text}</Text>
+      </TouchableOpacity>
+    )
+  }
+
   render() {
     const { navigation } = this.props
 
@@ -39,12 +48,7 @@ export default class MenuDrawer extends React.Component {
             </View>
           </View>
           <View style={{flex: 1, backgroundColor: 'white', paddingTop: 10, paddingBottom: 10}}>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-              <Text
-                style={styles.link}>
-                Home
-              </Text>
-            </TouchableOpacity>
+            {this.navLink('Home', 'Home')}
             <TouchableOpacity onPress={() => navigation.navigate('Links')}>
               <Text
                 style={styles.link}>

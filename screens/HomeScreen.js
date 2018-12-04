@@ -64,8 +64,8 @@ export default class HomeScreen extends React.Component {
       return({  //Users current position
         latitude: location.coords.latitude, 
         longitude: location.coords.longitude,
-        latitudeDelta: 0.012, //Deltas set the zoom of the map on screen
-        longitudeDelta: 0.012,
+        latitudeDelta: 0.045, //Deltas set the zoom of the map on screen
+        longitudeDelta: 0.045,
       })
     else
       return null
