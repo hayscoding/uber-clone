@@ -11,7 +11,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 const WIDTH = Dimensions.get('window').width
 
 export const SuggestedDestinationButton = function(props) {
-  const cb = props.cb ? props.cb : console.log('Callback function not passed to SuggestedDestinationButton()')
+  const cb = props.cb != undefined ? props.cb : () => { console.log('Callback function not passed to SuggestedDestinationButton()') }
 
   return(
     <TouchableOpacity style={styles.container} onPress={() => { cb() }}>

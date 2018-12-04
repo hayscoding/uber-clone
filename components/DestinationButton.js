@@ -4,14 +4,17 @@ import {
   Text,
   View,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const WIDTH = Dimensions.get('window').width
 
-export const DestinationButton = function() {
+export const DestinationButton = function(props) {
+  const cb = props.cb != undefined ? props.cb : () => { console.log('Callback function not passed to DestinationButton()') }
+
   return(
-    <View style={styles.container}>
+    <TouchableOpacity onPress={() => { cb() }} style={styles.container}>
       <View style={styles.leftCol}>
         <Text style={{fontSize: 8}}>{'\u25A0'}</Text>
       </View>
@@ -23,7 +26,7 @@ export const DestinationButton = function() {
       <View style={styles.rightCol}>
         <Icon name="md-car" color="#000000" size={25} style={{alignSelf: 'center',}} />
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
