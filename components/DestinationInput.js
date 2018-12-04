@@ -15,8 +15,8 @@ const WIDTH = Dimensions.get('window').width
 
 export default class DestinationInput extends React.Component {
 	state = {
-		destinationAddress: '',
-		departAddress: '',
+		destination: '',
+		depart: '',
 	}
 
 	render() {
@@ -40,12 +40,12 @@ export default class DestinationInput extends React.Component {
 	        }}>
 	        	<TextInput 
 		        		style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-				        onChangeText={(text) => this.setState({text})}
+				        onChangeText={(depart) => this.setState({depart})}
 				        value={this.state.departAddress}
 		        	/>
 		        	<TextInput 
 		        		style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-				        onChangeText={(text) => this.setState({text})}
+				        onChangeText={(destination) => this.setState({destination})}
 				        value={this.state.destinationAddress}
 		        	/>
 	        </View>
