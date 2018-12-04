@@ -21,9 +21,9 @@ export default class MenuDrawer extends React.Component {
       <View style={styles.container}>
         <ScrollView style={{flex: 1,}}>
           <View style={{height: 270}}>
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', paddingTop: 50, borderBottomWidth: 1, borderBottomColor: '#777777',}}>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', paddingTop: 25, borderBottomWidth: 1, borderBottomColor: '#777777',}}>
               <View style={{flex: 1, paddingLeft: 20, paddingRight: 20}}>
-                <Image source={require('../assets/images/blank-profile.png')} 
+                <Image source={require('../assets/images/hays-profile.jpg')} 
                   style={{height: 70, width: 70, borderRadius: 50}}
                 />
               </View>
@@ -32,7 +32,10 @@ export default class MenuDrawer extends React.Component {
                 <Text style={{fontSize: 15, paddingTop: 5, color: 'white', textAlign: 'left', color: 'gray'}}>5.00 {'\u2605'}</Text>
               </View>
             </View>
-            <View style={{flex: 1,}}>
+            <View style={{flex: 1, paddingLeft: 20,}}>
+              <Text style={{fontSize: 15, color: '#a8a8a8', paddingTop: 15,}}>Do more with your account</Text>
+              <Text style={{fontSize: 15, color: 'white', paddingTop: 10,}}>Get food delivery</Text>
+              <Text style={{fontSize: 15, color: 'white', paddingTop: 10,}}>Make money driving</Text>
             </View>
           </View>
           <View style={{flex: 1, backgroundColor: 'white', paddingTop: 10, paddingBottom: 10}}>
