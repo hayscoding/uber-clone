@@ -27,26 +27,24 @@ export default class MenuDrawer extends React.Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView style={{flex: 1,}}>
-          <View style={{height: 270}}>
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', paddingTop: 25, borderBottomWidth: 1, borderBottomColor: '#777777',}}>
-              <View style={{flex: 1, paddingLeft: 20, paddingRight: 20}}>
-                <Image source={require('../assets/images/hays-profile.jpg')} 
-                  style={{height: 70, width: 70, borderRadius: 50}}
-                />
+        <ScrollView style={styles.scroller}>
+          <View style={styles.topLinks}>
+            <View style={styles.profile}>
+              <View style={styles.imgView}>
+                <Image source={require('../assets/images/hays-profile.jpg')} style={styles.img} />
               </View>
-              <View style={{flex: 3, flexDirection: 'column', justifyContent: 'center',}}>
-                <Text style={{fontSize: 20, paddingBottom: 5, color: 'white', textAlign: 'left'}}>Hays Stanford</Text>
-                <Text style={{fontSize: 15, paddingTop: 5, color: 'white', textAlign: 'left', color: 'gray'}}>5.00 {'\u2605'}</Text>
+              <View style={styles.profileText}>
+                <Text style={styles.name}>Hays Stanford</Text>
+                <Text style={styles.rating}>5.00 {'\u2605'}</Text>
               </View>
             </View>
-            <View style={{flex: 1, paddingLeft: 20,}}>
-              <Text style={{fontSize: 15, color: '#a8a8a8', paddingTop: 15,}}>Do more with your account</Text>
-              <Text style={{fontSize: 15, color: 'white', paddingTop: 10,}}>Get food delivery</Text>
-              <Text style={{fontSize: 15, color: 'white', paddingTop: 10,}}>Make money driving</Text>
+            <View style={styles.external}>
+              <Text style={[styles.extLink, {color: '#a8a8a8', paddingTop: 15}]}>Do more with your account</Text>
+              <Text style={styles.extLink}>Get food delivery</Text>
+              <Text style={styles.extLink}>Make money driving</Text>
             </View>
           </View>
-          <View style={{flex: 1, backgroundColor: 'white', paddingTop: 10, paddingBottom: 10}}>
+          <View style={styles.bottomLinks}>
             {this.navLink('Home', 'Home')}
             {this.navLink('Links', 'Your Trips')}
             {this.navLink('Home', 'Help')}
@@ -57,11 +55,11 @@ export default class MenuDrawer extends React.Component {
             {this.navLink('Settings', 'Settings')}
           </View>
         </ScrollView>
-        <View style={{ height: 50, flexDirection: 'row', alignItems: 'center', backgroundColor: 'white', borderTopWidth: 1, borderTopColor: 'lightgray',}}>
-          <Text style={{flex: 1, marginLeft: 20, fontSize: 16}}>
+        <View style={styles.footer}>
+          <Text style={styles.legal}>
             Legal
           </Text>
-          <Text style={{flex: 1, textAlign: 'right', marginRight: 20, color: '#9b9b9b'}}>
+          <Text style={styles.version}>
            v4.238.10003
           </Text>
         </View>
@@ -75,6 +73,77 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
   },
+  scroller: {
+    flex: 1,
+  },
+  topLinks: {
+    height: 270,
+  },
+  bottomLinks: {
+    flex: 1, 
+    backgroundColor: 'white', 
+    paddingTop: 10, 
+    paddingBottom: 10,
+  },
+  profile: {
+    flex: 1, 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    paddingTop: 25, 
+    borderBottomWidth: 1, 
+    borderBottomColor: '#777777',
+  },
+  profileText: {
+    flex: 3, 
+    flexDirection: 'column', 
+    justifyContent: 'center',
+  },
+  img: {
+    height: 70, 
+    width: 70, 
+    borderRadius: 50
+  },
+  imgView: {
+    flex: 1,
+    paddingLeft: 20, 
+    paddingRight: 20
+  },
+  name: {
+    fontSize: 20, 
+    paddingBottom: 5, 
+    color: 'white', 
+    textAlign: 'left'
+  },
+  rating: {
+    fontSize: 15, 
+    paddingTop: 5, 
+    color: 'white', 
+    textAlign: 'left', 
+    color: 'gray'
+  },
+  footer: {
+    height: 50, 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    backgroundColor: 'white', 
+    borderTopWidth: 1, 
+    borderTopColor: 'lightgray',
+  },
+  version: {
+    flex: 1, 
+    textAlign: 'right', 
+    marginRight: 20, 
+    color: '#9b9b9b'
+  },
+  legal: {
+    flex: 1, 
+    marginLeft: 20, 
+    fontSize: 16
+  },
+  external: {
+    flex: 1, 
+    paddingLeft: 20,
+  },
   link: {
     flex: 1, 
     fontSize: 20,
@@ -82,5 +151,10 @@ const styles = StyleSheet.create({
     paddingLeft: 14,
     margin: 5,
     textAlign: 'left',
+  },
+  extLink: {
+    fontSize: 15, 
+    color: 'white', 
+    paddingTop: 10,
   },
 })
