@@ -8,10 +8,13 @@ import {
   Dimensions,
   InteractionManager,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const WIDTH = Dimensions.get('window').width
 
 export const DestinationInput = function(props) {
+  const backCb = props.backCb ? props.backCb : () => { console.log('Callback function for back button not passed to DestinationInput()') }
+
   return (
     <View style={{
       zIndex: 9,

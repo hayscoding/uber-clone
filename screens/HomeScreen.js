@@ -102,7 +102,9 @@ export default class HomeScreen extends React.Component {
         locationCb={() => { this.setRegionToCurrentLocation() }} 
       />
     else if(this.state.destInputOpen && !this.state.requestSectionOpen)
-      return <DestinationInput />
+      return <DestinationInput 
+        backCb={() => { this.toggleDestinationInput() }} 
+    />
     else
       return this.mainButtons()
   }

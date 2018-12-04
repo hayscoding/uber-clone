@@ -32,8 +32,8 @@ function RideOption(props) {
 }
 
 export const RideRequestSection = function(props) {
-  const locationCb = props.locationCb ? props.locationCb : console.log('Callback function for current location button not passed to RideRequestSection()')
-  const backCb = props.backCb ? props.backCb : console.log('Callback function for back button not passed to RideRequestSection()')
+  const locationCb = props.locationCb ? props.locationCb : () => { console.log('Callback function for current location button not passed to RideRequestSection()') }
+  const backCb = props.backCb ? props.backCb : () => { console.log('Callback function for back button not passed to RideRequestSection()') }
 
   return(
     <View>
