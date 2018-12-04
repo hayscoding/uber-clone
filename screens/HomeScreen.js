@@ -16,6 +16,7 @@ import { MonoText } from '../components/StyledText';
 import { DestinationButton } from '../components/DestinationButton';
 import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import { RideRequestSection } from '../components/RideRequestSection';
+import { DestinationInput } from '../components/DestinationInput';
 import { SuggestedDestinationButton } from '../components/SuggestedDestinationButton';
 
 const WIDTH = Dimensions.get('window').width
@@ -30,6 +31,8 @@ export default class HomeScreen extends React.Component {
     location: null,
     region: null,
     errorMessage: null,
+    requestSectionOpen: false,
+    destinationInputOpen: false,
   };
 
   componentWillMount() {
@@ -75,13 +78,17 @@ export default class HomeScreen extends React.Component {
     this.setState({requestSectionOpen: !this.state.requestSectionOpen})
   }
 
-  showMainButtons() {
+  toggleDestinationInput() {
+    this.setState({destInputOpen: !this.state.destInputOpen})
+  }
+
+  mainButtons() {
     return(
       <View>
         <Icon name="md-menu" color="#000000" size={32} style={styles.menuIcon}
             onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
           />
-        <DestinationButton />
+        <DestinationButton cb={() => { this.toggleDestinationInput() }}/>
         <SuggestedDestinationButton cb={() => { this.toggleComponentOverlay() }}/>
         <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
       </View>
@@ -94,8 +101,10 @@ export default class HomeScreen extends React.Component {
         backCb={() => { this.toggleComponentOverlay() }} 
         locationCb={() => { this.setRegionToCurrentLocation() }} 
       />
+    else if(this.state.destInputOpen && !this.state.requestSectionOpen)
+      return <DestinationInput />
     else
-      return this.showMainButtons()
+      return this.mainButtons()
   }
 
   render() {
