@@ -14,7 +14,6 @@ const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
 export default class MenuDrawer extends React.Component {
-
   navLink(nav, text) {
     return(
       <TouchableOpacity onPress={() => navigation.navigate(nav)}>
@@ -49,48 +48,13 @@ export default class MenuDrawer extends React.Component {
           </View>
           <View style={{flex: 1, backgroundColor: 'white', paddingTop: 10, paddingBottom: 10}}>
             {this.navLink('Home', 'Home')}
-            <TouchableOpacity onPress={() => navigation.navigate('Links')}>
-              <Text
-                style={styles.link}>
-                Your Trips
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-              <Text
-                style={styles.link}>
-                Help  
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-              <Text
-                style={styles.link}>
-                Payment  
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-              <Text
-                style={styles.link}>
-                Ride Pass  
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-              <Text
-                style={styles.link}>
-                Send a Gift  
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-              <Text
-                style={styles.link}>
-                Free Rides  
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-              <Text
-                style={styles.link}>
-                Settings  
-              </Text>
-            </TouchableOpacity>
+            {this.navLink('Links', 'Your Trips')}
+            {this.navLink('Home', 'Help')}
+            {this.navLink('Home', 'Payment')}
+            {this.navLink('Home', 'Ride Pass')}
+            {this.navLink('Home', 'Send a Gift')}
+            {this.navLink('Home', 'Free Rides ')}
+            {this.navLink('Settings', 'Settings')}
           </View>
         </ScrollView>
         <View style={{ height: 50, flexDirection: 'row', alignItems: 'center', backgroundColor: 'white', borderTopWidth: 1, borderTopColor: 'lightgray',}}>
