@@ -21,7 +21,7 @@ export default class MenuDrawer extends React.Component {
       <View style={styles.container}>
         <ScrollView style={{flex: 1,}}>
           <View style={{height: 270}}>
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', paddingTop: 50}}>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', paddingTop: 50, borderBottomWidth: 1, borderBottomColor: '#777777',}}>
               <View style={{flex: 1, paddingLeft: 20, paddingRight: 20}}>
                 <Image source={require('../assets/images/blank-profile.png')} 
                   style={{height: 70, width: 70, borderRadius: 50}}
