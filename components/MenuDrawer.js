@@ -20,16 +20,16 @@ export default class MenuDrawer extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={{flex: 1,}}>
-          <View style={{height: 270,}}>
-            <View style={{flex: 1, justifyContent: 'center',}}>
-              <View style={{}}>
+          <View style={{height: 270}}>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', paddingTop: 50}}>
+              <View style={{flex: 1, paddingLeft: 20, paddingRight: 20}}>
                 <Image source={require('../assets/images/blank-profile.png')} 
-                  style={{height: 65, width: 65}}
+                  style={{height: 70, width: 70, borderRadius: 50}}
                 />
               </View>
-              <View style={{}}>
-                <Text style={{fontSize: 16, color: 'white', textAlign: 'center'}}>Hays Stanford</Text>
-                <Text style={{fontSize: 16, color: 'white', textAlign: 'center'}}>5.00 {'\u2605'}</Text>
+              <View style={{flex: 3, flexDirection: 'column', justifyContent: 'center',}}>
+                <Text style={{fontSize: 20, paddingBottom: 5, color: 'white', textAlign: 'left'}}>Hays Stanford</Text>
+                <Text style={{fontSize: 15, paddingTop: 5, color: 'white', textAlign: 'left', color: 'gray'}}>5.00 {'\u2605'}</Text>
               </View>
             </View>
             <View style={{flex: 1,}}>
