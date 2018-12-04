@@ -16,8 +16,8 @@ import { MonoText } from '../components/StyledText';
 import { DestinationButton } from '../components/DestinationButton';
 import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import { RideRequestSection } from '../components/RideRequestSection';
-import { DestinationInput } from '../components/DestinationInput';
 import { SuggestedDestinationButton } from '../components/SuggestedDestinationButton';
+import DestinationInput from '../components/DestinationInput';
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
