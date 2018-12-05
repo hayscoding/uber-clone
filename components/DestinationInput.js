@@ -30,20 +30,20 @@ export default class DestinationInput extends React.Component {
 	      width: WIDTH,
 	      backgroundColor: 'white',
 	      elevation: 10,
-	      padding: 20,
+	      paddingTop: 20,
 	      flexDirection: 'row',
 	    }}>
-		    	<View style={{flex: 1}}>
+		    	<View style={{flex: 1, alignItems: 'center'}}>
 						<Icon name="md-arrow-back" color="#000000" size={25} style={{paddingTop: 20}}
 						  onPress={() => { backCb() }}
 						/>
-			    	<View style={{flex: 1, marginRight: 25, alignItems: 'center'}}>
+			    	<View style={{flex: 1, alignItems: 'center'}}>
 	      			<Text style={{height: 24, width: 10, fontSize: 28, color: '#a3a3a3',}}>{'\u2022'}</Text>
 	      			<View style={{height: 30, borderLeftWidth: 1, borderColor: '#a3a3a3',}}></View>
 	      			<Text style={{fontSize: 9}}>{'\u25A0'}</Text>
 	        	</View>
 	        </View>
-	        <View style={{flex: 7, paddingTop: 40}}>
+	        <View style={{flex: 5, paddingTop: 40}}>
 	        	<TextInput style={{height: 33, marginTop: 5, backgroundColor: '#f7f7f7', paddingLeft: 7, fontSize: 18, color: "#4f4f4f"}}
 				        onChangeText={(depart) => this.setState({depart})}
 				        value={this.state.departAddress}
@@ -57,7 +57,8 @@ export default class DestinationInput extends React.Component {
 				        placeholderTextColor={'#a3a3a3'}
 		        	/>
 	        </View>
-	        <View style={{flex: 1,}}>
+	        <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 10, }}>
+	        	<Icon name="md-add" color="#000000" size={35} style={{paddingTop: 20}} onPress={() => {}} />
 	        </View>
 	    </View>
 	  )
