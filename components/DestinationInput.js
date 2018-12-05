@@ -31,23 +31,28 @@ export default class DestinationInput extends React.Component {
 	      backgroundColor: 'white',
 	      elevation: 10,
 	      padding: 20,
+	      flexDirection: 'row',
 	    }}>
-	       <Icon name="md-arrow-back" color="#000000" size={25} style={{paddingTop: 20}}
-	          onPress={() => { backCb() }}
-	        />
-	        <View style={{
-
-	        }}>
-	        	<TextInput 
-		        		style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+			    <View style={{flex: 1,}}>
+						<Icon name="md-arrow-back" color="#000000" size={25} style={{paddingTop: 20}}
+						  onPress={() => { backCb() }}
+						/>
+	        </View>
+	        <View style={{flex: 7, paddingTop: 40}}>
+	        	<TextInput style={{height: 33, marginTop: 5, backgroundColor: '#f7f7f7', paddingLeft: 7, fontSize: 18, color: "#4f4f4f"}}
 				        onChangeText={(depart) => this.setState({depart})}
 				        value={this.state.departAddress}
+				        placeholder={'Current Location'}
+				        placeholderTextColor={'#595959'}
 		        	/>
-		        	<TextInput 
-		        		style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+		        	<TextInput style={{height: 33, marginTop: 10, backgroundColor: '#e2e2e2', paddingLeft: 7, fontSize: 18}}
 				        onChangeText={(destination) => this.setState({destination})}
 				        value={this.state.destinationAddress}
+				        placeholder={'Where to?'}
+				        placeholderTextColor={'#a3a3a3'}
 		        	/>
+	        </View>
+	        <View style={{flex: 1,}}>
 	        </View>
 	    </View>
 	  )
