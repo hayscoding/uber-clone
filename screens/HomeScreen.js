@@ -3,6 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  Image,
   TouchableOpacity,
   View,
   Dimensions,
@@ -134,11 +135,15 @@ export default class HomeScreen extends React.Component {
               coordinate={{
                 latitude: 30.30225,
                 longitude: -97.7455,
-                latitudeDelta: 0.045,
-                longitudeDelta: 0.045,
-              }}
-              image={require('../assets/images/car.png')}
-            />
+                latitudeDelta: 0.025,
+                longitudeDelta: 0.025,
+            }}>
+              <Image source={require('../assets/images/car.png')}
+                style={{ 
+                  width: 25, 
+                  height: 25 
+                }}/>
+            </MapView.Marker>
         </MapView>
       </View>
     );
