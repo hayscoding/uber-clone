@@ -137,11 +137,13 @@ export default class HomeScreen extends React.Component {
                 longitude: -97.7455,
                 latitudeDelta: 0.025,
                 longitudeDelta: 0.025,
-            }}>
+              }}
+              style={{width: 50, height: 50}}
+            >
               <Image source={require('../assets/images/car.png')}
                 style={{ 
-                  width: 25, 
-                  height: 25 
+                  width: 32, 
+                  height: 32, 
                 }}/>
             </MapView.Marker>
         </MapView>
