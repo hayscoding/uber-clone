@@ -132,12 +132,12 @@ export default class HomeScreen extends React.Component {
           style={styles.map}>
             <MapView.Marker
               coordinate={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.045, //Deltas set the zoom of the map on screen
+                latitude: 30.30225,
+                longitude: -97.7455,
+                latitudeDelta: 0.045,
                 longitudeDelta: 0.045,
               }}
-              // image={require('../assets/images/hays-profile.jpg')}
+              image={require('../assets/images/car.png')}
             />
         </MapView>
       </View>
