@@ -33,10 +33,15 @@ export default class DestinationInput extends React.Component {
 	      padding: 20,
 	      flexDirection: 'row',
 	    }}>
-			    <View style={{flex: 1,}}>
+		    	<View style={{flex: 1}}>
 						<Icon name="md-arrow-back" color="#000000" size={25} style={{paddingTop: 20}}
 						  onPress={() => { backCb() }}
 						/>
+			    	<View style={{flex: 1, marginRight: 25, alignItems: 'center'}}>
+	      			<Text style={{height: 24, width: 10, fontSize: 28, color: '#a3a3a3',}}>{'\u2022'}</Text>
+	      			<View style={{height: 30, borderLeftWidth: 1, borderColor: '#a3a3a3',}}></View>
+	      			<Text style={{fontSize: 9}}>{'\u25A0'}</Text>
+	        	</View>
 	        </View>
 	        <View style={{flex: 7, paddingTop: 40}}>
 	        	<TextInput style={{height: 33, marginTop: 5, backgroundColor: '#f7f7f7', paddingLeft: 7, fontSize: 18, color: "#4f4f4f"}}
