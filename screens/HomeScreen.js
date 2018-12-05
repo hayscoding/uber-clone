@@ -9,7 +9,13 @@ import {
   InteractionManager,
 } from 'react-native';
 import { DrawerActions } from 'react-navigation-drawer';
-import { WebBrowser, MapView, Constants, Location, Permissions, } from 'expo';
+import { 
+  WebBrowser, 
+  MapView, 
+  Constants, 
+  Location, 
+  Permissions,
+} from 'expo';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { MonoText } from '../components/StyledText';
@@ -123,8 +129,17 @@ export default class HomeScreen extends React.Component {
           showsCompass={false}
           showsUserLocation={true}
           followsUserLocation={true}
-          style={styles.map}
-        />
+          style={styles.map}>
+            <MapView.Marker
+              coordinate={{
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.045, //Deltas set the zoom of the map on screen
+                longitudeDelta: 0.045,
+              }}
+              // image={require('../assets/images/hays-profile.jpg')}
+            />
+        </MapView>
       </View>
     );
   }
