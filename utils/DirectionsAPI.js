@@ -6,19 +6,15 @@ var config = require('../config')[env];
 const apiKey = config.googleDirectionsAPI.key
 
 export const disneylandDirections = (cb) => {
-	console.log("GOOGLE DIRECTIONS API KEY: ", apiKey)
-
 	fetch('https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key='+apiKey)
 		.then((res) => res.json())
 		.then((resJson) => {
-			// console.log('RESPONSE: ', resJson)
 			var polylineCoords = null;
 
 			if (resJson.routes.length)
         polylineCoords = decode(resJson.routes[0].overview_polyline.points)
 
       cb(polylineCoords)
-			// console.log('POLYLINE COORDS: ', polylineCoords)
 		})
 		.catch((err) => {
 			console.error(err)
