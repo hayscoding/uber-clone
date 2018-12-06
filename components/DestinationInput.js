@@ -17,8 +17,8 @@ const WIDTH = Dimensions.get('window').width
 
 export default class DestinationInput extends React.Component {
 	state = {
+		origin: '',
 		destination: '',
-		depart: '',
 	}
 
 	submitDestination(e) {
@@ -53,15 +53,15 @@ export default class DestinationInput extends React.Component {
 	        </View>
 	        <View style={{flex: 5, paddingTop: 40}}>
 	        	<TextInput style={{height: 33, marginTop: 5, backgroundColor: '#f7f7f7', paddingLeft: 7, fontSize: 18, color: "#4f4f4f"}}
-				        onChangeText={(depart) => this.setState({depart})}
-				        value={this.state.departAddress}
+				        onChangeText={(depart) => this.setState({origin})}
+				        value={this.state.origin}
 				        placeholder={'Current Location'}
 				        placeholderTextColor={'#595959'}
 		        	/>
 		        	<TextInput style={{height: 33, marginTop: 10, backgroundColor: '#e2e2e2', paddingLeft: 7, fontSize: 18}}
 				        onChangeText={(destination) => this.setState({destination})}
 				        onSubmitEditing={this.submitDestination}
-				        value={this.state.destinationAddress}
+				        value={this.state.destination}
 				        placeholder={'Where to?'}
 				        placeholderTextColor={'#a3a3a3'}
 		        	/>

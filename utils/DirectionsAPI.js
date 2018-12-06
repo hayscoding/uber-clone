@@ -8,5 +8,12 @@ const apiKey = config.googleDirectionsAPI.key
 export const disneylandDirections = () => {
 	console.log("GOOGLE DIRECTIONS API KEY: ", apiKey)
 
-	// fetch('https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=YOUR_API_KEY')
+	fetch('https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key='+apiKey)
+		.then((res) => res.json())
+		.then((resJson) => {
+			console.log('RESPONSE: ', resJson)
+		})
+		.catch((err) => {
+			console.error(err)
+		})
 }
