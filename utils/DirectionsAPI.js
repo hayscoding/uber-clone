@@ -21,7 +21,6 @@ export const disneylandDirections = (cb) => {
 		})
 }
 
-
 //Decodes encoded polyline strings returned from the Google Directions API
 //Can find source at this url: https://github.com/react-native-community/react-native-maps/issues/929#issuecomment-271365235
 const decode = (t,e) => {
