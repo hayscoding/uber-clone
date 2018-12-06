@@ -19,12 +19,15 @@ export default class DestinationInput extends React.Component {
 	state = {
 		origin: '',
 		destination: '',
+		coordsCb: this.props.coordsCb ? this.props.coordsCb : () => { console.log('Callback function for coordsCb not passed to RideRequestSection()') },
 	}
 
-	submitDestination(e) {
+	submitDestination = (e) => {
 		e.preventDefault()
 
-		DirectionsAPI.disneylandDirections()
+		console.log('submit destination called')
+
+		this.state.coordsCb(DirectionsAPI.disneylandDirections())
 	}
 
 	render() {

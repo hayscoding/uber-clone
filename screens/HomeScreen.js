@@ -37,6 +37,7 @@ export default class HomeScreen extends React.Component {
   state = {
     location: null,
     region: null,
+    routeCoords: null,
     errorMessage: null,
     requestSectionOpen: false,
     destinationInputOpen: false,
@@ -111,7 +112,8 @@ export default class HomeScreen extends React.Component {
     else if(this.state.destInputOpen && !this.state.requestSectionOpen)
       return <DestinationInput 
         backCb={() => { this.toggleDestinationInput() }} 
-    />
+        coordsCb={(coords) => { console.log('coordsCb: COORDS:', coords) }}
+      />
     else
       return this.mainButtons()
   }
@@ -131,6 +133,14 @@ export default class HomeScreen extends React.Component {
           showsUserLocation={true}
           followsUserLocation={true}
           style={styles.map}>
+            {/*
+            <MapView.Polyline
+              coordinates={[
+                ...this.state.coords,
+              ]}
+              strokeWidth={4}
+            />
+            */}
             <MapView.Marker
               coordinate={{
                 latitude: 30.30225,
