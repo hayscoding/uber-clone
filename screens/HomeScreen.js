@@ -139,6 +139,8 @@ export default class HomeScreen extends React.Component {
                 longitudeDelta: 0.025,
               }}
               style={{width: 50, height: 50}}
+              tracksViewChanges={true}
+              //animateMarketToCoordinate={}
             >
               <Image source={require('../assets/images/car.png')}
                 style={{ 

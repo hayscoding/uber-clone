@@ -3,6 +3,19 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 
+//Automatically set to 'production' when published through Expo
+var env = process.env.NODE_ENV || 'development';
+// var env = 'production'
+var config = require('./config')[env];
+
+// const firebaseConfig = {
+//    apiKey: config.database.firebaseApiKey,
+//    authDomain: config.database.firebaseAuthDomain,
+//    databaseURL: config.database.databaseURL,
+//  } 
+
+// firebase.initializeApp(firebaseConfig)
+
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
