@@ -25,7 +25,7 @@ export default class DestinationInput extends React.Component {
 	submitDestination = (e) => {
 		e.preventDefault()
 
-		DirectionsAPI.disneylandDirections((coords) => {
+		DirectionsAPI.getDirections((coords) => {
 			this.state.coordsCb(coords)
 		})
 	}
