@@ -11,12 +11,20 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import * as DirectionsAPI from '../utils/DirectionsAPI'
+
 const WIDTH = Dimensions.get('window').width
 
 export default class DestinationInput extends React.Component {
 	state = {
 		destination: '',
 		depart: '',
+	}
+
+	submitDestination(e) {
+		e.preventDefault()
+
+		DirectionsAPI.disneylandDirections()
 	}
 
 	render() {
@@ -52,6 +60,7 @@ export default class DestinationInput extends React.Component {
 		        	/>
 		        	<TextInput style={{height: 33, marginTop: 10, backgroundColor: '#e2e2e2', paddingLeft: 7, fontSize: 18}}
 				        onChangeText={(destination) => this.setState({destination})}
+				        onSubmitEditing={this.submitDestination}
 				        value={this.state.destinationAddress}
 				        placeholder={'Where to?'}
 				        placeholderTextColor={'#a3a3a3'}
