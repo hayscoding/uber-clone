@@ -40,30 +40,14 @@ export default class HomeScreen extends React.Component {
     region: null,
     routeCoords: null,
     coordinate: new MapView.AnimatedRegion({
-      latitude: 30.30225,
-      longitude: -97.7455,
+      latitude: 30.3019044,
+      longitude: -97.7355154,
     }),
     errorMessage: null,
     requestSectionOpen: false,
     destinationInputOpen: false,
   };
-
-  animate() {
-    const { coordinate } = this.state;
-    const newCoordinate = {
-      latitude: 31 + ((Math.random() - 0.5)),
-      longitude: -97 + ((Math.random() - 0.5)),
-    };
-
-    // if (Platform.OS === 'android') {
-    //   if (this.marker) {
-    //     this.marker._component.animateMarkerToCoordinate(newCoordinate, 500);
-    //   }
-    // } else {
-      coordinate.timing(newCoordinate).start();
-    // }
-  }
-
+  
   componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
@@ -87,10 +71,6 @@ export default class HomeScreen extends React.Component {
     this.setState({location: location,  region: this.getRegionFromLocation(location)});
   };
 
-  setRegionToCurrentLocation() {
-    this.setState({region: this.getRegionFromLocation(this.state.location)})
-  }
-
   getRegionFromLocation(location) {
     if(location)
       return({  //Users current position
@@ -101,6 +81,24 @@ export default class HomeScreen extends React.Component {
       })
     else
       return null
+  }
+
+  setRegionToCurrentLocation() {
+    this.setState({region: this.getRegionFromLocation(this.state.location)})
+  }
+
+  animate() {
+    const { coordinate } = this.state;
+    const newCoordinate = {
+      latitude: this.state.location.coords.latitude,
+      longitude: this.state.location.coords.longitude,
+      longitudeDelta: 0.045,
+      latitudeDelta: 0.045,
+    };
+
+    console.log("LOCATION COORDS: ", this.state.location.coords)
+
+    coordinate.timing(newCoordinate).start();
   }
 
   toggleComponentOverlay() {
@@ -178,8 +176,10 @@ export default class HomeScreen extends React.Component {
            }
             <MapView.Marker.Animated
               coordinate={this.state.coordinate}
+              anchor={{x: 0.35, y: 0.32}} //centers car.png image
               ref={marker => { this.marker = marker; }}
               style={{width: 50, height: 50}}
+              //rotation={}
               tracksViewChanges={true}
               //animateMarkerToCoordinate={}
             >

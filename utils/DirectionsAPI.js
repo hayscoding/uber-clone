@@ -12,9 +12,9 @@ export const disneylandDirections = (cb) => {
 			var polylineCoords = null;
 
 			if (resJson.routes.length)
-        polylineCoords = decode(resJson.routes[0].overview_polyline.points)
+		        polylineCoords = decode(resJson.routes[0].overview_polyline.points)
 
-      cb(polylineCoords)
+	      	cb(polylineCoords)
 		})
 		.catch((err) => {
 			console.error(err)
@@ -31,9 +31,11 @@ export const getDirections = (cb) => {
 			var polylineCoords = null;
 
 			if (resJson.routes.length)
-        polylineCoords = decode(resJson.routes[0].overview_polyline.points)
+      	polylineCoords = decode(resJson.routes[0].overview_polyline.points)
 
-      cb(polylineCoords)
+      console.log('POLYLINE COORDS: ', polylineCoords)
+
+    	cb(polylineCoords)
 		})
 		.catch((err) => {
 			console.error(err)
