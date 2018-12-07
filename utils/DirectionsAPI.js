@@ -7,26 +7,40 @@ const apiKey = config.googleDirectionsAPI.key
 
 const routesNearHome = [
 	{
-		origin: 'Kerbey+Lane+Cafe',
-		destination: '306+W+38TH+ST+AUSTIN+TX'
+		origin: '3101 Guadalupe St, Austin, TX 78705',
+		destination: '306 W 38TH ST, AUSTIN, TX 78705'
 	},
 	{
 		origin: '4001 N Lamar Blvd, Austin, TX 78756',
-		destination: ''
+		destination: '10901 N Lamar Blvd G, Austin, TX 78753'
 	},
 	{
-		origin: '',
-		destination: ''
+		origin: '3909 Guadalupe St, Austin, TX 78751',
+		destination: '1000 E 41st St, Austin, TX 78751'
 	},
 	{
-		origin: '',
-		destination: ''
+		origin: '3515 N Lamar Blvd, Austin, TX 78705',
+		destination: '2819 Guadalupe St, Austin, TX 78705'
 	},
-	{
-		origin: '',
-		destination: ''
-	},
+	// {
+	// 	origin: '',
+	// 	destination: ''
+	// },
 ]
+
+export const formatStoredRoutes = () => {
+	formatRouteAddresses(routesNearHome)
+}
+
+const formatRouteAddresses = (routes) => {
+	var formattedRoutes = []
+
+	routes.forEach((route) => {
+		formattedRoutes.push({ origin: formatAddress(route.origin), destination: formatAddress(route.destination) })
+	})
+
+	console.log(formattedRoutes)
+}	
 
 //Replaces commas and spaces with '+' signs
 export const formatAddress = (address) => {

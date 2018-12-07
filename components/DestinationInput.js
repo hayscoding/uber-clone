@@ -25,7 +25,7 @@ export default class DestinationInput extends React.Component {
 	submitDestination = (e) => {
 		e.preventDefault()
 
-		console.log('ADDRESS CONVERSION OUTPUT: ', DirectionsAPI.formatAddress('4001 N Lamar Blvd, Austin, TX 78756'))
+		console.log('ADDRESS CONVERSION OUTPUT: ', DirectionsAPI.formatStoredRoutes())
 
 		DirectionsAPI.getDirections((coords) => {
 			this.state.coordsCb(coords)
