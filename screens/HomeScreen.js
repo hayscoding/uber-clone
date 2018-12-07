@@ -46,31 +46,34 @@ export default class HomeScreen extends React.Component {
     errorMessage: null,
     requestSectionOpen: false,
     destinationInputOpen: false,
+    acc: 0,
   };
 
   startAnimation() {
-    console.log('STARTANIMATION() ROUTE: ', this.state.route.length, '\nFIRST COORD: ', this.state.route[0])
-    if(this.state.route != null)
+    if(this.state.route != null) {
+      console.log('STARTANIMATION() ROUTE: ', this.state.route.length, '\nFIRST COORD: ', this.state.route[0])
       this.animateThruCoords(this.state.route)
+    }
   }
 
   animateThruCoords(coords) {
-    var nextCoords = coords //[0,1,2]
-    nextCoords = nextCoords.slice(0,1) //remove first elen
-    coords.forEach((coord) => { 
-      this.animate(coord, () => { this.animateThruCoords(nextCoords) })
-    })
+    var nextCoords = coords
+    nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
+    console.log('COORDS LENGTH: ', coords.length, 'NEXT COORDS LENGTH: ', nextCoords.length)
+
+    if(coords.length != 0)
+      this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
   }
 
   animate(coord, cb) {
     console.log('ANIMATE() COORDS:\nlat: ', coord.latitude, '\n: ', coord.longitude)
+    this.state.acc++
+    console.log('ANIMATE CALLED: ', this.state.acc)
 
     const newCoordinate = {
       latitude: coord.latitude,
       longitude: coord.longitude
     };
-
-    console.log("LOCATION COORDS: ", this.state.location.coords)
 
     this.state.coordinate.timing(newCoordinate).start(() => { cb() });
   }
