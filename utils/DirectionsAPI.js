@@ -28,17 +28,6 @@ const routesNearHome = [
 	},
 ]
 
-function getCharIndeces(string, char) {
-	var indeces = []
-
-  for(var i=0; i<string.length; i++)
-    if(string.charAt(i)==char) 
-    	indeces.push(i)
-
-  return indeces
-}
-
-
 //Replaces commas and spaces with '+' signs
 export const formatAddress = (address) => {
 	var formattedAddress = address.split(',').join('').split(' ').join('+')
