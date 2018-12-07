@@ -90,10 +90,8 @@ export default class HomeScreen extends React.Component {
   animate() {
     const { coordinate } = this.state;
     const newCoordinate = {
-      latitude: this.state.location.coords.latitude,
-      longitude: this.state.location.coords.longitude,
-      longitudeDelta: 0.045,
-      latitudeDelta: 0.045,
+      latitude: 30.30195,
+      longitude: -97.73866
     };
 
     console.log("LOCATION COORDS: ", this.state.location.coords)
