@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { 
+  View, 
+  StyleSheet, 
+  ScrollView, 
+  Animated 
+} from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 
 export default class LinksScreen extends React.Component {

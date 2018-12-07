@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Platform,
+  Animated,
   StyleSheet,
   Text,
   Image,
@@ -38,10 +39,30 @@ export default class HomeScreen extends React.Component {
     location: null,
     region: null,
     routeCoords: null,
+    coordinate: new MapView.AnimatedRegion({
+      latitude: 30.30225,
+      longitude: -97.7455,
+    }),
     errorMessage: null,
     requestSectionOpen: false,
     destinationInputOpen: false,
   };
+
+  animate() {
+    const { coordinate } = this.state;
+    const newCoordinate = {
+      latitude: 31 + ((Math.random() - 0.5)),
+      longitude: -97 + ((Math.random() - 0.5)),
+    };
+
+    // if (Platform.OS === 'android') {
+    //   if (this.marker) {
+    //     this.marker._component.animateMarkerToCoordinate(newCoordinate, 500);
+    //   }
+    // } else {
+      coordinate.timing(newCoordinate).start();
+    // }
+  }
 
   componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
@@ -123,10 +144,22 @@ export default class HomeScreen extends React.Component {
     //   "LOCATION COORDS: ", this.state.location.coords,
     //   "REGION: ", this.state.region
     // );
+    // {
+    //   latitude: 30.30225,
+    //   longitude: -97.7455,
+    //   latitudeDelta: 0.025,
+    //   longitudeDelta: 0.025,
+    // }
 
     return (
       <View style={styles.container}>
         {this.componentOverlay()}
+        <TouchableOpacity
+          onPress={() => this.animate()}
+          style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
+        >
+          <Text>Animate</Text>
+        </TouchableOpacity>
         <MapView
           region={this.state.region}
           showsCompass={false}
@@ -143,23 +176,19 @@ export default class HomeScreen extends React.Component {
               )
             })()
            }
-            <MapView.Marker
-              coordinate={{
-                latitude: 30.30225,
-                longitude: -97.7455,
-                latitudeDelta: 0.025,
-                longitudeDelta: 0.025,
-              }}
+            <MapView.Marker.Animated
+              coordinate={this.state.coordinate}
+              ref={marker => { this.marker = marker; }}
               style={{width: 50, height: 50}}
               tracksViewChanges={true}
-              //animateMarketToCoordinate={}
+              //animateMarkerToCoordinate={}
             >
               <Image source={require('../assets/images/car.png')}
                 style={{ 
                   width: 32, 
                   height: 32, 
                 }}/>
-            </MapView.Marker>
+            </MapView.Marker.Animated>
         </MapView>
       </View>
     );

@@ -23,8 +23,9 @@ export const disneylandDirections = (cb) => {
 
 export const getDirections = (cb) => {
 	const origin = '306+W+38TH+ST+AUSTIN+TX'
+	const destination="Kerbey+Lane+Cafe"
 
-	fetch('https://maps.googleapis.com/maps/api/directions/json?origin='+origin+'&destination=Universal+Studios+Hollywood&key='+apiKey)
+	fetch('https://maps.googleapis.com/maps/api/directions/json?origin='+origin+'&destination='+destination+'&key='+apiKey)
 		.then((res) => res.json())
 		.then((resJson) => {
 			var polylineCoords = null;
