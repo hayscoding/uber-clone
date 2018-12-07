@@ -5,6 +5,47 @@ var config = require('../config')[env];
 
 const apiKey = config.googleDirectionsAPI.key
 
+const routesNearHome = [
+	{
+		origin: 'Kerbey+Lane+Cafe',
+		destination: '306+W+38TH+ST+AUSTIN+TX'
+	},
+	{
+		origin: '4001 N Lamar Blvd, Austin, TX 78756',
+		destination: ''
+	},
+	{
+		origin: '',
+		destination: ''
+	},
+	{
+		origin: '',
+		destination: ''
+	},
+	{
+		origin: '',
+		destination: ''
+	},
+]
+
+function getCharIndeces(string, char) {
+	var indeces = []
+
+  for(var i=0; i<string.length; i++)
+    if(string.charAt(i)==char) 
+    	indeces.push(i)
+
+  return indeces
+}
+
+
+//Replaces commas and spaces with '+' signs
+export const formatAddress = (address) => {
+	var formattedAddress = address.split(',').join('').split(' ').join('+')
+
+	return formattedAddress
+}
+
 export const disneylandDirections = (cb) => {
 	fetch('https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key='+apiKey)
 		.then((res) => res.json())
@@ -19,6 +60,10 @@ export const disneylandDirections = (cb) => {
 		.catch((err) => {
 			console.error(err)
 		})
+}
+
+export const getExampleRoutes = (routeAddresses, cb) => {
+
 }
 
 export const getDirections = (cb) => {
