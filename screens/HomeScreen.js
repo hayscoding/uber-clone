@@ -38,7 +38,7 @@ export default class HomeScreen extends React.Component {
   state = {
     location: null,
     region: null,
-    routeCoords: null,
+    route: null,
     coordinate: new MapView.AnimatedRegion({
       latitude: 30.3019044,
       longitude: -97.7355154,
@@ -47,7 +47,34 @@ export default class HomeScreen extends React.Component {
     requestSectionOpen: false,
     destinationInputOpen: false,
   };
-  
+
+  startAnimation() {
+    console.log('STARTANIMATION() ROUTE: ', this.state.route.length, '\nFIRST COORD: ', this.state.route[0])
+    if(this.state.route != null)
+      this.animateThruCoords(this.state.route)
+  }
+
+  animateThruCoords(coords) {
+    var nextCoords = coords //[0,1,2]
+    nextCoords = nextCoords.slice(0,1) //remove first elen
+    coords.forEach((coord) => { 
+      this.animate(coord, () => { this.animateThruCoords(nextCoords) })
+    })
+  }
+
+  animate(coord, cb) {
+    console.log('ANIMATE() COORDS:\nlat: ', coord.latitude, '\n: ', coord.longitude)
+
+    const newCoordinate = {
+      latitude: coord.latitude,
+      longitude: coord.longitude
+    };
+
+    console.log("LOCATION COORDS: ", this.state.location.coords)
+
+    this.state.coordinate.timing(newCoordinate).start(() => { cb() });
+  }
+
   componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
@@ -87,18 +114,6 @@ export default class HomeScreen extends React.Component {
     this.setState({region: this.getRegionFromLocation(this.state.location)})
   }
 
-  animate() {
-    const { coordinate } = this.state;
-    const newCoordinate = {
-      latitude: 30.30195,
-      longitude: -97.73866
-    };
-
-    console.log("LOCATION COORDS: ", this.state.location.coords)
-
-    coordinate.timing(newCoordinate).start();
-  }
-
   toggleComponentOverlay() {
     this.setState({requestSectionOpen: !this.state.requestSectionOpen})
   }
@@ -129,7 +144,7 @@ export default class HomeScreen extends React.Component {
     else if(this.state.destInputOpen && !this.state.requestSectionOpen)
       return <DestinationInput 
         backCb={() => { this.toggleDestinationInput() }} 
-        coordsCb={(coords) => { this.setState({routeCoords: coords}) }}
+        coordsCb={(coords) => { this.setState({route: coords}) }}
       />
     else
       return this.mainButtons()
@@ -151,7 +166,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => this.animate()}
+          onPress={() => this.startAnimation()}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>
@@ -163,10 +178,10 @@ export default class HomeScreen extends React.Component {
           followsUserLocation={true}
           style={styles.map}>
            {(() => {
-            if(this.state.routeCoords != null)
+            if(this.state.route != null)
               return(
                 <MapView.Polyline
-                  coordinates={this.state.routeCoords}
+                  coordinates={this.state.route}
                   strokeWidth={4}
                 />
               )
