@@ -28,8 +28,9 @@ const routesNearHome = [
 	// },
 ]
 
-export const getStoredDirections = (cb) => {
-	getDirections()
+export const getSimulatorPolylines = (cb) => {
+	console.log('getSimulatrPolylines called')
+	cb(getStoredRoutes())
 }
 
 export const getStoredRoutes = () => {

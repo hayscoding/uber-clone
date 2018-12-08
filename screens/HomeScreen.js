@@ -27,6 +27,8 @@ import { RideRequestSection } from '../components/RideRequestSection';
 import { SuggestedDestinationButton } from '../components/SuggestedDestinationButton';
 import DestinationInput from '../components/DestinationInput';
 
+import * as DirectionsAPI from '../utils/DirectionsAPI'
+
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
@@ -43,11 +45,18 @@ export default class HomeScreen extends React.Component {
       latitude: 30.3019044,
       longitude: -97.7355154,
     }),
+    coordinates: [],
     errorMessage: null,
     requestSectionOpen: false,
     destinationInputOpen: false,
     acc: 0,
   };
+
+  componentWillMount() {
+    DirectionsAPI.getSimulatorPolylines((coordinates) => {
+      console.log('COPMONENT WILL MOUNT COORDS: ', coordinates)
+    })
+  }
 
   startAnimation() {
     if(this.state.route != null) {
