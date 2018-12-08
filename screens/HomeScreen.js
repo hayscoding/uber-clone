@@ -92,6 +92,33 @@ export default class HomeScreen extends React.Component {
     this.state.coordinate.timing(newCoordinate).start(() => { cb() });
   }
 
+  animateMarker(index, coord, cb) {
+    const newCoordinate = {
+      latitude: coord.latitude,
+      longitude: coord.longitude
+    };
+
+    this.state.coordinates[index].timing(newCoordinate).start(() => { cb() });
+  }
+
+  animateMarkerThruCoords(index, coords) {
+    // var nextCoords = coords
+    // nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
+    console.log('ANIMATE MARKER THRU() COORDS LENGTH: ', coords.length, 'NEXT COORDS LENGTH: ', nextCoords.length)
+
+    // if(coords.length != 0)
+    //   this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
+  }
+
+  startMarkerAnimations() {
+    if(this.state.coordinates != null) {
+      console.log('START MARKER ANIMATIONS(): ', this.state.coordinates.length)
+
+      this.animateMarkerThruCoords(0, this.state.coordinates[0])
+    }
+  }
+
+
   animateThruCoords(coords) {
     var nextCoords = coords
     nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
@@ -219,7 +246,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => this.testingComponentDidMount()}
+          onPress={() => this.startAnimation()}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>
