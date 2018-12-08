@@ -110,7 +110,7 @@ export default class HomeScreen extends React.Component {
     //   this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
   }
 
-  startMarkerAnimations() {
+  startMarkerAnimation(index) {
     if(this.state.coordinates != null) {
       console.log('START MARKER ANIMATIONS(): ', this.state.coordinates.length)
 
@@ -210,10 +210,10 @@ export default class HomeScreen extends React.Component {
       return this.mainButtons()
   }
 
-  animatedCarMarker() {
+  animatedCarMarker(index) {
     return(
       <MapView.Marker.Animated
-        coordinate={this.state.coordinate}
+        coordinate={this.state.coordinates[index]}
         anchor={{x: 0.35, y: 0.32}} //centers car.png image
         // ref={marker => { this.marker = marker; }}
         style={{width: 50, height: 50}}
@@ -229,6 +229,26 @@ export default class HomeScreen extends React.Component {
       </MapView.Marker.Animated>
     )
   }
+
+  // animatedCarMarker() {
+  //   return(
+  //     <MapView.Marker.Animated
+  //       coordinate={this.state.coordinate}
+  //       anchor={{x: 0.35, y: 0.32}} //centers car.png image
+  //       // ref={marker => { this.marker = marker; }}
+  //       style={{width: 50, height: 50}}
+  //       //rotation={}
+  //       tracksViewChanges={true}
+  //       //animateMarkerToCoordinate={}
+  //     >
+  //       <Image source={require('../assets/images/car.png')}
+  //         style={{ 
+  //           width: 32, 
+  //           height: 32, 
+  //         }}/>
+  //     </MapView.Marker.Animated>
+  //   )
+  // }
 
   render() {
     // console.log("HOMESCREEN OUTPUT: \n", 
@@ -268,7 +288,10 @@ export default class HomeScreen extends React.Component {
               )
             })()
            }
-            {this.animatedCarMarker()}
+            {this.animatedCarMarker(0)}
+            {this.animatedCarMarker(1)}
+            {this.animatedCarMarker(2)}
+            {this.animatedCarMarker(3)}
         </MapView>
       </View>
     );
