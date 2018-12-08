@@ -45,6 +45,7 @@ export default class HomeScreen extends React.Component {
       latitude: 30.3019044,
       longitude: -97.7355154,
     }),
+    coordinates: [],
     polylines: [],
     errorMessage: null,
     requestSectionOpen: false,
@@ -54,26 +55,28 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     DirectionsAPI.getSimulatorPolylines((polylines) => {
-      this.setState({polylines: polylines})
-      this.setCoordinatesFromPolylines(polylines)
+      this.setState({polylines: polylines, coordinates: this.getCoordinateFromPolylines(polylines)})
     })
   }
 
   testingComponentDidMount() {
-    DirectionsAPI.getSimulatorPolylines((polylines) => {
-      this.setState({polylines: polylines})
-      this.setCoordinatesFromPolylines(polylines)
-    })
+    console.log('testing componentDidMount: ', this.state.polylines, this.state.coordinates)
   }
 
-  setCoordinatesFromPolylines(polylines) {
+  //Iterates through all polylines & returns an array of the 1st coordinate for each polyline
+  getCoordinateFromPolylines(polylines) {
     var coordinates = []
 
-    // console.log(polylines)
-
     polylines.forEach((polyline) => {
-      console.log('setCoordsFromPolylines: ', polyline[0])
+      coordinates.push(new MapView.AnimatedRegion({
+        latitude: polyline[0].latitude,
+        longitude: polyline[0].longitude,
+        // latitudeDelta: 0.4,
+      }))
     })
+
+    // console.log('setCoords return: ', coordinates)
+    return coordinates
   }
 
   animate(coord, cb) {
@@ -97,7 +100,7 @@ export default class HomeScreen extends React.Component {
     if(coords.length != 0)
       this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
   }
-  
+
   startAnimation() {
     if(this.state.route != null) {
       console.log('STARTANIMATION() ROUTE: ', this.state.route.length, '\nFIRST COORD: ', this.state.route[0])
