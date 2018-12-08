@@ -55,6 +55,24 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     DirectionsAPI.getSimulatorPolylines((polylines) => {
       this.setState({polylines: polylines})
+      this.setCoordinatesFromPolylines(polylines)
+    })
+  }
+
+  testingComponentDidMount() {
+    DirectionsAPI.getSimulatorPolylines((polylines) => {
+      this.setState({polylines: polylines})
+      this.setCoordinatesFromPolylines(polylines)
+    })
+  }
+
+  setCoordinatesFromPolylines(polylines) {
+    var coordinates = []
+
+    // console.log(polylines)
+
+    polylines.forEach((polyline) => {
+      console.log('setCoordsFromPolylines: ', polyline[0])
     })
   }
 
@@ -79,11 +97,7 @@ export default class HomeScreen extends React.Component {
     if(coords.length != 0)
       this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
   }
-
-  testingComponentDidMount() {
-    console.log('testingPolylines: ', this.state.polylines)
-  }
-
+  
   startAnimation() {
     if(this.state.route != null) {
       console.log('STARTANIMATION() ROUTE: ', this.state.route.length, '\nFIRST COORD: ', this.state.route[0])
@@ -202,7 +216,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => this.animateThruCoords(this.state.route)}
+          onPress={() => this.testingComponentDidMount()}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>
