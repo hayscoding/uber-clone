@@ -39,9 +39,7 @@ export async function getSimulatorPolylines(cb) {
 			polylines.push(coords)
 		})
 
-	console.log('polylines: ', polylines)
-
-	cb(null)
+	cb(polylines)
 }
 
 const iterateThruRoute = (routes) => {
