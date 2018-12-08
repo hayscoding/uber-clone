@@ -58,7 +58,7 @@ export default class HomeScreen extends React.Component {
 
   testingComponentDidMount() {
     DirectionsAPI.getSimulatorPolylines((coordinates) => {
-      console.log('componentDidMount: ', coordinates)
+      // console.log('componentDidMount: ', coordinates)
     })
   }
 

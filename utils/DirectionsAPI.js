@@ -28,17 +28,29 @@ const routesNearHome = [
 	// },
 ]
 
-export const getSimulatorPolylines = (cb) => {
-	console.log('getSimulatrPolylines called ')
-	getDirections(formatRouteAddresses(routesNearHome)[0].origin, formatRouteAddresses(routesNearHome)[0].destination, (coords) => {
-		console.log(coords)
+export async function getSimulatorPolylines(cb) {
+	console.log('getSimulatorPolylines called ')
+
+	var polylines = []
+
+	await getDirections(formatRouteAddresses(routesNearHome)[0].origin, formatRouteAddresses(routesNearHome)[0].destination, (coords) => {
+		polylines.push(coords)
 	})
+
+	console.log('polylines: ', polylines)
 
 	cb(null)
 }
 
+const iterateThruRoute = (routes) => {
+  const nextRoutes = routes.slice(1, routes.length) //remove first elem
+
+  if(coords.length != 0)
+      this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
+}
+
 export const getDirections = (origin, destination, cb) => {
-	fetch('https://maps.googleapis.com/maps/api/directions/json?origin='+origin+'&destination='+destination+'&key='+apiKey)
+	return fetch('https://maps.googleapis.com/maps/api/directions/json?origin='+origin+'&destination='+destination+'&key='+apiKey)
 		.then((res) => res.json())
 		.then((resJson) => {
 			var polylineCoords = null;
@@ -54,6 +66,7 @@ export const getDirections = (origin, destination, cb) => {
 			console.error(err)
 		})
 }
+
 
 const formatRouteAddresses = (routes) => {
 	var formattedRoutes = []
