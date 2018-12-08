@@ -34,8 +34,22 @@ export const getSimulatorPolylines = (cb) => {
 }
 
 export const getStoredRoutes = () => {
+	console.log('GET STORED ROUTES: ', routesNearHome)
 	return formatRouteAddresses(routesNearHome)
 }
+
+
+
+const formatRouteAddresses = (routes) => {
+	var formattedRoutes = []
+
+	routes.forEach((route) => {
+		formattedRoutes.push({ origin: formatAddress(route.origin), destination: formatAddress(route.destination) })
+	})
+
+	return formattedRoutes
+}	
+
 
 export const getDirections = (origin, destination, cb) => {
 	fetch('https://maps.googleapis.com/maps/api/directions/json?origin='+origin+'&destination='+destination+'&key='+apiKey)
@@ -54,17 +68,6 @@ export const getDirections = (origin, destination, cb) => {
 			console.error(err)
 		})
 }
-
-const formatRouteAddresses = (routes) => {
-	var formattedRoutes = []
-
-	routes.forEach((route) => {
-		formattedRoutes.push({ origin: formatAddress(route.origin), destination: formatAddress(route.destination) })
-	})
-
-	console.log(formattedRoutes)
-}	
-
 //Replaces commas and spaces with '+' signs
 export const formatAddress = (address) => {
 	var formattedAddress = address.split(',').join('').split(' ').join('+')
