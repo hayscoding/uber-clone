@@ -53,6 +53,10 @@ export default class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
+    
+  }
+
+  testingComponentDidMount() {
     DirectionsAPI.getSimulatorPolylines((coordinates) => {
       console.log('componentDidMount: ', coordinates)
     })
@@ -198,7 +202,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => this.startAnimation()}
+          onPress={() => this.testingComponentDidMount()}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>
