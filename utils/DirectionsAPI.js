@@ -34,7 +34,6 @@ export const getSimulatorPolylines = (cb) => {
 }
 
 export const getStoredRoutes = () => {
-	console.log('GET STORED ROUTES: ', routesNearHome)
 	return formatRouteAddresses(routesNearHome)
 }
 
