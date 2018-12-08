@@ -31,11 +31,13 @@ const routesNearHome = [
 export async function getSimulatorPolylines(cb) {
 	console.log('getSimulatorPolylines called ')
 
+	const routes = formatRouteAddresses(routesNearHome)
 	var polylines = []
 
-	await getDirections(formatRouteAddresses(routesNearHome)[0].origin, formatRouteAddresses(routesNearHome)[0].destination, (coords) => {
-		polylines.push(coords)
-	})
+	for(var i = 0; i < routes.length; i++)
+		await getDirections(routes[i].origin, routes[i].destination, (coords) => {
+			polylines.push(coords)
+		})
 
 	console.log('polylines: ', polylines)
 
