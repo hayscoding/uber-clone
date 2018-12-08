@@ -28,6 +28,8 @@ const routesNearHome = [
 	// },
 ]
 
+
+//Returns the coordinates for the each route located in the routesNearHome array
 export async function getSimulatorPolylines(cb) {
 	console.log('getSimulatorPolylines called ')
 

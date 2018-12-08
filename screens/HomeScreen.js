@@ -45,7 +45,7 @@ export default class HomeScreen extends React.Component {
       latitude: 30.3019044,
       longitude: -97.7355154,
     }),
-    coordinates: [],
+    polylines: [],
     errorMessage: null,
     requestSectionOpen: false,
     destinationInputOpen: false,
@@ -53,13 +53,13 @@ export default class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
-    
+    DirectionsAPI.getSimulatorPolylines((polylines) => {
+      this.setState({polylines: polylines})
+    })
   }
 
   testingComponentDidMount() {
-    DirectionsAPI.getSimulatorPolylines((polylines) => {
-      console.log('componentDidMount: ', polylines)
-    })
+    console.log('testingPolylines: ', this.state.polylines)
   }
 
   startAnimation() {
