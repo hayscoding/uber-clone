@@ -58,26 +58,6 @@ export default class HomeScreen extends React.Component {
     })
   }
 
-  testingComponentDidMount() {
-    console.log('testingPolylines: ', this.state.polylines)
-  }
-
-  startAnimation() {
-    if(this.state.route != null) {
-      console.log('STARTANIMATION() ROUTE: ', this.state.route.length, '\nFIRST COORD: ', this.state.route[0])
-      this.animateThruCoords(this.state.route)
-    }
-  }
-
-  animateThruCoords(coords) {
-    var nextCoords = coords
-    nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
-    // console.log('COORDS LENGTH: ', coords.length, 'NEXT COORDS LENGTH: ', nextCoords.length)
-
-    if(coords.length != 0)
-      this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
-  }
-
   animate(coord, cb) {
     // console.log('ANIMATE() COORDS:\nlat: ', coord.latitude, '\n: ', coord.longitude)
     // this.state.acc++
@@ -89,6 +69,26 @@ export default class HomeScreen extends React.Component {
     };
 
     this.state.coordinate.timing(newCoordinate).start(() => { cb() });
+  }
+
+  animateThruCoords(coords) {
+    var nextCoords = coords
+    nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
+    // console.log('COORDS LENGTH: ', coords.length, 'NEXT COORDS LENGTH: ', nextCoords.length)
+
+    if(coords.length != 0)
+      this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
+  }
+
+  testingComponentDidMount() {
+    console.log('testingPolylines: ', this.state.polylines)
+  }
+
+  startAnimation() {
+    if(this.state.route != null) {
+      console.log('STARTANIMATION() ROUTE: ', this.state.route.length, '\nFIRST COORD: ', this.state.route[0])
+      this.animateThruCoords(this.state.route)
+    }
   }
 
   componentWillMount() {
@@ -202,7 +202,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => this.testingComponentDidMount()}
+          onPress={() => this.animateThruCoords(this.state.route)}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>
@@ -212,6 +212,7 @@ export default class HomeScreen extends React.Component {
           showsCompass={false}
           showsUserLocation={true}
           followsUserLocation={true}
+          ref={(map) => {this.map = map}}
           style={styles.map}>
            {(() => {
             if(this.state.route != null)
