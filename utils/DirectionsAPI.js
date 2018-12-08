@@ -28,8 +28,30 @@ const routesNearHome = [
 	// },
 ]
 
-export const formatStoredRoutes = () => {
-	formatRouteAddresses(routesNearHome)
+export const getStoredDirections = (cb) => {
+	getDirections()
+}
+
+export const getStoredRoutes = () => {
+	return formatRouteAddresses(routesNearHome)
+}
+
+export const getDirections = (origin, destination, cb) => {
+	fetch('https://maps.googleapis.com/maps/api/directions/json?origin='+origin+'&destination='+destination+'&key='+apiKey)
+		.then((res) => res.json())
+		.then((resJson) => {
+			var polylineCoords = null;
+
+			if (resJson.routes.length)
+      	polylineCoords = decode(resJson.routes[0].overview_polyline.points)
+
+      // console.log('POLYLINE COORDS: ', polylineCoords)
+
+    	cb(polylineCoords)
+		})
+		.catch((err) => {
+			console.error(err)
+		})
 }
 
 const formatRouteAddresses = (routes) => {
@@ -65,11 +87,7 @@ export const disneylandDirections = (cb) => {
 		})
 }
 
-export const getExampleRoutes = (routeAddresses, cb) => {
-
-}
-
-export const getDirections = (cb) => {
+export const getExamplePolyline = (cb) => {
 	const origin = '306+W+38TH+ST+AUSTIN+TX'
 	const destination="Kerbey+Lane+Cafe"
 

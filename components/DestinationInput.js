@@ -25,9 +25,9 @@ export default class DestinationInput extends React.Component {
 	submitDestination = (e) => {
 		e.preventDefault()
 
-		console.log('ADDRESS CONVERSION OUTPUT: ', DirectionsAPI.formatStoredRoutes())
+		console.log('ADDRESS CONVERSION OUTPUT: ', DirectionsAPI.getStoredRoutes())
 
-		DirectionsAPI.getDirections((coords) => {
+		DirectionsAPI.getExamplePolyline((coords) => {
 			this.state.coordsCb(coords)
 		})
 	}

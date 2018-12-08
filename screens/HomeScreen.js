@@ -59,16 +59,16 @@ export default class HomeScreen extends React.Component {
   animateThruCoords(coords) {
     var nextCoords = coords
     nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
-    console.log('COORDS LENGTH: ', coords.length, 'NEXT COORDS LENGTH: ', nextCoords.length)
+    // console.log('COORDS LENGTH: ', coords.length, 'NEXT COORDS LENGTH: ', nextCoords.length)
 
     if(coords.length != 0)
       this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
   }
 
   animate(coord, cb) {
-    console.log('ANIMATE() COORDS:\nlat: ', coord.latitude, '\n: ', coord.longitude)
-    this.state.acc++
-    console.log('ANIMATE CALLED: ', this.state.acc)
+    // console.log('ANIMATE() COORDS:\nlat: ', coord.latitude, '\n: ', coord.longitude)
+    // this.state.acc++
+    // console.log('ANIMATE CALLED: ', this.state.acc)
 
     const newCoordinate = {
       latitude: coord.latitude,
@@ -153,6 +153,26 @@ export default class HomeScreen extends React.Component {
       return this.mainButtons()
   }
 
+  animatedCarMarker() {
+    return(
+      <MapView.Marker.Animated
+        coordinate={this.state.coordinate}
+        anchor={{x: 0.35, y: 0.32}} //centers car.png image
+        // ref={marker => { this.marker = marker; }}
+        style={{width: 50, height: 50}}
+        //rotation={}
+        tracksViewChanges={true}
+        //animateMarkerToCoordinate={}
+      >
+        <Image source={require('../assets/images/car.png')}
+          style={{ 
+            width: 32, 
+            height: 32, 
+          }}/>
+      </MapView.Marker.Animated>
+    )
+  }
+
   render() {
     // console.log("HOMESCREEN OUTPUT: \n", 
     //   "LOCATION COORDS: ", this.state.location.coords,
@@ -190,21 +210,7 @@ export default class HomeScreen extends React.Component {
               )
             })()
            }
-            <MapView.Marker.Animated
-              coordinate={this.state.coordinate}
-              anchor={{x: 0.35, y: 0.32}} //centers car.png image
-              ref={marker => { this.marker = marker; }}
-              style={{width: 50, height: 50}}
-              //rotation={}
-              tracksViewChanges={true}
-              //animateMarkerToCoordinate={}
-            >
-              <Image source={require('../assets/images/car.png')}
-                style={{ 
-                  width: 32, 
-                  height: 32, 
-                }}/>
-            </MapView.Marker.Animated>
+            {this.animatedCarMarker()}
         </MapView>
       </View>
     );
