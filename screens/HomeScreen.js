@@ -37,30 +37,40 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
-  state = {
-    location: null,
-    region: null,
-    route: null,
-    coordinate: new MapView.AnimatedRegion({
-      latitude: 30.3019044,
-      longitude: -97.7355154,
-    }),
-    coordinates: [],
-    polylines: [],
-    errorMessage: null,
-    requestSectionOpen: false,
-    destinationInputOpen: false,
-    acc: 0,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      location: null,
+      region: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.045,
+        longitudeDelta: 0.045,
+      },
+      route: null,
+      coordinate: new MapView.AnimatedRegion({
+        latitude: 30.3019044,
+        longitude: -97.7355154,
+      }),
+      markerCoordinates: [],
+      polylines: [],
+      errorMessage: null,
+      requestSectionOpen: false,
+      destinationInputOpen: false,
+      acc: 0,
+    };
+  }
+  
 
   componentDidMount() {
     DirectionsAPI.getSimulatorPolylines((polylines) => {
-      this.setState({polylines: polylines, coordinates: this.getCoordinateFromPolylines(polylines)})
+      this.setState({polylines: polylines, markerCoordinates: this.getCoordinateFromPolylines(polylines)})
     })
   }
 
   testingComponentDidMount() {
-    console.log('testing componentDidMount: ', this.state.polylines, this.state.coordinates)
+    console.log('testing componentDidMount: ', this.state.polylines, this.state.markerCoordinates)
   }
 
   //Iterates through all polylines & returns an array of the 1st coordinate for each polyline
@@ -71,7 +81,8 @@ export default class HomeScreen extends React.Component {
       coordinates.push(new MapView.AnimatedRegion({
         latitude: polyline[0].latitude,
         longitude: polyline[0].longitude,
-        // latitudeDelta: 0.4,
+        latitudeDelta: 0.045,
+        longitudeDelta: 0.045,
       }))
     })
 
@@ -98,23 +109,24 @@ export default class HomeScreen extends React.Component {
       longitude: coord.longitude
     };
 
-    this.state.coordinates[index].timing(newCoordinate).start(() => { cb() });
+    this.state.markerCoordinates[index].timing(newCoordinate).start(() => { cb() });
   }
 
   animateMarkerThruCoords(index, coords) {
     // var nextCoords = coords
     // nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
-    console.log('ANIMATE MARKER THRU() COORDS LENGTH: ', coords.length, 'NEXT COORDS LENGTH: ', nextCoords.length)
+    console.log('ANIMATE MARKER THRU() COORDS: ', coords)
 
     // if(coords.length != 0)
     //   this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
   }
 
   startMarkerAnimation(index) {
-    if(this.state.coordinates != null) {
-      console.log('START MARKER ANIMATIONS(): ', this.state.coordinates.length)
+    if(this.state.markerCoordinates != null) {
+      console.log('START MARKER ANIMATIONS(): ', index)
+      // console.log(this.state.markerCoordinates)
 
-      this.animateMarkerThruCoords(0, this.state.coordinates[0])
+      // this.animateMarkerThruCoords(index, this.state.coordinates[index])
     }
   }
 
@@ -211,9 +223,10 @@ export default class HomeScreen extends React.Component {
   }
 
   animatedCarMarker(index) {
+    // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
     return(
       <MapView.Marker.Animated
-        coordinate={this.state.coordinates[index]}
+        coordinate={this.state.markerCoordinates[index]}
         anchor={{x: 0.35, y: 0.32}} //centers car.png image
         // ref={marker => { this.marker = marker; }}
         style={{width: 50, height: 50}}
@@ -261,12 +274,13 @@ export default class HomeScreen extends React.Component {
     //   latitudeDelta: 0.025,
     //   longitudeDelta: 0.025,
     // }
+    // console.log('render() markerCoordinates: ', this.state.markerCoordinates)
 
     return (
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => this.startAnimation()}
+          onPress={() => this.startMarkerAnimation(0)}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>
