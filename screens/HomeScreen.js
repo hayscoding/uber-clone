@@ -114,17 +114,17 @@ export default class HomeScreen extends React.Component {
   }
 
   startMarkerAnimation(index, route) {
-    console.log('START MARKER ANIMATIONS(): ', index, route)
+    // console.log('START MARKER ANIMATIONS(): ', index, route)
     // console.log(this.state.markerCoordinates)
 
-    // this.animateMarkerThruCoords(index, route)
+    this.animateMarkerThruCoords(index, route)
   }
 
 
   animateMarkerThruCoords(index, route) {
     // var nextCoords = coords
     // nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
-    // console.log('ANIMATE MARKER THRU() COORDS: ', index, route)
+    console.log('ANIMATE MARKER THRU() COORDS: ', index, route)
 
     // if(coords.length != 0)
     //   this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
