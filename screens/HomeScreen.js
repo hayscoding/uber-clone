@@ -104,13 +104,20 @@ export default class HomeScreen extends React.Component {
     this.state.coordinate.timing(newCoordinate).start(() => { cb() });
   }
 
+  animateMarkersThruCoords() {
+    for(var i = 0; i < this.state.polylines.length; i++) {
+      this.animateMarkerThruCoords(i, this.state.polylines[i])
+    }
+  }
+
   animateMarkerThruCoords(index, coords) {
+    console.log('INDEX: ', index)
     // var nextCoords = coords
     // nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
     // console.log('ANIMATE MARKER THRU() COORDS: ', index, coords, '\nNextCoords: ', coords.slice(1, coords.length)) //remove first elem)
 
     // if(coords.length != 0)
-    console.log('Coords: ', coords)
+    // console.log('Coords: ', coords)
     if(coords.length != 0)
       this.animateMarker(index, coords[0], () => { this.animateMarkerThruCoords(index, coords.slice(1, coords.length)) })
     else 
@@ -118,7 +125,7 @@ export default class HomeScreen extends React.Component {
   }
 
   animateMarker(index, coord, cb) {
-    console.log('animateMarker', coord)
+    // console.log('animateMarker', coord)
     const newCoordinate = {
       latitude: coord.latitude,
       longitude: coord.longitude
@@ -129,8 +136,7 @@ export default class HomeScreen extends React.Component {
 
   startMarkerAnimation(index, route) {
     // console.log('START MARKER ANIMATIONS(): ', index, route)
-
-    this.animateMarkerThruCoords(index, route)
+    this.animateMarkersThruCoords()
   }
 
   animateThruCoords(coords) {
