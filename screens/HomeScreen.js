@@ -122,14 +122,14 @@ export default class HomeScreen extends React.Component {
 
   animateMarker(index, coord, cb) {
     // console.log('animateMarker', coord)
-    const newCoord = {
+    const nextCoord = {
       latitude: coord.latitude,
       longitude: coord.longitude
     };
 
-    // this.getMarkerBearing(coord, )
+    // this.getMarkerBearing(coord, nextCoord)
 
-    this.state.markerCoordinates[index].timing(newCoord).start(() => { cb() });
+    this.state.markerCoordinates[index].timing(nextCoord).start(() => { cb() });
   }
 
   startMarkerAnimation() {
@@ -247,7 +247,6 @@ export default class HomeScreen extends React.Component {
   }
 
   animatedCarMarker(index) {
-    console.disableYellowBox = true; //hides warning of rotation props (can't find fix)
     // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
     if(this.state.markerCoordinates != null)
       return(
@@ -255,8 +254,7 @@ export default class HomeScreen extends React.Component {
           coordinate={this.state.markerCoordinates[index]}
           anchor={{x: 0.35, y: 0.32}} //centers car.png image
           // ref={marker => { this.marker = marker; }}
-
-          style={{width: 50, height: 50, rotation: 90}}
+          style={{width: 50, height: 50, transform: [{rotate: '90deg'}]}}
           //rotation={}
           tracksViewChanges={true}
           //animateMarkerToCoordinate={}
