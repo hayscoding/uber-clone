@@ -114,8 +114,11 @@ export default class HomeScreen extends React.Component {
 
     // if(coords.length != 0)
     // console.log('Coords: ', coords)
-    if(coords.length != 0)
-      this.animateMarker(index, coords[0], () => { this.animateMarkerThruCoords(index, coords.slice(1, coords.length)) })
+    if(coords.length != 0){
+      this.getMarkerBearing(coords[0], coords[1])
+
+      this.animateMarker(index, coords[0], () => {/* this.animateMarkerThruCoords(index, coords.slice(1, coords.length)) */})
+    }
     else 
       this.animateMarkerThruCoords(index, this.state.polylines[index])
   }
@@ -126,8 +129,6 @@ export default class HomeScreen extends React.Component {
       latitude: coord.latitude,
       longitude: coord.longitude
     };
-
-    // this.getMarkerBearing(coord, nextCoord)
 
     this.state.markerCoordinates[index].timing(nextCoord).start(() => { cb() });
   }
@@ -232,6 +233,10 @@ export default class HomeScreen extends React.Component {
   }
 
   getMarkerBearing(fromCoord, toCoord) {
+    function toDegrees (radians) {
+      return radians * (180 / Math.PI);
+    }
+
     console.log('getMarkerBearing:\nfromCoord: ', fromCoord, '\ntoCoord: ', toCoord)
     const λ1 = fromCoord.latitude
     const φ1 = fromCoord.longitude
@@ -241,9 +246,10 @@ export default class HomeScreen extends React.Component {
     var y = Math.sin(λ2-λ1) * Math.cos(φ2);
     var x = Math.cos(φ1)*Math.sin(φ2) -
             Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
-    var bearing = Math.atan2(y, x).toDegrees();
+    var bearing = toDegrees(Math.atan2(y, x));
 
-    console.log('Bearing: ', bearing)
+    // console.log('Math.sin:', Math.sin(λ2-λ1))
+    console.log('λ1: ', λ1, 'φ1: ', φ1, '\nλ2: ', λ2, 'φ2: ', φ2, '\nx: ', x, 'y: ', y, '\nBearing: ', bearing)
   }
 
   animatedCarMarker(index) {
