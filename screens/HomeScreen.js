@@ -65,7 +65,7 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     DirectionsAPI.getSimulatorPolylines((polylines) => {
-      console.log('polylines: ', polylines)
+      // console.log('polylines: ', polylines)
       this.setState({polylines: polylines, markerCoordinates: this.getCoordinateFromPolylines(polylines)})
     })
   }
@@ -113,22 +113,22 @@ export default class HomeScreen extends React.Component {
     this.state.markerCoordinates[index].timing(newCoordinate).start(() => { cb() });
   }
 
-  animateMarkerThruCoords(index, coords) {
+  startMarkerAnimation(index, route) {
+    console.log('START MARKER ANIMATIONS(): ', index, route)
+    // console.log(this.state.markerCoordinates)
+
+    // this.animateMarkerThruCoords(index, route)
+  }
+
+
+  animateMarkerThruCoords(index, route) {
     // var nextCoords = coords
     // nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
-    console.log('ANIMATE MARKER THRU() COORDS: ', index, coords[index])
+    // console.log('ANIMATE MARKER THRU() COORDS: ', index, route)
 
     // if(coords.length != 0)
     //   this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
   }
-
-  startMarkerAnimation(index) {
-    console.log('START MARKER ANIMATIONS(): ', index, this.state.markerCoordinates[index])
-    // console.log(this.state.markerCoordinates)
-
-    // this.animateMarkerThruCoords(index, )
-  }
-
 
   animateThruCoords(coords) {
     var nextCoords = coords
@@ -280,7 +280,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => this.startMarkerAnimation(0)}
+          onPress={() => this.startMarkerAnimation(0, this.state.polylines[0])}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>
