@@ -54,6 +54,7 @@ export default class HomeScreen extends React.Component {
         longitude: -97.7355154,
       }),
       markerCoordinates: null,
+      markerBearings: [],
       polylines: [],
       errorMessage: null,
       requestSectionOpen: false,
@@ -117,10 +118,15 @@ export default class HomeScreen extends React.Component {
     if(coords.length != 0){
       this.getMarkerBearing(coords[0], coords[1])
 
-      this.animateMarker(index, coords[0], () => {/* this.animateMarkerThruCoords(index, coords.slice(1, coords.length)) */})
+      this.animateMarker(index, coords[0], () => { this.animateMarkerThruCoords(index, coords.slice(1, coords.length)) })
     }
     else 
       this.animateMarkerThruCoords(index, this.state.polylines[index])
+  }
+
+  updateMarkerBearing(index, bearing) {
+    if(this.state.markerBearing[index] == undefined)
+    this.setState({markerBearings: {index: index, bearing: bearing}})
   }
 
   animateMarker(index, coord, cb) {
@@ -249,10 +255,10 @@ export default class HomeScreen extends React.Component {
     var bearing = toDegrees(Math.atan2(y, x));
 
     // console.log('Math.sin:', Math.sin(λ2-λ1))
-    console.log('λ1: ', λ1, 'φ1: ', φ1, '\nλ2: ', λ2, 'φ2: ', φ2, '\nx: ', x, 'y: ', y, '\nBearing: ', bearing)
+    // console.log('λ1: ', λ1, 'φ1: ', φ1, '\nλ2: ', λ2, 'φ2: ', φ2, '\nx: ', x, 'y: ', y, '\nBearing: ', bearing)
   }
 
-  animatedCarMarker(index) {
+  animatedMarker(index) {
     // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
     if(this.state.markerCoordinates != null)
       return(
@@ -333,10 +339,10 @@ export default class HomeScreen extends React.Component {
               )
             })()
            }
-            {this.animatedCarMarker(0)}
-            {this.animatedCarMarker(1)}
-            {this.animatedCarMarker(2)}
-            {this.animatedCarMarker(3)}
+            {this.animatedMarker(0)}
+            {this.animatedMarker(1)}
+            {this.animatedMarker(2)}
+            {this.animatedMarker(3)}
         </MapView>
       </View>
     );
