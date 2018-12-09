@@ -70,10 +70,6 @@ export default class HomeScreen extends React.Component {
     })
   }
 
-  testingComponentDidMount() {
-    console.log('testing componentDidMount: ', this.state.polylines, this.state.markerCoordinates)
-  }
-
   //Iterates through all polylines & returns an array of the 1st coordinate for each polyline
   getCoordinateFromPolylines(polylines) {
     var coordinates = []
@@ -111,7 +107,7 @@ export default class HomeScreen extends React.Component {
   }
 
   animateMarkerThruCoords(index, coords) {
-    console.log('INDEX: ', index)
+    // console.log('INDEX: ', index)
     // var nextCoords = coords
     // nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
     // console.log('ANIMATE MARKER THRU() COORDS: ', index, coords, '\nNextCoords: ', coords.slice(1, coords.length)) //remove first elem)
@@ -126,12 +122,14 @@ export default class HomeScreen extends React.Component {
 
   animateMarker(index, coord, cb) {
     // console.log('animateMarker', coord)
-    const newCoordinate = {
+    const newCoord = {
       latitude: coord.latitude,
       longitude: coord.longitude
     };
 
-    this.state.markerCoordinates[index].timing(newCoordinate).start(() => { cb() });
+    // this.getMarkerBearing(coord, )
+
+    this.state.markerCoordinates[index].timing(newCoord).start(() => { cb() });
   }
 
   startMarkerAnimation() {
@@ -233,7 +231,23 @@ export default class HomeScreen extends React.Component {
       return this.mainButtons()
   }
 
+  getMarkerBearing(fromCoord, toCoord) {
+    console.log('getMarkerBearing:\nfromCoord: ', fromCoord, '\ntoCoord: ', toCoord)
+    const λ1 = fromCoord.latitude
+    const φ1 = fromCoord.longitude
+    const λ2 = toCoord.latitude
+    const φ2 = toCoord.longitude
+
+    var y = Math.sin(λ2-λ1) * Math.cos(φ2);
+    var x = Math.cos(φ1)*Math.sin(φ2) -
+            Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
+    var bearing = Math.atan2(y, x).toDegrees();
+
+    console.log('Bearing: ', bearing)
+  }
+
   animatedCarMarker(index) {
+    console.disableYellowBox = true; //hides warning of rotation props (can't find fix)
     // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
     if(this.state.markerCoordinates != null)
       return(
@@ -241,7 +255,8 @@ export default class HomeScreen extends React.Component {
           coordinate={this.state.markerCoordinates[index]}
           anchor={{x: 0.35, y: 0.32}} //centers car.png image
           // ref={marker => { this.marker = marker; }}
-          style={{width: 50, height: 50}}
+
+          style={{width: 50, height: 50, rotation: 90}}
           //rotation={}
           tracksViewChanges={true}
           //animateMarkerToCoordinate={}

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "uber-clone",
+    "name": "uber-clone-testing",
     "description": "Clone of the ride-sharing app Uber.",
-    "slug": "uber-clone",
+    "slug": "uber-clone-testing",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
