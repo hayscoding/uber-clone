@@ -43,8 +43,8 @@ export default class HomeScreen extends React.Component {
     this.state = {
       location: null,
       region: {
-        latitude: 0,
-        longitude: 0,
+        latitude: 30.29877,
+        longitude: -97.74719,
         latitudeDelta: 0.045,
         longitudeDelta: 0.045,
       },
@@ -53,7 +53,7 @@ export default class HomeScreen extends React.Component {
         latitude: 30.3019044,
         longitude: -97.7355154,
       }),
-      markerCoordinates: [],
+      markerCoordinates: null,
       polylines: [],
       errorMessage: null,
       requestSectionOpen: false,
@@ -65,6 +65,7 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     DirectionsAPI.getSimulatorPolylines((polylines) => {
+      console.log('polylines: ', polylines)
       this.setState({polylines: polylines, markerCoordinates: this.getCoordinateFromPolylines(polylines)})
     })
   }
@@ -115,19 +116,17 @@ export default class HomeScreen extends React.Component {
   animateMarkerThruCoords(index, coords) {
     // var nextCoords = coords
     // nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
-    console.log('ANIMATE MARKER THRU() COORDS: ', coords)
+    console.log('ANIMATE MARKER THRU() COORDS: ', index, coords[index])
 
     // if(coords.length != 0)
     //   this.animate(coords[0], () => { this.animateThruCoords(nextCoords) })
   }
 
   startMarkerAnimation(index) {
-    if(this.state.markerCoordinates != null) {
-      console.log('START MARKER ANIMATIONS(): ', index)
-      // console.log(this.state.markerCoordinates)
+    console.log('START MARKER ANIMATIONS(): ', index, this.state.markerCoordinates[index])
+    // console.log(this.state.markerCoordinates)
 
-      // this.animateMarkerThruCoords(index, this.state.coordinates[index])
-    }
+    // this.animateMarkerThruCoords(index, )
   }
 
 
@@ -224,23 +223,24 @@ export default class HomeScreen extends React.Component {
 
   animatedCarMarker(index) {
     // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
-    return(
-      <MapView.Marker.Animated
-        coordinate={this.state.markerCoordinates[index]}
-        anchor={{x: 0.35, y: 0.32}} //centers car.png image
-        // ref={marker => { this.marker = marker; }}
-        style={{width: 50, height: 50}}
-        //rotation={}
-        tracksViewChanges={true}
-        //animateMarkerToCoordinate={}
-      >
-        <Image source={require('../assets/images/car.png')}
-          style={{ 
-            width: 32, 
-            height: 32, 
-          }}/>
-      </MapView.Marker.Animated>
-    )
+    if(this.state.markerCoordinates != null)
+      return(
+        <MapView.Marker.Animated
+          coordinate={this.state.markerCoordinates[index]}
+          anchor={{x: 0.35, y: 0.32}} //centers car.png image
+          // ref={marker => { this.marker = marker; }}
+          style={{width: 50, height: 50}}
+          //rotation={}
+          tracksViewChanges={true}
+          //animateMarkerToCoordinate={}
+        >
+          <Image source={require('../assets/images/car.png')}
+            style={{ 
+              width: 32, 
+              height: 32, 
+            }}/>
+        </MapView.Marker.Animated>
+      )
   }
 
   // animatedCarMarker() {
