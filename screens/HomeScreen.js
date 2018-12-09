@@ -58,7 +58,7 @@ export default class HomeScreen extends React.Component {
       errorMessage: null,
       requestSectionOpen: false,
       destinationInputOpen: false,
-      acc: 0,
+      animating: false,
     };
   }
   
@@ -134,9 +134,12 @@ export default class HomeScreen extends React.Component {
     this.state.markerCoordinates[index].timing(newCoordinate).start(() => { cb() });
   }
 
-  startMarkerAnimation(index, route) {
+  startMarkerAnimation() {
     // console.log('START MARKER ANIMATIONS(): ', index, route)
-    this.animateMarkersThruCoords()
+    if(!this.state.animating){
+      this.animateMarkersThruCoords()
+      this.setState({animating: true})
+    }
   }
 
   animateThruCoords(coords) {
@@ -289,7 +292,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => this.startMarkerAnimation(0, this.state.polylines[0])}
+          onPress={() => this.startMarkerAnimation()}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>
