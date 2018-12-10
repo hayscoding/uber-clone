@@ -248,8 +248,7 @@ export default class HomeScreen extends React.Component {
 
     _bearings.splice(index, 1, bearingStr)
 
-    console.log('newBearings: ', _bearings)
-    // this.setState({markerBearings: newBearings})
+    this.setState({markerBearings: _bearings})
   }
 
   getBearing(fromCoord, toCoord) {
@@ -276,13 +275,14 @@ export default class HomeScreen extends React.Component {
 
   animatedMarker(index) {
     // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
+    console.log('markerBearing: ', this.state.markerBearings[index])
     if(this.state.markerCoordinates != null)
       return(
         <MapView.Marker.Animated
           coordinate={this.state.markerCoordinates[index]}
           anchor={{x: 0.35, y: 0.32}} //centers car.png image
           // ref={marker => { this.marker = marker; }}
-          style={{width: 50, height: 50, transform: [{rotate: '-57deg'}]}}
+          style={{width: 50, height: 50, transform: [{rotate: this.state.markerBearings[index]}]}}
           //rotation={}
           tracksViewChanges={true}
           //animateMarkerToCoordinate={}
