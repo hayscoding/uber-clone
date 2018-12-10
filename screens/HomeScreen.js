@@ -172,7 +172,7 @@ export default class HomeScreen extends React.Component {
     if(coords.length != 0){
       this.updateMarkerBearing(index, this.getBearing(coords[0], coords[1]))
 
-      this.animateMarker(index, coords[0], () => {/* this.animateMarkerThruCoords(index, coords.slice(1, coords.length)) */})
+      this.animateMarker(index, coords[0], () => { this.animateMarkerThruCoords(index, coords.slice(1, coords.length)) })
     }
     else 
       this.animateMarkerThruCoords(index, this.state.polylines[index])
@@ -256,17 +256,21 @@ export default class HomeScreen extends React.Component {
       return radians * (180 / Math.PI);
     }
 
+    var bearing = 0
+
     // console.log('getMarkerBearing:\nfromCoord: ', fromCoord, '\ntoCoord: ', toCoord)
-    const λ1 = fromCoord.latitude
-    const φ1 = fromCoord.longitude
-    const λ2 = toCoord.latitude
-    const φ2 = toCoord.longitude
+    if(toCoord != undefined) {
+      const λ1 = fromCoord.latitude
+      const φ1 = fromCoord.longitude
+      const λ2 = toCoord.latitude
+      const φ2 = toCoord.longitude
 
-    var y = Math.sin(λ2-λ1) * Math.cos(φ2);
-    var x = Math.cos(φ1)*Math.sin(φ2) -
-            Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
-    var bearing = toDegrees(Math.atan2(y, x));
-
+      var y = Math.sin(λ2-λ1) * Math.cos(φ2);
+      var x = Math.cos(φ1)*Math.sin(φ2) -
+              Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
+      bearing = toDegrees(Math.atan2(y, x));
+    }
+    
     // console.log('Math.sin:', Math.sin(λ2-λ1))
     // console.log('λ1: ', λ1, 'φ1: ', φ1, '\nλ2: ', λ2, 'φ2: ', φ2, '\nx: ', x, 'y: ', y, '\nBearing: ', bearing)
     // console.log('Bearing: ', bearing)
@@ -276,7 +280,7 @@ export default class HomeScreen extends React.Component {
   animatedMarker(index) {
     // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
     console.log('markerBearing: ', this.state.markerBearings[index])
-    if(this.state.markerCoordinates != null)
+    if(this.state.markerCoordinates != null && this.state.markerBearings[index] != undefined)
       return(
         <MapView.Marker.Animated
           coordinate={this.state.markerCoordinates[index]}
@@ -339,7 +343,7 @@ export default class HomeScreen extends React.Component {
           <Text>Animate</Text>
         </TouchableOpacity>
         <MapView
-          region={this.state.region}
+          initialRegion={this.state.region}
           showsCompass={false}
           showsUserLocation={true}
           followsUserLocation={true}
