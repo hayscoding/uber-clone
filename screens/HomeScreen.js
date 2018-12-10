@@ -241,7 +241,7 @@ export default class HomeScreen extends React.Component {
   }
 
   updateMarkerBearing(index, bearing) {
-    console.log('updateMarkerBearing: ', index, this.state.markerBearings[0])
+    console.log('updateMarkerBearing: ', index, this.state.markerBearings[index])
     // if( == undefined)
     // this.setState({markerBearings: {index: index, bearing: bearing}})
   }
