@@ -5,6 +5,12 @@ var config = {
 	    },
 	    firebase: {
 	    	//Place your Firebase web credentials here
+	    	apiKey: "",
+		    authDomain: "",
+		    databaseURL: "",
+		    projectId: "",
+		    storageBucket: "",
+		    messagingSenderId: ""
 	    }
 	},
 	production: { //Credentials used after app has been published
@@ -13,6 +19,12 @@ var config = {
 		},
 		firebase: {
 	    	//Place your Firebase web credentials here
+	    	apiKey: "",
+		    authDomain: "",
+		    databaseURL: "",
+		    projectId: "",
+		    storageBucket: "",
+		    messagingSenderId: ""
 		}
 	},
 };
