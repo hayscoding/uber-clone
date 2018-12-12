@@ -60,7 +60,7 @@ export const getDirections = (origin, destination, cb) => {
 			if (resJson.routes.length)
       	polylineCoords = decode(resJson.routes[0].overview_polyline.points)
 
-      // console.log('POLYLINE COORDS: ', polylineCoords)
+      console.log('POLYLINE COORDS: ', polylineCoords)
 
     	cb(polylineCoords)
 		})
