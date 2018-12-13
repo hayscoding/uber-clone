@@ -4,7 +4,9 @@ import {
   StyleSheet, 
   ScrollView, 
   Animated,
-  Image
+  Image,
+  TextInput,
+  Text,
 } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 
@@ -29,6 +31,7 @@ export default class LinksScreen extends React.Component {
           />
         </View>
         <View style={{flex: 2, backgroundColor: 'white'}}>
+          <Text>Get moving with Uber</Text>
         </View>
       </View>
     );
