@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
+import firebase from 'firebase';
 import AppNavigator from './navigation/AppNavigator';
 
 //Automatically set to 'production' when published through Expo
@@ -8,13 +9,16 @@ var env = process.env.NODE_ENV || 'development';
 // var env = 'production'
 var config = require('./config')[env];
 
-// const firebaseConfig = {
-//    apiKey: config.database.firebaseApiKey,
-//    authDomain: config.database.firebaseAuthDomain,
-//    databaseURL: config.database.databaseURL,
-//  } 
+const firebaseConfig = {
+   apiKey: config.firebase.apiKey,
+   authDomain: config.firebase.authDomain,
+   databaseURL: config.firebase.databaseURL,
+   projectId: config.firebase.projectId,
+   storageBucket: config.firebase.storageBucket,
+   messagingSenderId: config.firebase.messagingSenderId,
+ } 
 
-// firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)
 
 export default class App extends React.Component {
   state = {

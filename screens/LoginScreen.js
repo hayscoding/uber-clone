@@ -10,6 +10,8 @@ import {
 } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 
+import * as FirebaseAPI from '../utils/FirebaseAPI'
+
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
     headerMode: 'none',
@@ -23,6 +25,18 @@ export default class LinksScreen extends React.Component {
     this.state = {
       phone: null,
     }
+  }
+
+  componentWillMount() {
+    // FirebaseAPI.setInvisibleRecaptcha()
+  }
+
+  verifyNumber(e) {
+    e.preventDefault();
+
+    console.log('verifying phone number...')
+
+    // FirebaseAPI.signInWithPhoneNumber()
   }
 
   render() {
@@ -45,7 +59,7 @@ export default class LinksScreen extends React.Component {
                 style={{ textAlign: 'left', fontSize: 20}}
                 keyboardType="number-pad"
                 onChangeText={(num) => this.setState({phone: num})}
-                onSubmitEditing={() => {}}
+                onSubmitEditing={this.verifyNumber}
                 value={this.state.num}
                 maxLength={7}
                 placeholder={'Enter your mobile number'}
