@@ -42,6 +42,7 @@ export default class LinksScreen extends React.Component {
             onChangeText={(num) => this.setState({phone: num})}
             onSubmitEditing={() => {}}
             value={this.state.num}
+            maxLength={7}
             placeholder={'Enter your mobile number'}
             placeholderTextColor={'#a3a3a3'}
           />
