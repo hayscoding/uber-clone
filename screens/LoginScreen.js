@@ -9,7 +9,9 @@ import { DrawerItems, SafeAreaView } from 'react-navigation';
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
-    title: 'Login',
+    headerMode: 'none',
+    headerVisible: false,
+    header: null,
   };
 
   constructor(props) {
@@ -24,10 +26,10 @@ export default class LinksScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-          </SafeAreaView>
-        </ScrollView>
+        <View style={{flex: 3, backgroundColor: 'black'}}>
+        </View>
+        <View style={{flex: 2, backgroundColor: 'white'}}>
+        </View>
       </View>
     );
   }
@@ -36,7 +38,6 @@ export default class LinksScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
+    backgroundColor: 'red',
   },
 });

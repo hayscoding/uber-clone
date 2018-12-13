@@ -10,6 +10,7 @@ const LoginStack = createStackNavigator({
 
 LoginStack.navigationOptions = {
   title: 'Login',
+  headerVisible: false,
 };
 
 export default createSwitchNavigator({
