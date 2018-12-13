@@ -19,6 +19,10 @@ export default class LinksScreen extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      phone: null,
+    }
   }
 
   render() {
@@ -34,9 +38,9 @@ export default class LinksScreen extends React.Component {
           <Text style={{}}>Get moving with Uber</Text>
           <TextInput 
             style={{}}
-            onChangeText={(phoneNum) => {}}
+            onChangeText={(num) => this.setState({phone: num})}
             onSubmitEditing={() => {}}
-            value={'555-555-5555'}
+            value={this.state.num}
             placeholder={'Enter your mobile number'}
             placeholderTextColor={'#a3a3a3'}
           />
