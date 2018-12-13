@@ -1,16 +1,36 @@
 import React from 'react';
-import { createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 import MainDrawerNavigator from './MainDrawerNavigator';
-import LoginNavigator from './LoginNavigator';
+import LoginScreen from '../screens/LoginScreen';
+import LoadingScreen from '../screens/LoadingScreen';
+
+const LoginStack = createStackNavigator({
+  Links: LoginScreen,
+});
+
+LoginStack.navigationOptions = {
+  title: 'Login',
+  headerVisible: false,
+};
+
+const LoadingStack = createStackNavigator({
+  Links: LoadingScreen,
+});
+
+LoginStack.navigationOptions = {
+  title: 'Loading',
+  headerVisible: false,
+};
 
 const Config = {
-	initialRouteName: 'Login'
+	initialRouteName: 'Loading'
 }
 
 export default createSwitchNavigator({
+	  Loading: LoadingStack,
+	  Login: LoginStack,
 	  Main: MainDrawerNavigator,
-	  Login: LoginNavigator,
 	},
 	Config
 );
