@@ -38,6 +38,7 @@ export default class LinksScreen extends React.Component {
           <Text style={{}}>Get moving with Uber</Text>
           <TextInput 
             style={{}}
+            keyboardType="number-pad"
             onChangeText={(num) => this.setState({phone: num})}
             onSubmitEditing={() => {}}
             value={this.state.num}
