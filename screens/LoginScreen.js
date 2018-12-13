@@ -26,7 +26,7 @@ export default class LinksScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{flex: 3, backgroundColor: 'black'}}>
+        <View style={{flex: 3, backgroundColor: '#007bff'}}>
         </View>
         <View style={{flex: 2, backgroundColor: 'white'}}>
         </View>
