@@ -5,7 +5,13 @@ var env = process.env.NODE_ENV || 'development';
 // var env = 'production'
 var config = require('../config')[env];
 
-const apiKey = config.firebase.key
+export function createUser(email, password, cb) {
+    firebase.auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then( cb() )
+      .catch(error => this.setState({ errorMessage: error.message }))
+  }
+
 
 // export function setInvisibleRecaptcha() {
 // 	console.log('setInvisibleRecaptcha() called.')
