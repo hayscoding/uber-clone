@@ -24,14 +24,22 @@ export default class LinksScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{flex: 3, backgroundColor: '#007bff'}}>
+        <View style={{flex: 1 /* Change to flex 3 for proper style*/, backgroundColor: '#007bff'}}>
           <Image 
             style={{}}
             source={require('../assets/images/uber_text_logo.png')} 
           />
         </View>
         <View style={{flex: 2, backgroundColor: 'white'}}>
-          <Text>Get moving with Uber</Text>
+          <Text style={{}}>Get moving with Uber</Text>
+          <TextInput 
+            style={{}}
+            onChangeText={(phoneNum) => {}}
+            onSubmitEditing={() => {}}
+            value={'555-555-5555'}
+            placeholder={'Enter your mobile number'}
+            placeholderTextColor={'#a3a3a3'}
+          />
         </View>
       </View>
     );
