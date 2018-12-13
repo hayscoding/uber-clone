@@ -3,7 +3,8 @@ import {
   View, 
   StyleSheet, 
   ScrollView, 
-  Animated 
+  Animated,
+  Image
 } from 'react-native'
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 
@@ -16,17 +17,16 @@ export default class LinksScreen extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      pickerSelection: 'Default value!',
-      pickerDisplayed: false
-    }
   }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={{flex: 3, backgroundColor: '#007bff'}}>
+          <Image 
+            style={{}}
+            source={require('../assets/images/uber_text_logo.png')} 
+          />
         </View>
         <View style={{flex: 2, backgroundColor: 'white'}}>
         </View>
