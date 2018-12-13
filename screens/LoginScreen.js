@@ -34,18 +34,25 @@ export default class LinksScreen extends React.Component {
             source={require('../assets/images/uber_text_logo.png')} 
           />
         </View>
-        <View style={{flex: 2, backgroundColor: 'white'}}>
+        <View style={{ flex: 2, backgroundColor: 'white' }}>
           <Text style={{}}>Get moving with Uber</Text>
-          <TextInput 
-            style={{}}
-            keyboardType="number-pad"
-            onChangeText={(num) => this.setState({phone: num})}
-            onSubmitEditing={() => {}}
-            value={this.state.num}
-            maxLength={7}
-            placeholder={'Enter your mobile number'}
-            placeholderTextColor={'#a3a3a3'}
-          />
+          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+            <View style={{ flex: 1, paddingLeft: 10 }}>
+              <Text style={{ textAlign: 'center', fontSize: 20 }}>+1</Text>
+            </View>
+            <View style={{ flex: 5, paddingRight: 10 }}>
+              <TextInput 
+                style={{ textAlign: 'left', fontSize: 20}}
+                keyboardType="number-pad"
+                onChangeText={(num) => this.setState({phone: num})}
+                onSubmitEditing={() => {}}
+                value={this.state.num}
+                maxLength={7}
+                placeholder={'Enter your mobile number'}
+                placeholderTextColor={'#a3a3a3'}
+              />
+            </View>
+          </View>
         </View>
       </View>
     );
