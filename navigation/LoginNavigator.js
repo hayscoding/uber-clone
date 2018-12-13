@@ -3,6 +3,7 @@ import React from 'react';
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 import LoginScreen from '../screens/LoginScreen';
+import LoadingScreen from '../screens/LoadingScreen';
 
 const LoginStack = createStackNavigator({
   Links: LoginScreen,
@@ -13,6 +14,16 @@ LoginStack.navigationOptions = {
   headerVisible: false,
 };
 
+const LoadingStack = createStackNavigator({
+  Links: LoadingScreen,
+});
+
+LoginStack.navigationOptions = {
+  title: 'Loading',
+  headerVisible: false,
+};
+
 export default createSwitchNavigator({
-  Main: LoginStack,
+  Main: LoadingStack,
+  Login: LoginStack,
 });
