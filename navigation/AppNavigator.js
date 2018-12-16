@@ -18,7 +18,7 @@ const LoadingStack = createStackNavigator({
   Links: LoadingScreen,
 });
 
-LoginStack.navigationOptions = {
+LoadingStack.navigationOptions = {
   title: 'Loading',
   headerVisible: false,
 };

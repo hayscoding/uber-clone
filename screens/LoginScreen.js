@@ -24,7 +24,9 @@ export default class LinksScreen extends React.Component {
 
     this.state = {
       phone: null,
+      navigation: this.props.navigation,
     }
+
   }
 
   componentWillMount() {
@@ -36,6 +38,7 @@ export default class LinksScreen extends React.Component {
 
     console.log('verifying phone number...')
 
+    this.state.navigation.navigate('Main')
     // FirebaseAPI.signInWithPhoneNumber()
   }
 
@@ -59,7 +62,7 @@ export default class LinksScreen extends React.Component {
                 style={{ textAlign: 'left', fontSize: 20}}
                 keyboardType="number-pad"
                 onChangeText={(num) => this.setState({phone: num})}
-                onSubmitEditing={this.verifyNumber}
+                onSubmitEditing={this.verifyNumber.bind(this)}
                 value={this.state.num}
                 maxLength={7}
                 placeholder={'Enter your mobile number'}
