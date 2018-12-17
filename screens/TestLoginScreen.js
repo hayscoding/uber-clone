@@ -29,7 +29,6 @@ export default class TestLogin extends React.Component {
         let token = null
 
         const listener = ({url}) => {
-        	console.log('listener called')
             WebBrowser.dismissBrowser()
         	console.log('listener: ', url)
 
@@ -43,6 +42,8 @@ export default class TestLogin extends React.Component {
         Linking.addEventListener('url', listener)
         await WebBrowser.openBrowserAsync(captchaUrl)
         Linking.removeEventListener('url', listener)
+
+        console.log('token: ', token)
 
         if (token) {
             const {phone} = this.state
