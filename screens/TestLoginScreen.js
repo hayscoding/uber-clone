@@ -4,7 +4,7 @@ import {Linking, WebBrowser} from 'expo'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
-const captchaUrl = `https://uber-clone-course.firebaseapp.com/?appurl=${Linking.makeUrl('')}`
+const captchaUrl = `https://uber-clone-course.firebaseapp.com/?appurl=`+Linking.makeUrl('')
 
 export default class TestLogin extends React.Component {
     constructor(props) {
@@ -27,13 +27,15 @@ export default class TestLogin extends React.Component {
     onPhoneComplete = async () => {
     	console.log('onPhoneComplete()')
         let token = null
+
         const listener = ({url}) => {
+        	console.log('listener called')
             WebBrowser.dismissBrowser()
+        	console.log('listener: ', url)
 
             const tokenEncoded = Linking.parse(url).queryParams['token']
 
             if (tokenEncoded){
-            	console.log('tokenEncoded: ', tokenEncoded)
                 token = decodeURIComponent(tokenEncoded)
             }
         }
