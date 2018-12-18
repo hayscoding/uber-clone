@@ -12,6 +12,10 @@ export function createUser(email, password, cb) {
       .catch(error => this.setState({ errorMessage: error.message }))
   }
 
+export function signOut() {
+	firebase.auth().signOut()
+}
+
 
 // export function setInvisibleRecaptcha() {
 // 	console.log('setInvisibleRecaptcha() called.')
