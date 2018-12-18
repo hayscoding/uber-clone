@@ -25,9 +25,6 @@ export default class TestLogin extends React.Component {
     }
 
     onPhoneComplete = async () => {
-    	console.log('onPhoneComplete()')
-        let token = null
-
         const listener = ({url}) => {
             WebBrowser.dismissBrowser()
         	console.log('listener: ', url)
@@ -39,26 +36,33 @@ export default class TestLogin extends React.Component {
             }
         }
 
+        console.log('onPhoneComplete()')
+        let token = null
+
         Linking.addEventListener('url', listener)
-        await WebBrowser.openBrowserAsync(captchaUrl)
+        await WebBrowser.openBrowserAsync(captchaUrl) //open recaptcha screen
         Linking.removeEventListener('url', listener)
 
         console.log('token: ', token)
 
         if (token) {
-            const {phone} = this.state
-            //fake firebase.auth.ApplicationVerifier
-            const captchaVerifier = {
-                type: 'recaptcha',
-                verify: () => Promise.resolve(token)
-            }
+           this.verifyToken(token)
+        }
+    }
 
-            try {
-                const confirmationResult = await firebase.auth().signInWithPhoneNumber(phone, captchaVerifier)
-                this.setState({confirmationResult})
-            } catch (e) {
-                console.warn(e)
-            }
+    verifyToken = async (token) => {
+    	const {phone} = this.state
+        //fake firebase.auth.ApplicationVerifier
+        const captchaVerifier = {
+            type: 'recaptcha',
+            verify: () => Promise.resolve(token)
+        }
+
+        try {
+            const confirmationResult = await firebase.auth().signInWithPhoneNumber(phone, captchaVerifier)
+            this.setState({confirmationResult})
+        } catch (e) {
+            console.warn(e)
         }
     }
 
