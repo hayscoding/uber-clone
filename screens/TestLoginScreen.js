@@ -4,6 +4,8 @@ import {Linking, WebBrowser} from 'expo'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
+import * as FirebaseAPI from '../utils/FirebaseAPI'
+
 const captchaUrl = `https://uber-clone-course.firebaseapp.com/?appurl=`+Linking.makeUrl('')
 
 export default class TestLogin extends React.Component {
@@ -46,23 +48,9 @@ export default class TestLogin extends React.Component {
         console.log('token: ', token)
 
         if (token) {
-            this.signInWithCaptcha(token)
-        }
-    }
-
-    signInWithCaptcha = async (token) => {
-        const phone = this.state.phone
-        //fake firebase.auth.ApplicationVerifier
-        const captchaVerifier = {
-            type: 'recaptcha',
-            verify: () => Promise.resolve(token)
-        }
-
-        try {
-            const confirmationResult = await firebase.auth().signInWithPhoneNumber(phone, captchaVerifier)
-            this.setState({confirmationResult})
-        } catch (e) {
-            console.warn(e)
+            FirebaseAPI.signInWithPhoneAndCaptcha(this.state.phone, token, (confirmationResult) => {
+                this.setState({confirmationResult})
+            })
         }
     }
 

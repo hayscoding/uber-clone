@@ -16,6 +16,22 @@ export function signOut() {
 	firebase.auth().signOut()
 }
 
+export const signInWithPhoneAndCaptcha = async (phone, token, cb) => {
+    //fake firebase.auth.ApplicationVerifier
+    const captchaVerifier = {
+        type: 'recaptcha',
+        verify: () => Promise.resolve(token)
+    }
+
+    try {
+        const confirmationResult = await firebase.auth().signInWithPhoneNumber(phone, captchaVerifier)
+        
+        cb(confirmationResult)
+    } catch (e) {
+        console.warn(e)
+    }
+}
+
 
 // export function setInvisibleRecaptcha() {
 // 	console.log('setInvisibleRecaptcha() called.')
