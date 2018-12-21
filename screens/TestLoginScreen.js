@@ -86,17 +86,6 @@ export default class TestLogin extends React.Component {
     }
 
     render() {
-        // if (this.state.user)
-        //     return (
-        //         <ScrollView style={{padding: 20, marginTop: 20}}>
-        //             <Text>You signed in</Text>
-        //             <Button
-        //                 onPress={this.onSignOut}
-        //                 title="Sign out"
-        //             />
-        //         </ScrollView>
-        //     )
-
         if (!this.state.confirmationResult)
             return (
                 <ScrollView style={{padding: 20, marginTop: 20}}>
