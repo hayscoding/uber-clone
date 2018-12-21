@@ -1,8 +1,7 @@
 import * as React from 'react'
 import {
     Text, 
-    View,
-    TouchableOpacity,
+    View, 
     ScrollView,
     TextInput, 
     Button, 
@@ -16,7 +15,7 @@ import * as FirebaseAPI from '../utils/FirebaseAPI'
 
 const captchaUrl = `https://uber-clone-course.firebaseapp.com/?appurl=`+Linking.makeUrl('')
 
-export default class TestLogin extends React.Component {
+export default class VerifyScreen extends React.Component {
     static navigationOptions = {
         headerMode: 'none',
         headerVisible: false,
@@ -98,34 +97,57 @@ export default class TestLogin extends React.Component {
         })
     }
 
-
+    
 
     render() {
-        return(
-            <View style={{flex: 1, backgroundColor: 'red'}}>
-                <View style={{flex: 1 /* Change to flex 3 for proper style*/, backgroundColor: '#007bff'}}>
-                    <Image 
-                        style={{}}
-                        source={require('../assets/images/uber_text_logo.png')} 
-                    />
-                </View>
-                <View style={{ flex: 2, backgroundColor: 'white' }}>
-                    <Text style={{}}>Get moving with Uber</Text>
-                    <TouchableOpacity
-                        style={{flex: 1}}
-                        onPress={() => {this.props.navigation.navigate('Verify')}}
-                    >
+        if (!this.state.confirmationResult)
+            return (
+                <View style={{flex: 1, backgroundColor: 'red'}}>
+                    <View style={{flex: 1 /* Change to flex 3 for proper style*/, backgroundColor: '#007bff'}}>
+                        <Image 
+                            style={{}}
+                            source={require('../assets/images/uber_text_logo.png')} 
+                        />
+                    </View>
+                    <View style={{ flex: 2, backgroundColor: 'white' }}>
+                        <Text style={{}}>Get moving with Uber</Text>
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
                             <View style={{ flex: 1, paddingLeft: 10 }}>
                                 <Text style={{ textAlign: 'center', fontSize: 20 }}>+1</Text>
                             </View>
                             <View style={{ flex: 5, paddingRight: 10 }}>
-                                <Text style={{ textAlign: 'left', fontSize: 20, color: '#a3a3a3'}}>Enter your mobile number</Text>
+                                <TextInput 
+                                    style={{ textAlign: 'left', fontSize: 20}}
+                                    keyboardType="phone-pad"
+                                    value={this.state.phone}
+                                    onChangeText={this.onPhoneChange}
+                                    // maxLength={7}
+                                    placeholder={'Enter your mobile number'}
+                                    placeholderTextColor={'#a3a3a3'}
+                                />
+                                <Button
+                                    onPress={this.onPhoneComplete}
+                                    title="Next"
+                                />
                             </View>
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-        )
+            )
+        else
+            return (
+                <ScrollView style={{padding: 20, marginTop: 20}}>
+                    <TextInput
+                        value={this.state.code}
+                        onChangeText={this.onCodeChange}
+                        keyboardType="numeric"
+                        placeholder="Code from SMS"
+                    />
+                    <Button
+                        onPress={this.onSignIn}
+                        title="Sign in"
+                    />
+                </ScrollView>
+            )
     }
 }

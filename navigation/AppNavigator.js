@@ -4,6 +4,7 @@ import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import MainDrawerNavigator from './MainDrawerNavigator';
 import TestLoginScreen from '../screens/TestLoginScreen';
 import LoadingScreen from '../screens/LoadingScreen';
+import VerifyScreen from '../screens/VerifyScreen';
 
 const LoginStack = createStackNavigator({
   Links: TestLoginScreen,
@@ -23,6 +24,15 @@ LoadingStack.navigationOptions = {
   headerVisible: false,
 };
 
+const VerifyStack = createStackNavigator({
+  Links: VerifyScreen,
+});
+
+VerifyStack.navigationOptions = {
+  title: 'Loading',
+  headerVisible: false,
+};
+
 const Config = {
 	initialRouteName: 'Loading'
 }
@@ -30,6 +40,7 @@ const Config = {
 export default createSwitchNavigator({
 	  Loading: LoadingStack,
 	  Login: LoginStack,
+	  Verify: VerifyStack,
 	  Main: MainDrawerNavigator,
 	},
 	Config
