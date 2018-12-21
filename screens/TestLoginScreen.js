@@ -46,19 +46,23 @@ export default class TestLogin extends React.Component {
         console.log('token: ', token)
 
         if (token) {
-            const {phone} = this.state
-            //fake firebase.auth.ApplicationVerifier
-            const captchaVerifier = {
-                type: 'recaptcha',
-                verify: () => Promise.resolve(token)
-            }
+            this.signInWithCaptcha(token)
+        }
+    }
 
-            try {
-                const confirmationResult = await firebase.auth().signInWithPhoneNumber(phone, captchaVerifier)
-                this.setState({confirmationResult})
-            } catch (e) {
-                console.warn(e)
-            }
+    signInWithCaptcha = async (token) => {
+        const phone = this.state.phone
+        //fake firebase.auth.ApplicationVerifier
+        const captchaVerifier = {
+            type: 'recaptcha',
+            verify: () => Promise.resolve(token)
+        }
+
+        try {
+            const confirmationResult = await firebase.auth().signInWithPhoneNumber(phone, captchaVerifier)
+            this.setState({confirmationResult})
+        } catch (e) {
+            console.warn(e)
         }
     }
 
