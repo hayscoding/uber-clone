@@ -27,7 +27,6 @@ export default class TestLogin extends React.Component {
     }
 
     onPhoneComplete = async () => {
-    	console.log('onPhoneComplete()')
         let token = null
 
         const listener = ({url}) => {
@@ -45,7 +44,7 @@ export default class TestLogin extends React.Component {
         await WebBrowser.openBrowserAsync(captchaUrl) //open recaptcha screen
         Linking.removeEventListener('url', listener)
 
-        console.log('token: ', token)
+        // console.log('token: ', token)
 
         if (token) {
             FirebaseAPI.signInWithPhoneAndCaptcha(this.state.phone, token, (confirmationResult) => {
