@@ -1,6 +1,13 @@
 import * as React from 'react'
-import {Text, View, ScrollView, TextInput, Button} from 'react-native'
-import {Linking, WebBrowser} from 'expo'
+import {
+    Text, 
+    View, 
+    ScrollView,
+    TextInput, 
+    Button, 
+    Image,
+} from 'react-native'
+import {Linking, WebBrowser,} from 'expo'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
@@ -9,6 +16,12 @@ import * as FirebaseAPI from '../utils/FirebaseAPI'
 const captchaUrl = `https://uber-clone-course.firebaseapp.com/?appurl=`+Linking.makeUrl('')
 
 export default class TestLogin extends React.Component {
+    static navigationOptions = {
+        headerMode: 'none',
+        headerVisible: false,
+        header: null,
+      };
+  
     constructor(props) {
         super(props)
         this.state = {
@@ -87,21 +100,37 @@ export default class TestLogin extends React.Component {
     render() {
         if (!this.state.confirmationResult)
             return (
-                <ScrollView style={{padding: 20, marginTop: 20}}>
-                    <TextInput 
-                        style={{ textAlign: 'left', fontSize: 20}}
-                        keyboardType="phone-pad"
-                        value={this.state.phone}
-                        onChangeText={this.onPhoneChange}
-                        // maxLength={7}
-                        placeholder={'Enter your mobile number'}
-                        placeholderTextColor={'#a3a3a3'}
-                    />
-                    <Button
-                        onPress={this.onPhoneComplete}
-                        title="Next"
-                    />
-                </ScrollView>
+                <View style={{flex: 1, backgroundColor: 'red'}}>
+                    <View style={{flex: 1 /* Change to flex 3 for proper style*/, backgroundColor: '#007bff'}}>
+                        <Image 
+                            style={{}}
+                            source={require('../assets/images/uber_text_logo.png')} 
+                        />
+                    </View>
+                    <View style={{ flex: 2, backgroundColor: 'white' }}>
+                        <Text style={{}}>Get moving with Uber</Text>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                            <View style={{ flex: 1, paddingLeft: 10 }}>
+                                <Text style={{ textAlign: 'center', fontSize: 20 }}>+1</Text>
+                            </View>
+                            <View style={{ flex: 5, paddingRight: 10 }}>
+                                <TextInput 
+                                    style={{ textAlign: 'left', fontSize: 20}}
+                                    keyboardType="phone-pad"
+                                    value={this.state.phone}
+                                    onChangeText={this.onPhoneChange}
+                                    // maxLength={7}
+                                    placeholder={'Enter your mobile number'}
+                                    placeholderTextColor={'#a3a3a3'}
+                                />
+                                <Button
+                                    onPress={this.onPhoneComplete}
+                                    title="Next"
+                                />
+                            </View>
+                        </View>
+                    </View>
+                </View>
             )
         else
             return (
