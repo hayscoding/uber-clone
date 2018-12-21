@@ -88,11 +88,14 @@ export default class TestLogin extends React.Component {
         if (!this.state.confirmationResult)
             return (
                 <ScrollView style={{padding: 20, marginTop: 20}}>
-                    <TextInput
+                    <TextInput 
+                        style={{ textAlign: 'left', fontSize: 20}}
+                        keyboardType="phone-pad"
                         value={this.state.phone}
                         onChangeText={this.onPhoneChange}
-                        keyboardType="phone-pad"
-                        placeholder="Your phone"
+                        // maxLength={7}
+                        placeholder={'Enter your mobile number'}
+                        placeholderTextColor={'#a3a3a3'}
                     />
                     <Button
                         onPress={this.onPhoneComplete}
