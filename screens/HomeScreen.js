@@ -307,7 +307,7 @@ export default class HomeScreen extends React.Component {
     // FirebaseAPI.getUser(firebase.auth().currentUser.uid, (user) => {
     //   console.log('test user: ', user)
     // })
-    FirebaseAPI.storeNewUser(firebase.auth().currentUser)
+    // FirebaseAPI.storeNewUser(firebase.auth().currentUser)
   }
 
   render() {

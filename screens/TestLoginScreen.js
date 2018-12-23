@@ -35,7 +35,8 @@ export default class TestLogin extends React.Component {
         firebase.auth().onAuthStateChanged(user => {
             this.setState({user})
 
-            FirebaseAPI.ifUserNotFound(user.uid, () => FirebaseAPI.storeUser(user))
+            if(user)
+                FirebaseAPI.storeNewUser(user)
         })
     }
 
