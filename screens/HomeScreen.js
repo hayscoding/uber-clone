@@ -212,34 +212,6 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  mainButtons() {
-    return(
-      <View>
-        <Icon name="md-menu" color="#000000" size={32} style={styles.menuIcon}
-            onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
-          />
-        <DestinationButton cb={() => { this.toggleDestinationInput() }}/>
-        <SuggestedDestinationButton cb={() => { this.toggleComponentOverlay() }}/>
-        <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
-      </View>
-    )
-  }
-
-  componentOverlay() {
-    if(this.state.requestSectionOpen)
-      return <RideRequestSection 
-        backCb={() => { this.toggleComponentOverlay() }} 
-        locationCb={() => { this.setRegionToCurrentLocation() }} 
-      />
-    else if(this.state.destInputOpen && !this.state.requestSectionOpen)
-      return <DestinationInput 
-        backCb={() => { this.toggleDestinationInput() }} 
-        coordsCb={(coords) => { this.setState({route: coords}) }}
-      />
-    else
-      return this.mainButtons()
-  }
-
   updateMarkerBearing(index, bearing) {
     // console.log('updateMarkerBearing: ', index, this.state.markerBearings[index])
 
@@ -279,7 +251,7 @@ export default class HomeScreen extends React.Component {
 
   animatedMarker(index) {
     // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
-    console.log('markerBearing: ', this.state.markerBearings[index])
+    // console.log('markerBearing: ', this.state.markerBearings[index])
     if(this.state.markerCoordinates != null && this.state.markerBearings[index] != undefined)
       return(
         <MapView.Marker.Animated
@@ -300,25 +272,33 @@ export default class HomeScreen extends React.Component {
       )
   }
 
-  // animatedCarMarker() {
-  //   return(
-  //     <MapView.Marker.Animated
-  //       coordinate={this.state.coordinate}
-  //       anchor={{x: 0.35, y: 0.32}} //centers car.png image
-  //       // ref={marker => { this.marker = marker; }}
-  //       style={{width: 50, height: 50}}
-  //       //rotation={}
-  //       tracksViewChanges={true}
-  //       //animateMarkerToCoordinate={}
-  //     >
-  //       <Image source={require('../assets/images/car.png')}
-  //         style={{ 
-  //           width: 32, 
-  //           height: 32, 
-  //         }}/>
-  //     </MapView.Marker.Animated>
-  //   )
-  // }
+  mainButtons() {
+    return(
+      <View>
+        <Icon name="md-menu" color="#000000" size={32} style={styles.menuIcon}
+            onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
+          />
+        <DestinationButton cb={() => { this.toggleDestinationInput() }}/>
+        <SuggestedDestinationButton cb={() => { this.toggleComponentOverlay() }}/>
+        <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
+      </View>
+    )
+  }
+
+  componentOverlay() {
+    if(this.state.requestSectionOpen)
+      return <RideRequestSection 
+        backCb={() => { this.toggleComponentOverlay() }} 
+        locationCb={() => { this.setRegionToCurrentLocation() }} 
+      />
+    else if(this.state.destInputOpen && !this.state.requestSectionOpen)
+      return <DestinationInput 
+        backCb={() => { this.toggleDestinationInput() }} 
+        coordsCb={(coords) => { this.setState({route: coords}) }}
+      />
+    else
+      return this.mainButtons()
+  }
 
   render() {
     // console.log("HOMESCREEN OUTPUT: \n", 

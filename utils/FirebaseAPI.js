@@ -5,12 +5,13 @@ var env = process.env.NODE_ENV || 'development';
 // var env = 'production'
 var config = require('../config')[env];
 
-export function createUser(email, password, cb) {
-    firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then( cb() )
-      .catch(error => this.setState({ errorMessage: error.message }))
-  }
+export function createUser(uid) {
+  console.log('createUser UID: ', uid)
+}
+
+export function userCreated() {
+  return firebase.auth().currentUser != null ? true : false
+}
 
 export function signOut() {
 	firebase.auth().signOut()
