@@ -26,7 +26,6 @@ export default class LinksScreen extends React.Component {
       phone: null,
       navigation: this.props.navigation,
     }
-
   }
 
   componentWillMount() {
