@@ -5,25 +5,37 @@ var env = process.env.NODE_ENV || 'development';
 // var env = 'production'
 var config = require('../config')[env];
 
-export function createUser(user) {
-  // console.log('createUser: ', user)
-
-  const data = {
-    uid: user.uid,
-    phoneNumber: user.phoneNumber,
-    name: '',
-  }
-
-  firebase.database().ref().child('users').child(user.uid)
-    .set({ data })
+export function storeNewUser(user) {
+    ifUserExists(user.uid, () => storeUser(user))
 }
 
-export function getUser(uid, cb) {
-  return firebase.database().ref().child('users').child(uid)
-    .once('value')
-    .then((snap) => {
-      cb(snap.val())
+export function storeUser(user) {
+    const data = {
+        uid: user.uid,
+        phoneNumber: user.phoneNumber,
+        name: '',
+    }
+
+    firebase.database().ref().child('users').child(user.uid)
+        .set({ data })
+}
+
+export function ifUserExists(uid, cb) {
+    getUser(uid, (user) => {
+        if(!user) {
+            cb()
+        }
     })
+}
+
+export function getUser(uid, cb) { 
+    console.log('getUser called')
+
+    return firebase.database().ref().child('users').child(uid)
+        .once('value')
+        .then((snap) => {
+            cb(snap.val())
+        })
 }
 
 export function signOut() {

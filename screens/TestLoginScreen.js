@@ -32,9 +32,16 @@ export default class TestLogin extends React.Component {
             code: ''
         }
 
+        function storeNewUser(user) {
+            console.log('storeNewUser: ', user)
+
+            FirebaseAPI.getUser(user.uid)
+        }
+
         firebase.auth().onAuthStateChanged(user => {
             this.setState({user})
 
+            storeNewUser()
             // FirebaseAPI.getCurrentUser()
             // console.log('userStored? ', FirebaseAPI.userStored())
             // if(!FirebaseAPI.userStored())
