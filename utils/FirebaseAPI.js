@@ -6,7 +6,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('../config')[env];
 
 export function storeNewUser(user) {
-    ifUserExists(user.uid, () => storeUser(user))
+    ifUserNotFound(user.uid, () => storeUser(user))
 }
 
 export function storeUser(user) {
@@ -18,12 +18,16 @@ export function storeUser(user) {
 
     firebase.database().ref().child('users').child(user.uid)
         .set({ data })
+
+    console.log('stored user.')
 }
 
-export function ifUserExists(uid, cb) {
+export function ifUserNotFound(uid, cb) {
     getUser(uid, (user) => {
         if(!user) {
             cb()
+        } else {
+            console.log('user exist in database.')
         }
     })
 }
