@@ -35,9 +35,10 @@ export default class TestLogin extends React.Component {
         firebase.auth().onAuthStateChanged(user => {
             this.setState({user})
 
-            console.log('userCreated? ', FirebaseAPI.userCreated())
-            // if(!FirebaseAPI.userCreated())
-            //     FirebaseAPI.createUser()
+            // FirebaseAPI.getCurrentUser()
+            // console.log('userStored? ', FirebaseAPI.userStored())
+            // if(!FirebaseAPI.userStored())
+            //     FirebaseAPI.userStored()
         })
     }
 

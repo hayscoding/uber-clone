@@ -19,6 +19,7 @@ import {
   Permissions,
 } from 'expo';
 import Icon from 'react-native-vector-icons/Ionicons';
+import firebase from 'firebase'
 
 import { MonoText } from '../components/StyledText';
 import { DestinationButton } from '../components/DestinationButton';
@@ -28,6 +29,7 @@ import { SuggestedDestinationButton } from '../components/SuggestedDestinationBu
 import DestinationInput from '../components/DestinationInput';
 
 import * as DirectionsAPI from '../utils/DirectionsAPI'
+import * as FirebaseAPI from '../utils/FirebaseAPI'
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
@@ -300,6 +302,14 @@ export default class HomeScreen extends React.Component {
       return this.mainButtons()
   }
 
+  test() {
+    console.log('test pressed')
+    // FirebaseAPI.getUser(firebase.auth().currentUser.uid, (user) => {
+    //   console.log('test user: ', user)
+    // })
+    FirebaseAPI.createUser(firebase.auth().currentUser)
+  }
+
   render() {
     // console.log("HOMESCREEN OUTPUT: \n", 
     //   "LOCATION COORDS: ", this.state.location.coords,
@@ -313,11 +323,12 @@ export default class HomeScreen extends React.Component {
     // }
     // console.log('render() markerCoordinates: ', this.state.markerCoordinates)
 
+
     return (
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => this.startMarkerAnimation()}
+          onPress={() => {this.test()} /*this.startMarkerAnimation()*/}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>

@@ -5,25 +5,25 @@ var env = process.env.NODE_ENV || 'development';
 // var env = 'production'
 var config = require('../config')[env];
 
-export function createUser(uid) {
-  console.log('createUser UID: ', firebase.auth().currentUser)
-}
+export function createUser(user) {
+  console.log('createUser: ', user)
 
-export function userCreated() {
-  const user = firebase.auth().currentUser
-
-  if(user != null) {
-    console.log('getUser: ', getUser(user.uid))
-  } else {
-    return false
+  const data = {
+    uid: user.uid,
+    phoneNumber: user.phoneNumber,
+    name: '',
   }
+
+  firebase.database().ref().child('users').child(user.uid)
+    .set({ data })
+
 }
 
 export function getUser(uid, cb) {
   return firebase.database().ref().child('users').child(uid)
     .once('value')
     .then((snap) => {
-      console.log('user: ', snap.val())
+      cb(snap.val())
     })
 }
 
