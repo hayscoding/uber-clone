@@ -6,7 +6,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('../config')[env];
 
 export function createUser(user) {
-  console.log('createUser: ', user)
+  // console.log('createUser: ', user)
 
   const data = {
     uid: user.uid,
@@ -16,7 +16,6 @@ export function createUser(user) {
 
   firebase.database().ref().child('users').child(user.uid)
     .set({ data })
-
 }
 
 export function getUser(uid, cb) {
