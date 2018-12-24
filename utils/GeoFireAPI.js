@@ -7,7 +7,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('../config')[env];
 
 const firebaseRef = firebase.database().ref();
-const geoFire = new GeoFire(firebaseRef);
+const geoFire = new GeoFire(firebaseRef.child('./geoData'));
 
 /*
 #######################################################
