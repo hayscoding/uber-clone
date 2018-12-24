@@ -30,6 +30,7 @@ import DestinationInput from '../components/DestinationInput';
 
 import * as DirectionsAPI from '../utils/DirectionsAPI'
 import * as FirebaseAPI from '../utils/FirebaseAPI'
+import * as GeoFireAPI from '../utils/GeoFireAPI'
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
@@ -304,6 +305,7 @@ export default class HomeScreen extends React.Component {
 
   test() {
     console.log('test pressed')
+    GeoFireAPI.watchLocationAsync(firebase.auth().currentUser.uid)
     // FirebaseAPI.getUser(firebase.auth().currentUser.uid, (user) => {
     //   console.log('test user: ', user)
     // })
