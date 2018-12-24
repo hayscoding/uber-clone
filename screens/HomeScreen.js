@@ -328,7 +328,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => {this.test()} /*this.startMarkerAnimation()*/}
+          onPress={() => this.startMarkerAnimation()}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>
