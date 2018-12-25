@@ -36,6 +36,22 @@ export default class VerifyScreen extends React.Component {
         this.setState({phone})
     }
 
+    onCodeChange = (code) => {
+        this.setState({code})
+    }
+
+    onSignIn = async () => {
+        const {confirmationResult, code} = this.state
+
+        try {
+            await confirmationResult.confirm(code)
+        } catch (e) {
+            console.warn(e)
+        }
+
+        this.navIfSignIn()
+    }
+
     onPhoneComplete = async () => {
         let token = null
 
@@ -63,10 +79,6 @@ export default class VerifyScreen extends React.Component {
         }
     }
 
-    onCodeChange = (code) => {
-        this.setState({code})
-    }
-
     navIfSignIn = () => {
         FirebaseAPI.getAuth(user => {
             this.setState({user})
@@ -77,31 +89,7 @@ export default class VerifyScreen extends React.Component {
             }
         })
     }
-
-    onSignIn = async () => {
-        const {confirmationResult, code} = this.state
-
-        try {
-            await confirmationResult.confirm(code)
-        } catch (e) {
-            console.warn(e)
-        }
-
-        this.navIfSignIn()
-        // this.reset()
-    }
-
-    reset = () => {
-        this.setState({
-            phone: '',
-            phoneCompleted: false,
-            confirmationResult: undefined,
-            code: ''
-        })
-    }
-
     
-
     render() {
         if (!this.state.confirmationResult)
             return (
