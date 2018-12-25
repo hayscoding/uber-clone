@@ -52,9 +52,23 @@ export const setUserLocation = (uid, lat, lon) => {
 	)
 }
 
+export const setDriverLocation = (uid, lat, lon) => {
+	console.log('setUserCoord()')
+	const firebaseRef = firebase.database().ref()
+	const geoFire = new GeoFire(firebaseRef.child('drivers/'))
+
+	geoFire.set('location', [lat, lon])
+		.then(() => {
+			console.log("Key has been added to GeoFire");
+		}, (error) => {
+			console.log("Error: " + error);
+		}
+	)
+}
+
 export const getMarkerLocation = (uid, cb) => {
 	const firebaseRef = firebase.database().ref()
-	const geoFire = new GeoFire(firebaseRef.child('geoData/'))
+	const geoFire = new GeoFire(firebaseRef.child('drivers/'))
 
 	geoFire.get(uid).then((location) => {
 		if(location != null)
@@ -65,11 +79,11 @@ export const getMarkerLocation = (uid, cb) => {
 }
 
 export const getUserLocation = (uid, cb) => {
-	console.log('get user coord called')
+	console.log('get user location called')
 
 	FirebaseAPI.getUser(uid, (user) => {
 		if(user.location)
-			console.log('has user: ', user.location)
+			cb(user.location.l)
 		else
 			console.log('cannot find user coord')
 	})
@@ -82,9 +96,21 @@ export const getUserLocation = (uid, cb) => {
 #######################################################
 // */
 
-// export const queryNearbyCars = (uid) {
+export const getGeoQuery = (uid, cb) => {
+	const firebaseRef = firebase.database().ref()
+	const geoFire = new GeoFire(firebaseRef.child('drivers/'))
 
-// }
+	console.log('getGeoQuery called')
+
+	getUserLocation(uid, (location) => {
+		const geoQuery = geoFire.query({
+			center: location,
+			radius: 10.5
+		})
+
+		cb(geoQuery)
+	})
+}
 
 export function createQueryAtLocation(lat, lon) {
 
