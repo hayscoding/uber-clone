@@ -51,6 +51,7 @@ export default class HomeScreen extends React.Component {
         latitudeDelta: 0.045,
         longitudeDelta: 0.045,
       },
+      markers: undefined,
       route: null,
       coordinate: new MapView.AnimatedRegion({
         latitude: 30.3019044,
@@ -70,6 +71,10 @@ export default class HomeScreen extends React.Component {
     DirectionsAPI.getSimulatorPolylines((polylines) => {
       this.setState({polylines: polylines, markerCoordinates: this.getCoordinateFromPolylines(polylines), markerBearings: this.getInitBearings(polylines)})
     })
+  }
+
+  storeMarkerCoord() {
+
   }
 
   componentWillMount() {
@@ -303,12 +308,37 @@ export default class HomeScreen extends React.Component {
       return this.mainButtons()
   }
 
+  animatedMarker(index) {
+    // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
+    // console.log('markerBearing: ', this.state.markerBearings[index])
+    if(this.state.markerCoordinates != null && this.state.markerBearings[index] != undefined)
+      return(
+        <MapView.Marker.Animated
+          coordinate={this.state.markerCoordinates[index]}
+          anchor={{x: 0.35, y: 0.32}} //centers car.png image
+          // ref={marker => { this.marker = marker; }}
+          style={{width: 50, height: 50, transform: [{rotate: this.state.markerBearings[index]}]}}
+          //rotation={}
+          tracksViewChanges={true}
+          //animateMarkerToCoordinate={}
+        >
+          <Image source={require('../assets/images/car.png')}
+            style={{ 
+              width: 32, 
+              height: 32, 
+            }}/>
+        </MapView.Marker.Animated>
+      )
+  }
+
   test() {
     console.log('test pressed')
+    // GeoFireAPI.getUserLocation(firebase.auth().currentUser.uid)
+    GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
     // GeoFireAPI.getMarkerCoord('test1', (location) => {
     //   console.log('marker location: ', location)
     // })
-    GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
+    // GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
     // FirebaseAPI.getUser(firebase.auth().currentUser.uid, (user) => {
     //   console.log('test user: ', user)
     // })
@@ -355,10 +385,6 @@ export default class HomeScreen extends React.Component {
               )
             })()
            }
-            {this.animatedMarker(0)}
-            {this.animatedMarker(1)}
-            {this.animatedMarker(2)}
-            {this.animatedMarker(3)}
         </MapView>
       </View>
     );

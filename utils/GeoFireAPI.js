@@ -12,13 +12,12 @@ import firebase from 'firebase'
 import GeoFire from 'geofire'
 import { Location } from 'expo'
 
+import * as FirebaseAPI from './FirebaseAPI'
+
 //Automatically set to 'production' when published through Expo
 var env = process.env.NODE_ENV || 'development';
 // var env = 'production'
 var config = require('../config')[env];
-
-// const firebaseRef = firebase.database().ref();
-// const geoFire = new GeoFire(firebaseRef.child('./geoData'));
 
 const OPTIONS = {
 	enableHighAccuracy: true,
@@ -32,34 +31,19 @@ const OPTIONS = {
 #######################################################
 */
 
-// export const watchLocationAsync = async (cb) => {
-//     let { status } = await Permissions.askAsync(Permissions.LOCATION);
-
-//     if (status !== 'granted') {
-//       this.setState({
-//         errorMessage: 'Permission to access location was denied',
-//       });
-//     }
-
-//     let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
-
-//     this.setState({location: location,  region: this.getRegionFromLocation(location)});
-//   };
-// }
-
 export const watchLocation =  (uid) => {
 	console.log('watchLocation()')
 	return Location.watchPositionAsync(OPTIONS, (pos) => {
-		setUserCoord(uid, pos.coords.latitude, pos.coords.longitude)
+		setUserLocation(uid, pos.coords.latitude, pos.coords.longitude)
 	})
 }
 
-export const setUserCoord = (uid, lat, lon) => {
+export const setUserLocation = (uid, lat, lon) => {
 	console.log('setUserCoord()')
 	const firebaseRef = firebase.database().ref()
-	const geoFire = new GeoFire(firebaseRef.child('users/'+uid+'/location/'))
+	const geoFire = new GeoFire(firebaseRef.child('users/'+uid))
 
-	geoFire.set(uid, [lat, lon])
+	geoFire.set('location', [lat, lon])
 		.then(() => {
 			console.log("Key has been added to GeoFire");
 		}, (error) => {
@@ -68,7 +52,7 @@ export const setUserCoord = (uid, lat, lon) => {
 	)
 }
 
-export const getMarkerCoord = (uid, cb) => {
+export const getMarkerLocation = (uid, cb) => {
 	const firebaseRef = firebase.database().ref()
 	const geoFire = new GeoFire(firebaseRef.child('geoData/'))
 
@@ -80,12 +64,27 @@ export const getMarkerCoord = (uid, cb) => {
 	})
 }
 
+export const getUserLocation = (uid, cb) => {
+	console.log('get user coord called')
+
+	FirebaseAPI.getUser(uid, (user) => {
+		if(user.location)
+			console.log('has user: ', user.location)
+		else
+			console.log('cannot find user coord')
+	})
+}
+
 
 /*
 #######################################################
 --------------      QUERY FUNCTIONS      --------------
 #######################################################
-*/
+// */
+
+// export const queryNearbyCars = (uid) {
+
+// }
 
 export function createQueryAtLocation(lat, lon) {
 
