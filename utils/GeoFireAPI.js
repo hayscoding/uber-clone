@@ -10,7 +10,7 @@
 */
 import firebase from 'firebase'
 import GeoFire from 'geofire'
-import Expo from 'expo'
+import { Location } from 'expo'
 
 //Automatically set to 'production' when published through Expo
 var env = process.env.NODE_ENV || 'development';
@@ -49,7 +49,7 @@ const OPTIONS = {
 
 export const watchLocation =  (uid) => {
 	console.log('watchLocation()')
-	return Expo.Location.watchPositionAsync(OPTIONS, (pos) => {
+	return Location.watchPositionAsync(OPTIONS, (pos) => {
 		setUserCoord(uid, pos.coords.latitude, pos.coords.longitude)
 	})
 }
