@@ -68,6 +68,18 @@ export const setUserCoord = (uid, lat, lon) => {
 	)
 }
 
+export const getMarkerCoord = (uid, cb) => {
+	const firebaseRef = firebase.database().ref()
+	const geoFire = new GeoFire(firebaseRef.child('geoData/'))
+	
+	geoFire.get(uid).then((location) => {
+		if(location != null)
+			cb(location)
+		else
+			console.log('location not found.')
+	})
+}
+
 
 /*
 #######################################################
