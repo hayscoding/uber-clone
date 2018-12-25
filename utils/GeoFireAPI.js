@@ -96,9 +96,47 @@ export const getUserLocation = (uid, cb) => {
 #######################################################
 // */
 
+
+const onReadyRegistration = (geoQuery) => {
+	geoQuery.on("ready", function() {
+		console.log("GeoQuery has loaded and fired all other events for initial data");
+	});
+}
+
+const onKeyEnteredRegistration = (geoQuery) => {
+	geoQuery.on("key_entered", function(key, location, distance) {
+		console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+	});
+}
+
+const onKeyExitedRegistration = (geoQuery) => {
+	geoQuery.on("key_exited", function(key, location, distance) {
+		console.log(key + " exited query to " + location + " (" + distance + " km from center)");
+	});
+}
+
+const onKeyMovedRegistration = (geoQuery) => {
+	geoQuery.on("key_moved", function(key, location, distance) {
+		console.log(key + " moved within query to " + location + " (" + distance + " km from center)");
+	});
+}
+
+
+export const setGeoQueryListeners = (geoQuery) => {
+	console.log('setGeoQueryListeners called')
+
+	if(geoQuery) {
+		onReadyRegistration(geoQuery)
+		onKeyEnteredRegistration(geoQuery)
+		onKeyExitedRegistration(geoQuery)
+		onKeyMovedRegistration(geoQuery)
+	} else
+		console.log('geoQuery not found')
+}
+
 export const getGeoQuery = (uid, cb) => {
 	const firebaseRef = firebase.database().ref()
-	const geoFire = new GeoFire(firebaseRef.child('drivers/'))
+	const geoFire = new GeoFire(firebaseRef.child('drivers'))
 
 	console.log('getGeoQuery called')
 
@@ -112,6 +150,6 @@ export const getGeoQuery = (uid, cb) => {
 	})
 }
 
-export function createQueryAtLocation(lat, lon) {
-
+export const cancelGeoQuery = (geoQuery) => {
+	geoQuery.cancel()
 }

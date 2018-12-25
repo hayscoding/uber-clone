@@ -334,8 +334,10 @@ export default class HomeScreen extends React.Component {
   test() {
     console.log('test pressed')
     GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
-      console.log('geoQuery: ', geoQuery)
+      GeoFireAPI.setGeoQueryListeners(geoQuery)
     })
+
+
     // GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
     // GeoFireAPI.getMarkerCoord('test1', (location) => {
     //   console.log('marker location: ', location)
