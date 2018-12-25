@@ -57,7 +57,7 @@ export const watchLocation =  (uid) => {
 export const setUserCoord = (uid, lat, lon) => {
 	console.log('setUserCoord()')
 	const firebaseRef = firebase.database().ref()
-	const geoFire = new GeoFire(firebaseRef.child('geoData/'))
+	const geoFire = new GeoFire(firebaseRef.child('users/'+uid+'/location/'))
 
 	geoFire.set(uid, [lat, lon])
 		.then(() => {
@@ -71,7 +71,7 @@ export const setUserCoord = (uid, lat, lon) => {
 export const getMarkerCoord = (uid, cb) => {
 	const firebaseRef = firebase.database().ref()
 	const geoFire = new GeoFire(firebaseRef.child('geoData/'))
-	
+
 	geoFire.get(uid).then((location) => {
 		if(location != null)
 			cb(location)
