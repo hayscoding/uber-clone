@@ -9,7 +9,7 @@
 <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>
 */
 import firebase from 'firebase'
-import geofire from 'geofire'
+import GeoFire from 'geofire'
 import Expo from 'expo'
 
 //Automatically set to 'production' when published through Expo
@@ -47,17 +47,19 @@ const OPTIONS = {
 //   };
 // }
 
-export const watchLocationAsync = (key) => {
-	Expo.Location.watchPositionAsync(OPTIONS, (pos) => {
-		setUserCoord(key, pos.coords.latitude, pos.coords.longitude)
+export const watchLocation =  (uid) => {
+	console.log('watchLocation()')
+	return Expo.Location.watchPositionAsync(OPTIONS, (pos) => {
+		setUserCoord(uid, pos.coords.latitude, pos.coords.longitude)
 	})
 }
 
-export const setUserCoord = (key, lat, lon) => {
+export const setUserCoord = (uid, lat, lon) => {
+	console.log('setUserCoord()')
 	const firebaseRef = firebase.database().ref()
 	const geoFire = new GeoFire(firebaseRef.child('geoData/'))
 
-	geoFire.set(key, [lat, lon])
+	geoFire.set(uid, [lat, lon])
 		.then(() => {
 			console.log("Key has been added to GeoFire");
 		}, (error) => {

@@ -305,7 +305,7 @@ export default class HomeScreen extends React.Component {
 
   test() {
     console.log('test pressed')
-    GeoFireAPI.watchLocationAsync(firebase.auth().currentUser.uid)
+    GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
     // FirebaseAPI.getUser(firebase.auth().currentUser.uid, (user) => {
     //   console.log('test user: ', user)
     // })
@@ -330,7 +330,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.componentOverlay()}
         <TouchableOpacity
-          onPress={() => this.startMarkerAnimation()}
+          onPress={() => this.test()/*this.startMarkerAnimation()*/}
           style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
         >
           <Text>Animate</Text>
