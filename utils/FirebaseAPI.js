@@ -59,8 +59,9 @@ export function getUser(uid, cb) {
         })
 }
 
-export function signOut() {
+export function signOut(cb) {
 	firebase.auth().signOut()
+    cb()
 }
 
 export const signInWithPhoneAndCaptcha = async (phone, token, cb) => {
@@ -78,3 +79,11 @@ export const signInWithPhoneAndCaptcha = async (phone, token, cb) => {
         console.warn(e)
     }
 }
+
+export const getAuth = (cb) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+        cb(user)
+        unsubscribe()
+    })
+}
+
