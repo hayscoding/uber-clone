@@ -27,17 +27,25 @@ export default class TestLogin extends React.Component {
         super(props)
         this.state = {
             user: undefined,
-            phone: '',
+            unsubscribe: undefined,
             confirmationResult: undefined,
-            code: ''
+            phone: '',
+            code: '',
         }
+    }
 
-        firebase.auth().onAuthStateChanged(user => {
+    componentWillMount() {
+        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
             this.setState({user})
 
-            if(user)
+            if(user) {
+                console.log('Unsub()', this.state.unsubscribe)
                 FirebaseAPI.storeNewUser(user)
+                this.state.unsubscribe()
+            }
         })
+
+        this.setState({ unsubscribe })
     }
 
     onPhoneChange = (phone) => {
@@ -101,8 +109,6 @@ export default class TestLogin extends React.Component {
             code: ''
         })
     }
-
-
 
     render() {
         return(
