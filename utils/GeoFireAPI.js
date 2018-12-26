@@ -94,8 +94,17 @@ export const getUserLocation = (uid, cb) => {
 #######################################################
 --------------      QUERY FUNCTIONS      --------------
 #######################################################
-// */
+// */ 
 
+const newDriver = (key, location) => {
+	console.log('driver!! location', location[0], location[1])
+	// return {
+	// 	uid: key,
+	// 	location: {
+	// 		latitude: location[]
+	// 	}
+	// }
+}
 
 const onReadyRegistration = (geoQuery) => {
 	geoQuery.on("ready", function() {
@@ -103,24 +112,49 @@ const onReadyRegistration = (geoQuery) => {
 	});
 }
 
-const onKeyEnteredRegistration = (geoQuery) => {
+const onKeyEnteredRegistration = (geoQuery, arr, cb) => {	
 	geoQuery.on("key_entered", function(key, location, distance) {
-		console.log(key + " entered query at " + location + " (" + distance + " km from center)");
-	});
-}
+		const driver = newDriver(key, location)
+		// addNewDriver(arr, driver, (updatedArr) => {
+		// 	cb(updatedArr)
+		// })
 
-const onKeyExitedRegistration = (geoQuery) => {
-	geoQuery.on("key_exited", function(key, location, distance) {
-		console.log(key + " exited query to " + location + " (" + distance + " km from center)");
+		console.log(key + " entered query at " + location + " (" + distance + " km from center)");
 	});
 }
 
 const onKeyMovedRegistration = (geoQuery) => {
 	geoQuery.on("key_moved", function(key, location, distance) {
+		updateDriver(arr, driver, (updatedArr) => {
+			cb(updatedArr)
+		})
+
 		console.log(key + " moved within query to " + location + " (" + distance + " km from center)");
 	});
 }
 
+const onKeyExitedRegistration = (geoQuery) => {
+	geoQuery.on("key_exited", function(key, location, distance) {
+		const driver = 
+		removeDriver(arr, driver, (updatedArr) => {
+			cb(updatedArr)
+		})
+
+		console.log(key + " exited query to " + location + " (" + distance + " km from center)");
+	});
+}
+
+export const addNewDriver = (arr, driver, cb) => {
+
+}
+
+export const updateDriver = (arr, driver, cb) => {
+
+}
+
+export const removeDriver = (arr, driver, cb) => {
+
+}
 
 export const setGeoQueryListeners = (geoQuery) => {
 	console.log('setGeoQueryListeners called')
@@ -132,6 +166,10 @@ export const setGeoQueryListeners = (geoQuery) => {
 		onKeyMovedRegistration(geoQuery)
 	} else
 		console.log('geoQuery not found')
+}
+
+export const cancelGeoQuery = (geoQuery) => {
+	geoQuery.cancel()
 }
 
 export const getGeoQuery = (uid, cb) => {
@@ -148,8 +186,4 @@ export const getGeoQuery = (uid, cb) => {
 
 		cb(geoQuery)
 	})
-}
-
-export const cancelGeoQuery = (geoQuery) => {
-	geoQuery.cancel()
 }
