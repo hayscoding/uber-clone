@@ -98,12 +98,13 @@ export const getUserLocation = (uid, cb) => {
 
 const newDriver = (key, location) => {
 	console.log('driver!! location', location[0], location[1])
-	// return {
-	// 	uid: key,
-	// 	location: {
-	// 		latitude: location[]
-	// 	}
-	// }
+	return {
+		uid: key,
+		location: {
+			latitude: location[0],
+			longitude: location[1],
+		},
+	}
 }
 
 const onReadyRegistration = (geoQuery) => {
@@ -146,10 +147,12 @@ const onKeyExitedRegistration = (geoQuery) => {
 }
 
 export const addNewDriver = (arr, driver, cb) => {
-	console.log('addNewDriver called', arr)
-	// const updatedArr = arr.slice()
+	console.log('addNewDriver called', driver)
+	const updatedArr = arr.slice()
 
-	console.log('addNewDriver updatedArr: ')
+	updatedArr.push(driver)
+
+	console.log('addNewDriver updatedArr: ', updatedArr)
 }
 
 export const updateDriver = (arr, driver, cb) => {
