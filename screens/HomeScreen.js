@@ -52,6 +52,7 @@ export default class HomeScreen extends React.Component {
         longitudeDelta: 0.045,
       },
       markers: undefined,
+      testMarkers: [],
       route: null,
       coordinate: new MapView.AnimatedRegion({
         latitude: 30.3019044,
@@ -334,7 +335,9 @@ export default class HomeScreen extends React.Component {
   test() {
     console.log('test pressed')
     GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
-      GeoFireAPI.setGeoQueryListeners(geoQuery)
+      GeoFireAPI.setGeoQueryListeners(geoQuery, this.state.testMarkers, (markers) => {
+        this.setState({testMarkers: markers})
+      })
     })
 
 

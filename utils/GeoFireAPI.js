@@ -115,9 +115,10 @@ const onReadyRegistration = (geoQuery) => {
 const onKeyEnteredRegistration = (geoQuery, arr, cb) => {	
 	geoQuery.on("key_entered", function(key, location, distance) {
 		const driver = newDriver(key, location)
-		// addNewDriver(arr, driver, (updatedArr) => {
-		// 	cb(updatedArr)
-		// })
+
+		addNewDriver(arr, driver, (updatedArr) => {
+			cb(updatedArr)
+		})
 
 		console.log(key + " entered query at " + location + " (" + distance + " km from center)");
 	});
@@ -145,7 +146,10 @@ const onKeyExitedRegistration = (geoQuery) => {
 }
 
 export const addNewDriver = (arr, driver, cb) => {
+	console.log('addNewDriver called', arr)
+	// const updatedArr = arr.slice()
 
+	console.log('addNewDriver updatedArr: ')
 }
 
 export const updateDriver = (arr, driver, cb) => {
@@ -156,12 +160,12 @@ export const removeDriver = (arr, driver, cb) => {
 
 }
 
-export const setGeoQueryListeners = (geoQuery) => {
+export const setGeoQueryListeners = (geoQuery, arr, cb) => {
 	console.log('setGeoQueryListeners called')
 
 	if(geoQuery) {
 		onReadyRegistration(geoQuery)
-		onKeyEnteredRegistration(geoQuery)
+		onKeyEnteredRegistration(geoQuery, arr, (updatedArr) => { cb(updatedArr) })
 		onKeyExitedRegistration(geoQuery)
 		onKeyMovedRegistration(geoQuery)
 	} else
