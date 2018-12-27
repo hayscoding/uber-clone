@@ -376,12 +376,7 @@ export default class HomeScreen extends React.Component {
 
             updatedMarkers.splice(index, 1, driver)
 
-            console.log('updateDriver called: ', updatedMarkers)
-
-           
-            // updatedMarkers.splice(driver)
-
-            // this.setState({testMarkers: updatedMarkers})
+            this.setState({testMarkers: updatedMarkers})
         })
     }
 
