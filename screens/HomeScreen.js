@@ -370,12 +370,15 @@ export default class HomeScreen extends React.Component {
         //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
         InteractionManager.runAfterInteractions(() => {
             const updatedMarkers = this.state.testMarkers.slice()
+            const index = updatedMarkers.findIndex((_driver) => {
+                    return driver.uid == _driver.uid
+                })
+
+            updatedMarkers.splice(index, 1, /*driver*/)
+
             console.log('updateDriver called: ', updatedMarkers)
 
-            console.log('indexOfUpdatedDriver: ', updatedMarkers.findIndex((_driver) => {
-                return driver.uid == _driver.uid
-            }))
-
+           
             // updatedMarkers.splice(driver)
 
             // this.setState({testMarkers: updatedMarkers})
