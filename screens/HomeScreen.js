@@ -334,7 +334,36 @@ export default class HomeScreen extends React.Component {
             }}/>
         </MapView.Marker.Animated>
       )
-  }
+    }
+
+    animatedDriver(driver) {
+        console.log('animatedDriver(): ', driver)
+        // console.log('markerBearing: ', this.state.markerBearings[index])
+        return(
+            <MapView.Marker.Animated
+                coordinate={driver.location}
+                anchor={{x: 0.35, y: 0.32}} //centers car.png image
+                // ref={marker => { this.marker = marker; }}
+                style={{width: 50, height: 50, /*transform: [{rotate: this.state.markerBearings[index]}]*/}}
+                tracksViewChanges={true}
+                //animateMarkerToCoordinate={}
+            >
+                <Image 
+                    source={require('../assets/images/car.png')}
+                    style={{ 
+                        width: 32, 
+                        height: 32, 
+                    }}
+                />
+            </MapView.Marker.Animated>
+        )
+    }
+
+    showDrivers() {
+        return this.state.testMarkers.map((driver) => {
+            return this.animatedDriver(driver)
+        })
+    }
 
     test() {
         console.log('test pressed')
@@ -424,15 +453,17 @@ export default class HomeScreen extends React.Component {
           showsUserLocation={true}
           followsUserLocation={true}
           ref={(map) => {this.map = map}}
-          style={styles.map}>
-           {(() => {
-            if(this.state.route != null)
-              return(
-                <MapView.Polyline
-                  coordinates={this.state.route}
-                  strokeWidth={4}
-                />
-              )
+          style={styles.map}
+        >
+            {this.showDrivers()}
+            {(() => {
+                if(this.state.route != null)
+                    return(
+                        <MapView.Polyline
+                            coordinates={this.state.route}
+                            strokeWidth={4}
+                        />
+                    )
             })()
            }
         </MapView>

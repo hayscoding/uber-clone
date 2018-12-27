@@ -8,6 +8,7 @@
 ----------------------------------------------------------------
 <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>
 */
+
 import firebase from 'firebase'
 import GeoFire from 'geofire'
 import { Location } from 'expo'
@@ -105,7 +106,7 @@ const newDriver = (key, location) => {
 			longitude: location[1],
 		},
 	}
-	
+
 	return driver
 }
 
