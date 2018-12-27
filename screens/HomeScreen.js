@@ -374,7 +374,7 @@ export default class HomeScreen extends React.Component {
                     return driver.uid == _driver.uid
                 })
 
-            updatedMarkers.splice(index, 1, /*driver*/)
+            updatedMarkers.splice(index, 1, driver)
 
             console.log('updateDriver called: ', updatedMarkers)
 
