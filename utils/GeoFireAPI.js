@@ -166,12 +166,10 @@ export const setKeyMovedRegistration = (geoQuery, cb) => {
 	});
 }
 
-export const setKeyExitedRegistration = (geoQuery) => {
+export const setKeyExitedRegistration = (geoQuery, cb) => {
 	geoQuery.on("key_exited", function(key, location, distance) {
-		// const driver = 
-		// removeDriver(arr, driver, (updatedArr) => {
-		// 	cb(updatedArr)
-		// })
+		const driver = newDriver(key, location)
+		cb(driver)
 
 		console.log(key + " exited query to " + location + " (" + distance + " km from center)");
 	});

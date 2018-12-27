@@ -353,6 +353,9 @@ export default class HomeScreen extends React.Component {
         GeoFireAPI.setKeyMovedRegistration(geoQuery, (driver) => { 
             this.updateDriver(driver) 
         })
+        GeoFireAPI.setKeyExitedRegistration(geoQuery, (driver) => { 
+            this.removeDriver(driver) 
+        })
     }
 
     addNewDriver(driver) {
@@ -367,7 +370,6 @@ export default class HomeScreen extends React.Component {
     }
 
     updateDriver(driver) {
-        //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
         InteractionManager.runAfterInteractions(() => {
             const updatedMarkers = this.state.testMarkers.slice()
             const index = updatedMarkers.findIndex((_driver) => {
@@ -380,8 +382,17 @@ export default class HomeScreen extends React.Component {
         })
     }
 
-    removeDriver(arr, driver, cb) {
+    removeDriver(driver) {
+        InteractionManager.runAfterInteractions(() => {
+            const updatedMarkers = this.state.testMarkers.slice()
+            const index = updatedMarkers.findIndex((_driver) => {
+                    return driver.uid == _driver.uid
+                })
 
+            updatedMarkers.splice(index, 1)
+
+            this.setState({testMarkers: updatedMarkers})
+        })
     } 
 
       // console.log('VVVVVVVVVVVVVVVVVVVVVVVVVVVV')
