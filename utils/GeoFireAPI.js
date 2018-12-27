@@ -97,78 +97,105 @@ export const getUserLocation = (uid, cb) => {
 // */ 
 
 const newDriver = (key, location) => {
-	console.log('driver!! location', location[0], location[1])
-	return {
+	// console.log('new driver: ', key, location[0], location[1])
+	const driver = {
 		uid: key,
 		location: {
 			latitude: location[0],
 			longitude: location[1],
 		},
 	}
+	// console.log('const driver: ', driver)
+
+	return driver
 }
 
-const onReadyRegistration = (geoQuery) => {
+// const onReadyRegistration = (geoQuery) => {
+// 	geoQuery.on("ready", function() {
+// 		console.log("GeoQuery has loaded and fired all other events for initial data");
+// 	});
+// }
+
+// const onKeyEnteredRegistration = (geoQuery, arr, cb) => {
+// 	geoQuery.on("key_entered", function(key, location, distance) {
+// 		// console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+
+// 	});
+// }
+
+// const onKeyMovedRegistration = (geoQuery) => {
+// 	geoQuery.on("key_moved", function(key, location, distance) {
+// 		// updateDriver(arr, driver, (updatedArr) => {
+// 		// 	cb(updatedArr)
+// 		// })
+
+// 		console.log(key + " moved within query to " + location + " (" + distance + " km from center)");
+// 	});
+// }
+
+// const onKeyExitedRegistration = (geoQuery) => {
+// 	geoQuery.on("key_exited", function(key, location, distance) {
+// 		const driver = 
+// 		// removeDriver(arr, driver, (updatedArr) => {
+// 		// 	cb(updatedArr)
+// 		// })
+
+// 		console.log(key + " exited query to " + location + " (" + distance + " km from center)");
+// 	});
+// }
+
+export const setReadyRegistration = (geoQuery) => {
 	geoQuery.on("ready", function() {
 		console.log("GeoQuery has loaded and fired all other events for initial data");
 	});
 }
 
-const onKeyEnteredRegistration = (geoQuery, arr, cb) => {	
+export const setKeyEnteredRegistration = (geoQuery, cb) => {
 	geoQuery.on("key_entered", function(key, location, distance) {
 		const driver = newDriver(key, location)
 
-		addNewDriver(arr, driver, (updatedArr) => {
-			cb(updatedArr)
-		})
-
-		console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+		cb(driver)
+		// console.log(key + " entered query at " + location + " (" + distance + " km from center)");
 	});
 }
 
-const onKeyMovedRegistration = (geoQuery) => {
+export const setKeyMovedRegistration = (geoQuery) => {
 	geoQuery.on("key_moved", function(key, location, distance) {
-		updateDriver(arr, driver, (updatedArr) => {
-			cb(updatedArr)
-		})
+		// updateDriver(arr, driver, (updatedArr) => {
+		// 	cb(updatedArr)
+		// })
 
 		console.log(key + " moved within query to " + location + " (" + distance + " km from center)");
 	});
 }
 
-const onKeyExitedRegistration = (geoQuery) => {
+export const setKeyExitedRegistration = (geoQuery) => {
 	geoQuery.on("key_exited", function(key, location, distance) {
 		const driver = 
-		removeDriver(arr, driver, (updatedArr) => {
-			cb(updatedArr)
-		})
+		// removeDriver(arr, driver, (updatedArr) => {
+		// 	cb(updatedArr)
+		// })
 
 		console.log(key + " exited query to " + location + " (" + distance + " km from center)");
 	});
 }
 
-export const addNewDriver = (arr, driver, cb) => {
-	console.log('addNewDriver called', driver)
-	const updatedArr = arr.slice()
-
-	updatedArr.push(driver)
-
-	console.log('addNewDriver updatedArr: ', updatedArr)
-}
-
-export const updateDriver = (arr, driver, cb) => {
-
-}
-
-export const removeDriver = (arr, driver, cb) => {
-
-}
+// export const setGeoQueryListeners = (geoQuery, arr, cb) => {
+// 	if(geoQuery) {
+// 		onReadyRegistration(geoQuery)
+// 		onKeyEnteredRegistration(geoQuery, arr, (updatedArr) => { 
+// 			cb(updatedArr) })
+// 		onKeyExitedRegistration(geoQuery)
+// 		onKeyMovedRegistration(geoQuery)
+// 	} else
+// 		console.log('geoQuery not found')
+// }
 
 export const setGeoQueryListeners = (geoQuery, arr, cb) => {
-	console.log('setGeoQueryListeners called')
-
 	if(geoQuery) {
 		onReadyRegistration(geoQuery)
-		onKeyEnteredRegistration(geoQuery, arr, (updatedArr) => { cb(updatedArr) })
+		onKeyEnteredRegistration(geoQuery, arr, (updatedArr) => { 
+			cb(updatedArr) })
 		onKeyExitedRegistration(geoQuery)
 		onKeyMovedRegistration(geoQuery)
 	} else

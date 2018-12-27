@@ -74,6 +74,10 @@ export default class HomeScreen extends React.Component {
     })
   }
 
+  componentDidUpdate() {
+      console.log('CompnentDidUpdate: ', this.state.testMarkers)
+  }
+
   storeMarkerCoord() {
 
   }
@@ -332,13 +336,42 @@ export default class HomeScreen extends React.Component {
       )
   }
 
-  test() {
-    console.log('test pressed')
-    GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
-      GeoFireAPI.setGeoQueryListeners(geoQuery, this.state.testMarkers, (markers) => {
-        this.setState({testMarkers: markers})
-      })
-    })
+    test() {
+        console.log('test pressed')
+        GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
+        GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
+            GeoFireAPI.setReadyRegistration(geoQuery)
+            GeoFireAPI.setKeyEnteredRegistration(geoQuery, (driver) => { 
+                console.log('CB CALLED')
+                this.addNewDriver(driver) 
+            })
+        })
+    }
+
+    addNewDriver(driver) {
+        //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
+        InteractionManager.runAfterInteractions(() => {
+            const updatedMarkers = this.state.testMarkers.slice()
+
+            updatedMarkers.push(driver)
+
+                this.setState({testMarkers: updatedMarkers})
+        })
+    }
+
+    updateDriver(arr, driver, cb) {
+
+    }
+
+    removeDriver(arr, driver, cb) {
+
+    } 
+
+      // console.log('VVVVVVVVVVVVVVVVVVVVVVVVVVVV')
+        // console.log('setGeoQueryListeners cb() called')
+        // // console.log('passed driver: ', markers)
+        // console.log('testMarkers state: ', this.state.testMarkers)
+        // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
 
 
     // GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
@@ -350,9 +383,8 @@ export default class HomeScreen extends React.Component {
     //   console.log('test user: ', user)
     // })
     // FirebaseAPI.storeNewUser(firebase.auth().currentUser)
-  }
 
-  render() {
+    render() {
     // console.log("HOMESCREEN OUTPUT: \n", 
     //   "LOCATION COORDS: ", this.state.location.coords,
     //   "REGION: ", this.state.region
