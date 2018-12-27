@@ -372,7 +372,11 @@ export default class HomeScreen extends React.Component {
             const updatedMarkers = this.state.testMarkers.slice()
             console.log('updateDriver called: ', updatedMarkers)
 
-            // updatedMarkers.push(driver)
+            console.log('indexOfUpdatedDriver: ', updatedMarkers.findIndex((_driver) => {
+                return driver.uid == _driver.uid
+            }))
+
+            // updatedMarkers.splice(driver)
 
             // this.setState({testMarkers: updatedMarkers})
         })
