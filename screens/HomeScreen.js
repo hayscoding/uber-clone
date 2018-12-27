@@ -393,24 +393,7 @@ export default class HomeScreen extends React.Component {
 
             this.setState({testMarkers: updatedMarkers})
         })
-    } 
-
-      // console.log('VVVVVVVVVVVVVVVVVVVVVVVVVVVV')
-        // console.log('setGeoQueryListeners cb() called')
-        // // console.log('passed driver: ', markers)
-        // console.log('testMarkers state: ', this.state.testMarkers)
-        // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-
-
-    // GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
-    // GeoFireAPI.getMarkerCoord('test1', (location) => {
-    //   console.log('marker location: ', location)
-    // })
-    // GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
-    // FirebaseAPI.getUser(firebase.auth().currentUser.uid, (user) => {
-    //   console.log('test user: ', user)
-    // })
-    // FirebaseAPI.storeNewUser(firebase.auth().currentUser)
+    }
 
     render() {
     // console.log("HOMESCREEN OUTPUT: \n", 
