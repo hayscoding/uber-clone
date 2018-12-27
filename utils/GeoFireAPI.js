@@ -43,7 +43,7 @@ export const setUserLocation = (uid, lat, lon) => {
 	const firebaseRef = firebase.database().ref()
 	const geoFire = new GeoFire(firebaseRef.child('users/'+uid))
 
-	geoFire.set('location', [lat, lon])
+	geoFire.set('location', [lat, lon]) //refactor this to function
 		.then(() => {
 			console.log("Key has been added to GeoFire");
 		}, (error) => {
@@ -53,11 +53,11 @@ export const setUserLocation = (uid, lat, lon) => {
 }
 
 export const setDriverLocation = (uid, lat, lon) => {
-	console.log('setUserCoord()')
+	console.log('setDriverLocation()')
 	const firebaseRef = firebase.database().ref()
 	const geoFire = new GeoFire(firebaseRef.child('drivers/'))
 
-	geoFire.set('location', [lat, lon])
+	geoFire.set('location', [lat, lon]) //refactor this to function
 		.then(() => {
 			console.log("Key has been added to GeoFire");
 		}, (error) => {
@@ -152,26 +152,23 @@ export const setReadyRegistration = (geoQuery) => {
 
 export const setKeyEnteredRegistration = (geoQuery, cb) => {
 	geoQuery.on("key_entered", function(key, location, distance) {
-		const driver = newDriver(key, location)
-
-		cb(driver)
 		// console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+		const driver = newDriver(key, location)
+		cb(driver)
 	});
 }
 
-export const setKeyMovedRegistration = (geoQuery) => {
+export const setKeyMovedRegistration = (geoQuery, cb) => {
 	geoQuery.on("key_moved", function(key, location, distance) {
-		// updateDriver(arr, driver, (updatedArr) => {
-		// 	cb(updatedArr)
-		// })
-
 		console.log(key + " moved within query to " + location + " (" + distance + " km from center)");
+		const driver = newDriver(key, location)
+		cb(driver)
 	});
 }
 
 export const setKeyExitedRegistration = (geoQuery) => {
 	geoQuery.on("key_exited", function(key, location, distance) {
-		const driver = 
+		// const driver = 
 		// removeDriver(arr, driver, (updatedArr) => {
 		// 	cb(updatedArr)
 		// })
@@ -191,16 +188,16 @@ export const setKeyExitedRegistration = (geoQuery) => {
 // 		console.log('geoQuery not found')
 // }
 
-export const setGeoQueryListeners = (geoQuery, arr, cb) => {
-	if(geoQuery) {
-		onReadyRegistration(geoQuery)
-		onKeyEnteredRegistration(geoQuery, arr, (updatedArr) => { 
-			cb(updatedArr) })
-		onKeyExitedRegistration(geoQuery)
-		onKeyMovedRegistration(geoQuery)
-	} else
-		console.log('geoQuery not found')
-}
+// export const setGeoQueryListeners = (geoQuery, arr, cb) => {
+// 	if(geoQuery) {
+// 		onReadyRegistration(geoQuery)
+// 		onKeyEnteredRegistration(geoQuery, arr, (updatedArr) => { 
+// 			cb(updatedArr) })
+// 		onKeyExitedRegistration(geoQuery)
+// 		onKeyMovedRegistration(geoQuery)
+// 	} else
+// 		console.log('geoQuery not found')
+// }
 
 export const cancelGeoQuery = (geoQuery) => {
 	geoQuery.cancel()

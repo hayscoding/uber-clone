@@ -350,6 +350,9 @@ export default class HomeScreen extends React.Component {
         GeoFireAPI.setKeyEnteredRegistration(geoQuery, (driver) => { 
             this.addNewDriver(driver) 
         })
+        GeoFireAPI.setKeyMovedRegistration(geoQuery, (driver) => { 
+            this.updateDriver(driver) 
+        })
     }
 
     addNewDriver(driver) {
@@ -367,6 +370,7 @@ export default class HomeScreen extends React.Component {
         //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
         InteractionManager.runAfterInteractions(() => {
             const updatedMarkers = this.state.testMarkers.slice()
+            console.log('updateDriver called: ', updatedMarkers)
 
             // updatedMarkers.push(driver)
 
