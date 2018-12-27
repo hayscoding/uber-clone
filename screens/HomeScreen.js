@@ -339,12 +339,16 @@ export default class HomeScreen extends React.Component {
     test() {
         console.log('test pressed')
         GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
+
         GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
-            GeoFireAPI.setReadyRegistration(geoQuery)
-            GeoFireAPI.setKeyEnteredRegistration(geoQuery, (driver) => { 
-                console.log('CB CALLED')
-                this.addNewDriver(driver) 
-            })
+            this.setGeoQueryEvents(geoQuery)
+        })
+    }
+
+    setGeoQueryEvents(geoQuery) {
+        GeoFireAPI.setReadyRegistration(geoQuery)
+        GeoFireAPI.setKeyEnteredRegistration(geoQuery, (driver) => { 
+            this.addNewDriver(driver) 
         })
     }
 
@@ -355,12 +359,19 @@ export default class HomeScreen extends React.Component {
 
             updatedMarkers.push(driver)
 
-                this.setState({testMarkers: updatedMarkers})
+            this.setState({testMarkers: updatedMarkers})
         })
     }
 
-    updateDriver(arr, driver, cb) {
+    updateDriver(driver) {
+        //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
+        InteractionManager.runAfterInteractions(() => {
+            const updatedMarkers = this.state.testMarkers.slice()
 
+            // updatedMarkers.push(driver)
+
+            // this.setState({testMarkers: updatedMarkers})
+        })
     }
 
     removeDriver(arr, driver, cb) {
