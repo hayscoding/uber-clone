@@ -146,19 +146,6 @@ export default class HomeScreen extends React.Component {
     // console.log('setCoords return: ', coordinates)
     return coordinates
   }
-  
-  mainButtons() {
-    return(
-      <View>
-        <Icon name="md-menu" color="#000000" size={32} style={styles.menuIcon}
-            onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
-          />
-        <DestinationButton cb={() => { this.toggleDestinationInput() }}/>
-        <SuggestedDestinationButton cb={() => { this.toggleComponentOverlay() }}/>
-        <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
-      </View>
-    )
-  }
 
   componentOverlay() {
     if(this.state.requestSectionOpen)
