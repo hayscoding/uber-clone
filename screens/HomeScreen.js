@@ -261,30 +261,7 @@ export default class HomeScreen extends React.Component {
     // console.log('Bearing: ', bearing)
     return bearing
   }
-
-  animatedMarker(index) {
-    // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
-    // console.log('markerBearing: ', this.state.markerBearings[index])
-    if(this.state.markerCoordinates != null && this.state.markerBearings[index] != undefined)
-      return(
-        <MapView.Marker.Animated
-          coordinate={this.state.markerCoordinates[index]}
-          anchor={{x: 0.35, y: 0.32}} //centers car.png image
-          // ref={marker => { this.marker = marker; }}
-          style={{width: 50, height: 50, transform: [{rotate: this.state.markerBearings[index]}]}}
-          //rotation={}
-          tracksViewChanges={true}
-          //animateMarkerToCoordinate={}
-        >
-          <Image source={require('../assets/images/car.png')}
-            style={{ 
-              width: 32, 
-              height: 32, 
-            }}/>
-        </MapView.Marker.Animated>
-      )
-  }
-
+  
   mainButtons() {
     return(
       <View>
