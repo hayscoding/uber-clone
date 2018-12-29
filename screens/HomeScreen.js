@@ -69,14 +69,13 @@ export default class HomeScreen extends React.Component {
     };
   }
 
-  //###########################################
-  //########## Life-Cycle Functions ###########
-  //###########################################
+  /*
+  ###########################################
+    Lifecycle Functions
+  ###########################################
+  */
 
   componentDidMount() {
-    // DirectionsAPI.getSimulatorPolylines((polylines) => {
-    //   this.setState({polylines: polylines, markerCoordinates: this.getCoordinateFromPolylines(polylines), markerBearings: this.getInitBearings(polylines)})
-    // })
   }
 
   componentDidUpdate() {
@@ -131,12 +130,35 @@ export default class HomeScreen extends React.Component {
         );
     }
 
-  //###########################################
-  //########## Life-Cycle Functions ###########
-  //###########################################
+  /*
+  ###########################################
+    General Functions
+  ###########################################
+  */
 
-  storeMarkerCoord() {
+  setRegionToCurrentLocation() {
+    this.setState({region: this.getRegionFromLocation(this.state.location)})
+  }
 
+  toggleComponentOverlay() {
+    this.setState({requestSectionOpen: !this.state.requestSectionOpen})
+  }
+
+  toggleDestinationInput() {
+    this.setState({destInputOpen: !this.state.destInputOpen})
+  }
+
+
+  getRegionFromLocation(location) {
+    if(location)
+      return({  //Users current position
+        latitude: location.coords.latitude, 
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.045, //Deltas set the zoom of the map on screen
+        longitudeDelta: 0.045,
+      })
+    else
+      return null
   }
 
   _getLocationAsync = async () => {
@@ -151,47 +173,6 @@ export default class HomeScreen extends React.Component {
 
     this.setState({location: location,  region: this.getRegionFromLocation(location)});
   };
-
-  getRegionFromLocation(location) {
-    if(location)
-      return({  //Users current position
-        latitude: location.coords.latitude, 
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.045, //Deltas set the zoom of the map on screen
-        longitudeDelta: 0.045,
-      })
-    else
-      return null
-  }
-
-  setRegionToCurrentLocation() {
-    this.setState({region: this.getRegionFromLocation(this.state.location)})
-  }
-
-  toggleComponentOverlay() {
-    this.setState({requestSectionOpen: !this.state.requestSectionOpen})
-  }
-
-  toggleDestinationInput() {
-    this.setState({destInputOpen: !this.state.destInputOpen})
-  }
-
-  //Iterates through all polylines & returns an array of the 1st coordinate for each polyline
-  getCoordinateFromPolylines(polylines) {
-    var coordinates = []
-
-    polylines.forEach((polyline) => {
-      coordinates.push(new MapView.AnimatedRegion({
-        latitude: polyline[0].latitude,
-        longitude: polyline[0].longitude,
-        latitudeDelta: 0.045,
-        longitudeDelta: 0.045,
-      }))
-    })
-
-    // console.log('setCoords return: ', coordinates)
-    return coordinates
-  }
 
   componentOverlay() {
     if(this.state.requestSectionOpen)
