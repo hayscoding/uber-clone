@@ -126,6 +126,14 @@ export default class HomeScreen extends React.Component {
                                 )
                         })()
                     }
+                     {
+                    this.driver({
+                        location: {
+                            latitude: 30.30032,
+                            longitude: -97.73968
+                        }
+                    })
+                }
                 </MapView>
             </View>
         );
@@ -192,16 +200,29 @@ export default class HomeScreen extends React.Component {
         this.setState({location: location,  region: this.getRegionFromLocation(location)});
     };
 
-    animatedDriver(driver) {
+
+    test() {
+        console.log('test pressed')
+        GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
+
+        GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
+            this.setGeoQueryEvents(geoQuery)
+        })
+    }
+
+    driver(driver) {
         console.log('animatedDriver(): ', driver)
         // console.log('markerBearing: ', this.state.markerBearings[index])
         return(
             <MapView.Marker.Animated
-                coordinate={driver.location}
+                coordinate={{
+                            latitude: 30.30032,
+                            longitude: -97.73968
+                        }}
                 anchor={{x: 0.35, y: 0.32}} //centers car.png image
                 // ref={marker => { this.marker = marker; }}
                 style={{width: 50, height: 50, /*transform: [{rotate: this.state.markerBearings[index]}]*/}}
-                tracksViewChanges={true}
+                // tracksViewChanges={true}
                 //animateMarkerToCoordinate={}
             >
                 <Image 
@@ -218,15 +239,6 @@ export default class HomeScreen extends React.Component {
     showDrivers() {
         return this.state.testMarkers.map((driver) => {
             return this.animatedDriver(driver)
-        })
-    }
-
-    test() {
-        console.log('test pressed')
-        GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
-
-        GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
-            this.setGeoQueryEvents(geoQuery)
         })
     }
 }
