@@ -69,6 +69,10 @@ export default class HomeScreen extends React.Component {
     };
   }
 
+  //###########################################
+  //########## Life-Cycle Functions ###########
+  //###########################################
+
   componentDidMount() {
     // DirectionsAPI.getSimulatorPolylines((polylines) => {
     //   this.setState({polylines: polylines, markerCoordinates: this.getCoordinateFromPolylines(polylines), markerBearings: this.getInitBearings(polylines)})
@@ -79,10 +83,6 @@ export default class HomeScreen extends React.Component {
       console.log('CompnentDidUpdate: ', this.state.testMarkers)
   }
 
-  storeMarkerCoord() {
-
-  }
-
   componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
@@ -91,6 +91,52 @@ export default class HomeScreen extends React.Component {
     } else {
       this._getLocationAsync();
     }
+  }
+
+  render() {
+        return (
+            <View style={styles.container}>
+                {this.componentOverlay()}
+                <TouchableOpacity
+                    onPress={() => this.test()/*this.startMarkerAnimation()*/}
+                    style={{
+                        zIndex: 9, 
+                        position: 'absolute', 
+                        top: 400, 
+                        width: 50, 
+                        height: 50, 
+                        backgroundColor: 'black'}} >
+                    <Text>Animate</Text>
+                </TouchableOpacity>
+                <MapView
+                    initialRegion={this.state.region}
+                    showsCompass={false}
+                    showsUserLocation={true}
+                    followsUserLocation={true}
+                    ref={(map) => {this.map = map}}
+                    style={styles.map} >
+                    { this.showDrivers() }
+                    {
+                        (() => {
+                            if(this.state.route != null)
+                                return (
+                                    <MapView.Polyline
+                                        coordinates={this.state.route}
+                                        strokeWidth={4}/>
+                                )
+                        })()
+                    }
+                </MapView>
+            </View>
+        );
+    }
+
+  //###########################################
+  //########## Life-Cycle Functions ###########
+  //###########################################
+
+  storeMarkerCoord() {
+
   }
 
   _getLocationAsync = async () => {
@@ -203,46 +249,8 @@ export default class HomeScreen extends React.Component {
             this.setGeoQueryEvents(geoQuery)
         })
     }
-
-
-    render() {
-        return (
-            <View style={styles.container}>
-                {this.componentOverlay()}
-                <TouchableOpacity
-                    onPress={() => this.test()/*this.startMarkerAnimation()*/}
-                    style={{
-                        zIndex: 9, 
-                        position: 'absolute', 
-                        top: 400, 
-                        width: 50, 
-                        height: 50, 
-                        backgroundColor: 'black'}} >
-                    <Text>Animate</Text>
-                </TouchableOpacity>
-                <MapView
-                    initialRegion={this.state.region}
-                    showsCompass={false}
-                    showsUserLocation={true}
-                    followsUserLocation={true}
-                    ref={(map) => {this.map = map}}
-                    style={styles.map} >
-                    { this.showDrivers() }
-                    {
-                        (() => {
-                            if(this.state.route != null)
-                                return (
-                                    <MapView.Polyline
-                                        coordinates={this.state.route}
-                                        strokeWidth={4}/>
-                                )
-                        })()
-                    }
-                </MapView>
-            </View>
-        );
-  }
 }
+    
 
 const styles = StyleSheet.create({
   container: {
