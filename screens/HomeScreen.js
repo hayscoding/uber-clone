@@ -69,9 +69,9 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    DirectionsAPI.getSimulatorPolylines((polylines) => {
-      this.setState({polylines: polylines, markerCoordinates: this.getCoordinateFromPolylines(polylines), markerBearings: this.getInitBearings(polylines)})
-    })
+    // DirectionsAPI.getSimulatorPolylines((polylines) => {
+    //   this.setState({polylines: polylines, markerCoordinates: this.getCoordinateFromPolylines(polylines), markerBearings: this.getInitBearings(polylines)})
+    // })
   }
 
   componentDidUpdate() {
@@ -129,15 +129,6 @@ export default class HomeScreen extends React.Component {
     this.setState({destInputOpen: !this.state.destInputOpen})
   }
 
-  getInitBearings(polylines) {
-    const bearings = []
-
-    for(var i = 0; i < polylines.length; i++)
-      bearings.push('90deg')
-
-    return bearings
-  }
-
   //Iterates through all polylines & returns an array of the 1st coordinate for each polyline
   getCoordinateFromPolylines(polylines) {
     var coordinates = []
@@ -154,6 +145,167 @@ export default class HomeScreen extends React.Component {
     // console.log('setCoords return: ', coordinates)
     return coordinates
   }
+  
+  mainButtons() {
+    return(
+      <View>
+        <Icon name="md-menu" color="#000000" size={32} style={styles.menuIcon}
+            onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
+          />
+        <DestinationButton cb={() => { this.toggleDestinationInput() }}/>
+        <SuggestedDestinationButton cb={() => { this.toggleComponentOverlay() }}/>
+        <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
+      </View>
+    )
+  }
+
+  componentOverlay() {
+    if(this.state.requestSectionOpen)
+      return <RideRequestSection 
+        backCb={() => { this.toggleComponentOverlay() }} 
+        locationCb={() => { this.setRegionToCurrentLocation() }} 
+      />
+    else if(this.state.destInputOpen && !this.state.requestSectionOpen)
+      return <DestinationInput 
+        backCb={() => { this.toggleDestinationInput() }} 
+        coordsCb={(coords) => { this.setState({route: coords}) }}
+      />
+    else
+      return this.mainButtons()
+  }
+
+    animatedDriver(driver) {
+        console.log('animatedDriver(): ', driver)
+        // console.log('markerBearing: ', this.state.markerBearings[index])
+        return(
+            <MapView.Marker.Animated
+                coordinate={driver.location}
+                anchor={{x: 0.35, y: 0.32}} //centers car.png image
+                // ref={marker => { this.marker = marker; }}
+                style={{width: 50, height: 50, /*transform: [{rotate: this.state.markerBearings[index]}]*/}}
+                tracksViewChanges={true}
+                //animateMarkerToCoordinate={}
+            >
+                <Image 
+                    source={require('../assets/images/car.png')}
+                    style={{ 
+                        width: 32, 
+                        height: 32, 
+                    }}
+                />
+            </MapView.Marker.Animated>
+        )
+    }
+
+    showDrivers() {
+        return this.state.testMarkers.map((driver) => {
+            return this.animatedDriver(driver)
+        })
+    }
+
+    test() {
+        console.log('test pressed')
+        GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
+
+        GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
+            this.setGeoQueryEvents(geoQuery)
+        })
+    }
+
+
+    render() {
+        return (
+            <View style={styles.container}>
+                {this.componentOverlay()}
+                <TouchableOpacity
+                    onPress={() => this.test()/*this.startMarkerAnimation()*/}
+                    style={{
+                        zIndex: 9, 
+                        position: 'absolute', 
+                        top: 400, 
+                        width: 50, 
+                        height: 50, 
+                        backgroundColor: 'black'}} >
+                    <Text>Animate</Text>
+                </TouchableOpacity>
+                <MapView
+                    initialRegion={this.state.region}
+                    showsCompass={false}
+                    showsUserLocation={true}
+                    followsUserLocation={true}
+                    ref={(map) => {this.map = map}}
+                    style={styles.map} >
+                    { this.showDrivers() }
+                    {
+                        (() => {
+                            if(this.state.route != null)
+                                return (
+                                    <MapView.Polyline
+                                        coordinates={this.state.route}
+                                        strokeWidth={4}/>
+                                )
+                        })()
+                    }
+                </MapView>
+            </View>
+        );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  menuIcon: {
+    zIndex: 9, 
+    position: 'absolute', 
+    top: 40, 
+    left: 20,
+  },
+  map: {
+    width: WIDTH, 
+    height: HEIGHT, 
+    zIndex: 0,
+  }
+});
+
+
+/*
+
+ getInitBearings(polylines) {
+    const bearings = []
+
+    for(var i = 0; i < polylines.length; i++)
+      bearings.push('90deg')
+
+    return bearings
+  }
+
+
+
+  animatedMarker(index) {
+    // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
+    // console.log('markerBearing: ', this.state.markerBearings[index])
+    if(this.state.markerCoordinates != null && this.state.markerBearings[index] != undefined)
+      return(
+        <MapView.Marker.Animated
+          coordinate={this.state.markerCoordinates[index]}
+          anchor={{x: 0.35, y: 0.32}} //centers car.png image
+          // ref={marker => { this.marker = marker; }}
+          style={{width: 50, height: 50, transform: [{rotate: this.state.markerBearings[index]}]}}
+          //rotation={}
+          tracksViewChanges={true}
+          //animateMarkerToCoordinate={}
+        >
+          <Image source={require('../assets/images/car.png')}
+            style={{ 
+              width: 32, 
+              height: 32, 
+            }}/>
+        </MapView.Marker.Animated>
+      )
+    }
 
   animate(coord, cb) {
     // console.log('ANIMATE() COORDS:\nlat: ', coord.latitude, '\n: ', coord.longitude)
@@ -261,208 +413,5 @@ export default class HomeScreen extends React.Component {
     // console.log('Bearing: ', bearing)
     return bearing
   }
-  
-  mainButtons() {
-    return(
-      <View>
-        <Icon name="md-menu" color="#000000" size={32} style={styles.menuIcon}
-            onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
-          />
-        <DestinationButton cb={() => { this.toggleDestinationInput() }}/>
-        <SuggestedDestinationButton cb={() => { this.toggleComponentOverlay() }}/>
-        <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
-      </View>
-    )
-  }
 
-  componentOverlay() {
-    if(this.state.requestSectionOpen)
-      return <RideRequestSection 
-        backCb={() => { this.toggleComponentOverlay() }} 
-        locationCb={() => { this.setRegionToCurrentLocation() }} 
-      />
-    else if(this.state.destInputOpen && !this.state.requestSectionOpen)
-      return <DestinationInput 
-        backCb={() => { this.toggleDestinationInput() }} 
-        coordsCb={(coords) => { this.setState({route: coords}) }}
-      />
-    else
-      return this.mainButtons()
-  }
-
-  animatedMarker(index) {
-    // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
-    // console.log('markerBearing: ', this.state.markerBearings[index])
-    if(this.state.markerCoordinates != null && this.state.markerBearings[index] != undefined)
-      return(
-        <MapView.Marker.Animated
-          coordinate={this.state.markerCoordinates[index]}
-          anchor={{x: 0.35, y: 0.32}} //centers car.png image
-          // ref={marker => { this.marker = marker; }}
-          style={{width: 50, height: 50, transform: [{rotate: this.state.markerBearings[index]}]}}
-          //rotation={}
-          tracksViewChanges={true}
-          //animateMarkerToCoordinate={}
-        >
-          <Image source={require('../assets/images/car.png')}
-            style={{ 
-              width: 32, 
-              height: 32, 
-            }}/>
-        </MapView.Marker.Animated>
-      )
-    }
-
-    animatedDriver(driver) {
-        console.log('animatedDriver(): ', driver)
-        // console.log('markerBearing: ', this.state.markerBearings[index])
-        return(
-            <MapView.Marker.Animated
-                coordinate={driver.location}
-                anchor={{x: 0.35, y: 0.32}} //centers car.png image
-                // ref={marker => { this.marker = marker; }}
-                style={{width: 50, height: 50, /*transform: [{rotate: this.state.markerBearings[index]}]*/}}
-                tracksViewChanges={true}
-                //animateMarkerToCoordinate={}
-            >
-                <Image 
-                    source={require('../assets/images/car.png')}
-                    style={{ 
-                        width: 32, 
-                        height: 32, 
-                    }}
-                />
-            </MapView.Marker.Animated>
-        )
-    }
-
-    showDrivers() {
-        return this.state.testMarkers.map((driver) => {
-            return this.animatedDriver(driver)
-        })
-    }
-
-    test() {
-        console.log('test pressed')
-        GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
-
-        GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
-            this.setGeoQueryEvents(geoQuery)
-        })
-    }
-
-    setGeoQueryEvents(geoQuery) {
-        GeoFireAPI.setReadyRegistration(geoQuery)
-        GeoFireAPI.setKeyEnteredRegistration(geoQuery, (driver) => { 
-            this.addNewDriver(driver) 
-        })
-        GeoFireAPI.setKeyMovedRegistration(geoQuery, (driver) => { 
-            this.updateDriver(driver) 
-        })
-        GeoFireAPI.setKeyExitedRegistration(geoQuery, (driver) => { 
-            this.removeDriver(driver) 
-        })
-    }
-
-    addNewDriver(driver) {
-        //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
-        InteractionManager.runAfterInteractions(() => {
-            const updatedMarkers = this.state.testMarkers.slice()
-
-            updatedMarkers.push(driver)
-
-            this.setState({testMarkers: updatedMarkers})
-        })
-    }
-
-    updateDriver(driver) {
-        InteractionManager.runAfterInteractions(() => {
-            const updatedMarkers = this.state.testMarkers.slice()
-            const index = updatedMarkers.findIndex((_driver) => {
-                    return driver.uid == _driver.uid
-                })
-
-            updatedMarkers.splice(index, 1, driver)
-
-            this.setState({testMarkers: updatedMarkers})
-        })
-    }
-
-    removeDriver(driver) {
-        InteractionManager.runAfterInteractions(() => {
-            const updatedMarkers = this.state.testMarkers.slice()
-            const index = updatedMarkers.findIndex((_driver) => {
-                    return driver.uid == _driver.uid
-                })
-
-            updatedMarkers.splice(index, 1)
-
-            this.setState({testMarkers: updatedMarkers})
-        })
-    }
-
-    render() {
-    // console.log("HOMESCREEN OUTPUT: \n", 
-    //   "LOCATION COORDS: ", this.state.location.coords,
-    //   "REGION: ", this.state.region
-    // );
-    // {
-    //   latitude: 30.30225,
-    //   longitude: -97.7455,
-    //   latitudeDelta: 0.025,
-    //   longitudeDelta: 0.025,
-    // }
-    // console.log('render() markerCoordinates: ', this.state.markerCoordinates)
-
-
-    return (
-      <View style={styles.container}>
-        {this.componentOverlay()}
-        <TouchableOpacity
-          onPress={() => this.test()/*this.startMarkerAnimation()*/}
-          style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
-        >
-          <Text>Animate</Text>
-        </TouchableOpacity>
-        <MapView
-          initialRegion={this.state.region}
-          showsCompass={false}
-          showsUserLocation={true}
-          followsUserLocation={true}
-          ref={(map) => {this.map = map}}
-          style={styles.map}
-        >
-            {this.showDrivers()}
-            {(() => {
-                if(this.state.route != null)
-                    return(
-                        <MapView.Polyline
-                            coordinates={this.state.route}
-                            strokeWidth={4}
-                        />
-                    )
-            })()
-           }
-        </MapView>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  menuIcon: {
-    zIndex: 9, 
-    position: 'absolute', 
-    top: 40, 
-    left: 20,
-  },
-  map: {
-    width: WIDTH, 
-    height: HEIGHT, 
-    zIndex: 0,
-  }
-});
+*/

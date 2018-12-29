@@ -67,7 +67,7 @@ export const setDriverLocation = (uid, lat, lon) => {
 	)
 }
 
-export const getMarkerLocation = (uid, cb) => {
+export const getDriverLocation = (uid, cb) => {
 	const firebaseRef = firebase.database().ref()
 	const geoFire = new GeoFire(firebaseRef.child('drivers/'))
 
