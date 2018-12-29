@@ -136,30 +136,30 @@ export default class HomeScreen extends React.Component {
   ###########################################
   */
 
-  setRegionToCurrentLocation() {
-    this.setState({region: this.getRegionFromLocation(this.state.location)})
-  }
+    setRegionToCurrentLocation() {
+        this.setState({region: this.getRegionFromLocation(this.state.location)})
+    }
 
-  toggleComponentOverlay() {
-    this.setState({requestSectionOpen: !this.state.requestSectionOpen})
-  }
+    toggleComponentOverlay() {
+        this.setState({requestSectionOpen: !this.state.requestSectionOpen})
+    }
 
-  toggleDestinationInput() {
-    this.setState({destInputOpen: !this.state.destInputOpen})
-  }
+    toggleDestinationInput() {
+        this.setState({destInputOpen: !this.state.destInputOpen})
+    }
 
 
-  getRegionFromLocation(location) {
-    if(location)
-      return({  //Users current position
-        latitude: location.coords.latitude, 
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.045, //Deltas set the zoom of the map on screen
-        longitudeDelta: 0.045,
-      })
-    else
-      return null
-  }
+    getRegionFromLocation(location) {
+        if(location)
+            return({  //Users current position
+                latitude: location.coords.latitude, 
+                longitude: location.coords.longitude,
+                latitudeDelta: 0.045, //Deltas set the zoom of the map on screen
+                longitudeDelta: 0.045,
+            })
+        else
+            return null
+    }
 
     componentOverlay() {
         if(this.state.requestSectionOpen)
@@ -178,18 +178,18 @@ export default class HomeScreen extends React.Component {
                 setRegionToCurrentLocation={() => { this.setRegionToCurrentLocation() }} />
     }
 
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-    }
+    _getLocationAsync = async () => {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+            if (status !== 'granted') {
+                this.setState({
+                    errorMessage: 'Permission to access location was denied',
+                });
+        }
 
-    let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
+        let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
 
-    this.setState({location: location,  region: this.getRegionFromLocation(location)});
-  };
+        this.setState({location: location,  region: this.getRegionFromLocation(location)});
+    };
 
   
 
