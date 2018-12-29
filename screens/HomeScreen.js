@@ -37,62 +37,63 @@ const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      location: null,
-      region: {
-        latitude: 30.29877,
-        longitude: -97.74719,
-        latitudeDelta: 0.045,
-        longitudeDelta: 0.045,
-      },
-      markers: undefined,
-      testMarkers: [],
-      route: null,
-      coordinate: new MapView.AnimatedRegion({
-        latitude: 30.3019044,
-        longitude: -97.7355154,
-      }),
-      markerCoordinates: null,
-      markerBearings: [],
-      polylines: [],
-      errorMessage: null,
-      requestSectionOpen: false,
-      destinationInputOpen: false,
-      animating: false,
+    static navigationOptions = {
+        header: null,
     };
-  }
 
-  /*
-  ###########################################
-    Lifecycle Functions
-  ###########################################
-  */
+    constructor(props) {
+        super(props);
 
-  componentDidMount() {
-  }
-
-  componentDidUpdate() {
-      console.log('CompnentDidUpdate: ', this.state.testMarkers)
-  }
-
-  componentWillMount() {
-    if (Platform.OS === 'android' && !Constants.isDevice) {
-      this.setState({
-        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-      });
-    } else {
-      this._getLocationAsync();
+        this.state = {
+            location: null,
+            region: {
+                latitude: 30.29877,
+                longitude: -97.74719,
+                latitudeDelta: 0.045,
+                longitudeDelta: 0.045,
+            },
+            markers: undefined,
+            testMarkers: [],
+            route: null,
+            coordinate: new MapView.AnimatedRegion({
+                latitude: 30.3019044,
+                longitude: -97.7355154,
+            }),
+            markerCoordinates: null,
+            markerBearings: [],
+            polylines: [],
+            errorMessage: null,
+            requestSectionOpen: false,
+            destinationInputOpen: false,
+            animating: false,
+        };
     }
-  }
 
-  render() {
+    /*
+    ###########################################
+    Lifecycle Functions
+    ###########################################
+    */
+
+    componentDidMount() {
+
+    }
+
+    componentDidUpdate() {
+        console.log('CompnentDidUpdate: ', this.state.testMarkers)
+    }
+
+    componentWillMount() {
+        if (Platform.OS === 'android' && !Constants.isDevice) {
+            this.setState({
+                errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+            });
+        } else {
+            this._getLocationAsync();
+        }
+    }
+
+    render() {
         return (
             <View style={styles.container}>
                 {this.componentOverlay()}
@@ -130,11 +131,11 @@ export default class HomeScreen extends React.Component {
         );
     }
 
-  /*
-  ###########################################
+    /*
+    ###########################################
     General Functions
-  ###########################################
-  */
+    ###########################################
+    */
 
     setRegionToCurrentLocation() {
         this.setState({region: this.getRegionFromLocation(this.state.location)})
@@ -190,8 +191,6 @@ export default class HomeScreen extends React.Component {
 
         this.setState({location: location,  region: this.getRegionFromLocation(location)});
     };
-
-  
 
     animatedDriver(driver) {
         console.log('animatedDriver(): ', driver)
