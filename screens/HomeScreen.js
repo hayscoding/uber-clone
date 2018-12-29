@@ -191,7 +191,7 @@ export default class HomeScreen extends React.Component {
             toggleDestinationInput={() => { this.toggleDestinationInput() }}
             toggleComponentOverlay={() => { this.toggleComponentOverlay() }}
             setRegionToCurrentLocation={() => { this.setRegionToCurrentLocation() }} />
-  }
+    }
 
     animatedDriver(driver) {
         console.log('animatedDriver(): ', driver)
