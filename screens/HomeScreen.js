@@ -161,6 +161,23 @@ export default class HomeScreen extends React.Component {
       return null
   }
 
+    componentOverlay() {
+        if(this.state.requestSectionOpen)
+            return <RideRequestSection 
+                backCb={() => { this.toggleComponentOverlay() }} 
+                locationCb={() => { this.setRegionToCurrentLocation() }} />
+        else if(this.state.destInputOpen && !this.state.requestSectionOpen)
+            return <DestinationInput 
+                backCb={() => { this.toggleDestinationInput() }} 
+                coordsCb={(coords) => { this.setState({route: coords}) }} />
+        else
+            return <HomeScreenButtons 
+                navigation={this.props.navigation}
+                toggleDestinationInput={() => { this.toggleDestinationInput() }}
+                toggleComponentOverlay={() => { this.toggleComponentOverlay() }}
+                setRegionToCurrentLocation={() => { this.setRegionToCurrentLocation() }} />
+    }
+
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
@@ -174,24 +191,7 @@ export default class HomeScreen extends React.Component {
     this.setState({location: location,  region: this.getRegionFromLocation(location)});
   };
 
-  componentOverlay() {
-    if(this.state.requestSectionOpen)
-      return <RideRequestSection 
-        backCb={() => { this.toggleComponentOverlay() }} 
-        locationCb={() => { this.setRegionToCurrentLocation() }} 
-      />
-    else if(this.state.destInputOpen && !this.state.requestSectionOpen)
-      return <DestinationInput 
-        backCb={() => { this.toggleDestinationInput() }} 
-        coordsCb={(coords) => { this.setState({route: coords}) }}
-      />
-    else
-        return <HomeScreenButtons 
-            navigation={this.props.navigation}
-            toggleDestinationInput={() => { this.toggleDestinationInput() }}
-            toggleComponentOverlay={() => { this.toggleComponentOverlay() }}
-            setRegionToCurrentLocation={() => { this.setRegionToCurrentLocation() }} />
-    }
+  
 
     animatedDriver(driver) {
         console.log('animatedDriver(): ', driver)
