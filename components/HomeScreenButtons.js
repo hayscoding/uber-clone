@@ -6,14 +6,15 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import { DrawerActions } from 'react-navigation-drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { DestinationButton } from '../components/DestinationButton';
 import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import { SuggestedDestinationButton } from '../components/SuggestedDestinationButton';
 
-export const mainButtons = function(props) {
-    const navigation = this.props.navigation
+export const HomeScreenButtons = function(props) {
+    const navigation = props.navigation
 
     const toggleDestinationInput = props.toggleDestinationInput != undefined ? 
         props.toggleDestinationInput : () => { console.log('toggleDestinationInput() not passed to DestinationButton()') }
@@ -28,7 +29,7 @@ export const mainButtons = function(props) {
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
         <DestinationButton cb={() => { toggleDestinationInput() }} />
         <SuggestedDestinationButton cb={() => { toggleComponentOverlay() }} />
-        <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
+        <CurrentLocationButton cb={() => { setRegionToCurrentLocation() }} />
       </View>
     )
 }

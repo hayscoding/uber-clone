@@ -26,6 +26,7 @@ import { DestinationButton } from '../components/DestinationButton';
 import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import { RideRequestSection } from '../components/RideRequestSection';
 import { SuggestedDestinationButton } from '../components/SuggestedDestinationButton';
+import { HomeScreenButtons } from '../components/HomeScreenButtons'
 import DestinationInput from '../components/DestinationInput';
 
 import * as DirectionsAPI from '../utils/DirectionsAPI'
@@ -171,7 +172,11 @@ export default class HomeScreen extends React.Component {
         coordsCb={(coords) => { this.setState({route: coords}) }}
       />
     else
-      return this.mainButtons()
+        return <HomeScreenButtons 
+            navigation={this.props.navigation}
+            toggleDestinationInput={() => { this.toggleDestinationInput() }}
+            toggleComponentOverlay={() => { this.toggleComponentOverlay() }}
+            setRegionToCurrentLocation={() => { this.setRegionToCurrentLocation() }} />
   }
 
     animatedDriver(driver) {
