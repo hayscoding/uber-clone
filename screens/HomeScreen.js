@@ -218,37 +218,37 @@ export default class HomeScreen extends React.Component {
     addNewDriver(driver) {
         //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
         InteractionManager.runAfterInteractions(() => {
-            const updatedMarkers = this.state.drivers.slice()
+            const updatedDrivers = this.state.drivers.slice()
 
-            updatedMarkers.push(driver)
+            updatedDrivers.push(driver)
 
-            this.setState({drivers: updatedMarkers})
+            this.setState({drivers: updatedDrivers})
         })
     }
 
     updateDriver(driver) {
         InteractionManager.runAfterInteractions(() => {
-            const updatedMarkers = this.state.drivers.slice()
-            const index = updatedMarkers.findIndex((_driver) => {
+            const updatedDrivers = this.state.drivers.slice()
+            const index = updatedDrivers.findIndex((_driver) => {
                     return driver.uid == _driver.uid
                 })
 
-            updatedMarkers.splice(index, 1, driver)
+            updatedDrivers.splice(index, 1, driver)
 
-            this.setState({drivers: updatedMarkers})
+            this.setState({drivers: updatedDrivers})
         })
     }
 
     removeDriver(driver) {
         InteractionManager.runAfterInteractions(() => {
-            const updatedMarkers = this.state.drivers.slice()
-            const index = updatedMarkers.findIndex((_driver) => {
+            const updatedDrivers = this.state.drivers.slice()
+            const index = updatedDrivers.findIndex((_driver) => {
                     return driver.uid == _driver.uid
                 })
 
-            updatedMarkers.splice(index, 1)
+            updatedDrivers.splice(index, 1)
 
-            this.setState({drivers: updatedMarkers})
+            this.setState({drivers: updatedDrivers})
         })
     }
 }
