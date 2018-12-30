@@ -11,18 +11,21 @@ export default class Drivers extends React.Component {
         super(props);
 
         this.state = {
-            drivers: [],
+            drivers: this.props.drivers,
         };
     }
 
     render() {
-        // this.state.drivers.map((driver) => {
-        //         console.log('driver')
-        //      // return <Driver driver={driver} />
-        //  })
+        console.log('DRIVERS COMPONENT\ndrivers: ', this.state.drivers)
+        // const driversFunc = () => {
+        //         this.state.drivers.map((driver) => {
+        //         console.log('Drivers Component()\ndriver: ', driver)
+        //          // return <Driver driver={driver} />
+        //     })
+        // }
+
         return(
             <View>
-                <Driver driver={{location: {latitude: 30.30032, longitude: -97.73968}}} />
             </View>
         )
     }

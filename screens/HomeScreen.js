@@ -121,7 +121,7 @@ export default class HomeScreen extends React.Component {
                                 )
                         })()
                     }
-                    <Drivers />
+                    <Drivers drivers={this.state.drivers}/>
                 </MapView>
             </View>
         );
