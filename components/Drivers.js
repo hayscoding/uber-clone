@@ -1,12 +1,23 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
+import { Driver } from '../components/Driver'
 
-export class Drivers extends React.Component {
+export default class Drivers extends React.Component {
+    constructor(props) {
+        super(props);
 
-	showDrivers() {
-	    return this.state.testMarkers.map((driver) => {
-	        return this.animatedDriver(driver)
-	    })
+        this.state = {
+            markers: [],
+        };
+    }
+
+	render() {
+	   // this.state.testMarkers.map((driver) => {
+    //         console.log('driver')
+	   //      // return <Driver driver={driver} />
+	   //  })
+
+       return(<View></View>)
 	}
 
     setGeoQueryEvents(geoQuery) {
@@ -58,8 +69,4 @@ export class Drivers extends React.Component {
             this.setState({testMarkers: updatedMarkers})
         })
     }
-
-	render() {
-		return <Text {...this.props} style={[this.props.style, { fontFamily: 'space-mono' }]} />;
-	}
 }

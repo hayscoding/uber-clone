@@ -29,6 +29,7 @@ import { SuggestedDestinationButton } from '../components/SuggestedDestinationBu
 import { HomeScreenButtons } from '../components/HomeScreenButtons'
 import { Driver } from '../components/Driver'
 import DestinationInput from '../components/DestinationInput';
+import Drivers from '../components/Drivers'
 
 import * as DirectionsAPI from '../utils/DirectionsAPI'
 import * as FirebaseAPI from '../utils/FirebaseAPI'
@@ -116,7 +117,6 @@ export default class HomeScreen extends React.Component {
                     followsUserLocation={true}
                     ref={(map) => {this.map = map}}
                     style={styles.map} >
-                    { this.showDrivers() }
                     {
                         (() => {
                             if(this.state.route != null)
@@ -127,6 +127,7 @@ export default class HomeScreen extends React.Component {
                                 )
                         })()
                     }
+                    <Drivers />
                     <Driver driver={{location: {latitude: 30.30032, longitude: -97.73968}}} />
                 </MapView>
             </View>
@@ -150,7 +151,6 @@ export default class HomeScreen extends React.Component {
     toggleDestinationInput() {
         this.setState({destInputOpen: !this.state.destInputOpen})
     }
-
 
     getRegionFromLocation(location) {
         if(location)
@@ -201,12 +201,6 @@ export default class HomeScreen extends React.Component {
 
         GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
             this.setGeoQueryEvents(geoQuery)
-        })
-    }
-    
-    showDrivers() {
-        return this.state.testMarkers.map((driver) => {
-            return this.animatedDriver(driver)
         })
     }
 }
