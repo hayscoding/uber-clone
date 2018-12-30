@@ -215,10 +215,7 @@ export default class HomeScreen extends React.Component {
         // console.log('markerBearing: ', this.state.markerBearings[index])
         return(
             <MapView.Marker.Animated
-                coordinate={{
-                            latitude: 30.30032,
-                            longitude: -97.73968
-                        }}
+                coordinate={driver.location}
                 anchor={{x: 0.35, y: 0.32}} //centers car.png image
                 // ref={marker => { this.marker = marker; }}
                 style={{width: 50, height: 50, /*transform: [{rotate: this.state.markerBearings[index]}]*/}}
