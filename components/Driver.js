@@ -7,7 +7,10 @@ import {
 } from 'expo';
 
 export const Driver = function(props) {
-    const driver = props.driver
+    const driver = props.driver ? 
+        props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+
+    console.log('DRIVER: ', driver.location)
 
     return(
         <MapView.Marker.Animated
