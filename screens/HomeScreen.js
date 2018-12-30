@@ -27,6 +27,7 @@ import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import { RideRequestSection } from '../components/RideRequestSection';
 import { SuggestedDestinationButton } from '../components/SuggestedDestinationButton';
 import { HomeScreenButtons } from '../components/HomeScreenButtons'
+import { Driver } from '../components/Driver'
 import DestinationInput from '../components/DestinationInput';
 
 import * as DirectionsAPI from '../utils/DirectionsAPI'
@@ -126,14 +127,7 @@ export default class HomeScreen extends React.Component {
                                 )
                         })()
                     }
-                     {
-                    this.driver({
-                        location: {
-                            latitude: 30.30032,
-                            longitude: -97.73968
-                        }
-                    })
-                }
+                    <Driver driver={{location: {latitude: 30.30032, longitude: -97.73968}}} />
                 </MapView>
             </View>
         );
