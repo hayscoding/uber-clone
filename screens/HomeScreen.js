@@ -53,20 +53,15 @@ export default class HomeScreen extends React.Component {
                 latitudeDelta: 0.045,
                 longitudeDelta: 0.045,
             },
-            markers: undefined,
-            testMarkers: [],
+            drivers: [],
             route: null,
             coordinate: new MapView.AnimatedRegion({
                 latitude: 30.3019044,
                 longitude: -97.7355154,
             }),
-            markerCoordinates: null,
-            markerBearings: [],
-            polylines: [],
             errorMessage: null,
             requestSectionOpen: false,
             destinationInputOpen: false,
-            animating: false,
         };
     }
 
@@ -152,8 +147,8 @@ export default class HomeScreen extends React.Component {
 
     getRegionFromLocation(location) {
         if(location)
-            return({  //Users current position
-                latitude: location.coords.latitude, 
+            return({  
+                latitude: location.coords.latitude, //Users current position
                 longitude: location.coords.longitude,
                 latitudeDelta: 0.045, //Deltas set the zoom of the map on screen
                 longitudeDelta: 0.045,
@@ -192,6 +187,11 @@ export default class HomeScreen extends React.Component {
         this.setState({location: location,  region: this.getRegionFromLocation(location)});
     };
 
+    /*
+    ###########################################
+    Driver Functions
+    ###########################################
+    */
 
     test() {
         console.log('test pressed')
@@ -199,6 +199,56 @@ export default class HomeScreen extends React.Component {
 
         GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
             this.setGeoQueryEvents(geoQuery)
+        })
+    }
+
+    setGeoQueryEvents(geoQuery) {
+        GeoFireAPI.setReadyRegistration(geoQuery)
+        GeoFireAPI.setKeyEnteredRegistration(geoQuery, (driver) => { 
+            this.addNewDriver(driver) 
+        })
+        GeoFireAPI.setKeyMovedRegistration(geoQuery, (driver) => { 
+            this.updateDriver(driver) 
+        })
+        GeoFireAPI.setKeyExitedRegistration(geoQuery, (driver) => { 
+            this.removeDriver(driver) 
+        })
+    }
+
+    addNewDriver(driver) {
+        //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
+        InteractionManager.runAfterInteractions(() => {
+            const updatedMarkers = this.state.drivers.slice()
+
+            updatedMarkers.push(driver)
+
+            this.setState({drivers: updatedMarkers})
+        })
+    }
+
+    updateDriver(driver) {
+        InteractionManager.runAfterInteractions(() => {
+            const updatedMarkers = this.state.drivers.slice()
+            const index = updatedMarkers.findIndex((_driver) => {
+                    return driver.uid == _driver.uid
+                })
+
+            updatedMarkers.splice(index, 1, driver)
+
+            this.setState({drivers: updatedMarkers})
+        })
+    }
+
+    removeDriver(driver) {
+        InteractionManager.runAfterInteractions(() => {
+            const updatedMarkers = this.state.drivers.slice()
+            const index = updatedMarkers.findIndex((_driver) => {
+                    return driver.uid == _driver.uid
+                })
+
+            updatedMarkers.splice(index, 1)
+
+            this.setState({drivers: updatedMarkers})
         })
     }
 }
