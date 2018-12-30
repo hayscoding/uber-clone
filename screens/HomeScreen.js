@@ -27,7 +27,6 @@ import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import { RideRequestSection } from '../components/RideRequestSection';
 import { SuggestedDestinationButton } from '../components/SuggestedDestinationButton';
 import { HomeScreenButtons } from '../components/HomeScreenButtons'
-import { Driver } from '../components/Driver'
 import DestinationInput from '../components/DestinationInput';
 import Drivers from '../components/Drivers'
 
@@ -209,12 +208,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  menuIcon: {
-    zIndex: 9, 
-    position: 'absolute', 
-    top: 40, 
-    left: 20,
   },
   map: {
     width: WIDTH, 
