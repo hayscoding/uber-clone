@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    StyleSheet,
     Image,
 } from 'react-native';
 import { 
@@ -9,7 +8,6 @@ import {
 
 export const Driver = function(props) {
     const driver = props.driver
-    console.log('animatedDriver(): ', props.driver)
 
     return(
         <MapView.Marker.Animated
@@ -29,6 +27,3 @@ export const Driver = function(props) {
         </MapView.Marker.Animated>
     )
 }
-
-// const styles = StyleSheet.create({
-// })
