@@ -128,7 +128,6 @@ export default class HomeScreen extends React.Component {
                         })()
                     }
                     <Drivers />
-                    <Driver driver={{location: {latitude: 30.30032, longitude: -97.73968}}} />
                 </MapView>
             </View>
         );
