@@ -76,7 +76,7 @@ export default class HomeScreen extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log('CompnentDidUpdate: ', this.state.testMarkers)
+        console.log('CompnentDidUpdate: ', this.state.drivers)
     }
 
     componentWillMount() {
@@ -218,6 +218,7 @@ export default class HomeScreen extends React.Component {
     addNewDriver(driver) {
         //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
         InteractionManager.runAfterInteractions(() => {
+            console.log('addNewDriver()\ndriver: ', driver)
             const updatedDrivers = this.state.drivers.slice()
 
             updatedDrivers.push(driver)
