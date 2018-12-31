@@ -32,17 +32,22 @@ export default class Driver extends React.Component {
         if(this.props.driver != nextProps.driver){
             console.log('PASSED TEST')
 
-            const coordinate = new MapView.AnimatedRegion({
-                latitude: nextProps.driver.location.latitude,
-                longitude: nextProps.driver.location.longitude,
-            })
+            // const nextCoord = new MapView.AnimatedRegion({
+            //     latitude: nextProps.driver.location.latitude,
+            //     longitude: nextProps.driver.location.longitude,
+            // })
+            const nextCoord = nextProps.driver.location
 
 
-            this.setState({
-                coordinate: coordinate,
-            })
-            // console.log('PASSED TEST')
-            // console.log('driver: ', this.props.driver, '\nnextDriver: ', nextProps.driver)
+            // this.state.coordinate.timing({
+            //     nextProps
+            // }).start();
+
+            // this.setState({
+            //     coordinate: coordinate,
+            // })
+            console.log('PASSED TEST')
+            console.log('nextCoord: ', nextCoord)
             // this.state.coordinate.timing({
             //     ...nextProps.coordinate,
             //     duration
@@ -71,7 +76,7 @@ export default class Driver extends React.Component {
             <MapView.Marker.Animated
                 coordinate={this.state.coordinate}
                 anchor={{x: 0.35, y: 0.32}} //centers car.png image
-                // ref={marker => { this.marker = marker; }}
+                ref={marker => { this.marker = marker }}
                 style={{width: 50, height: 50, /*transform: [{rotate: this.state.markerBearings[index]}]*/}}
                 // tracksViewChanges={true}
                 //animateMarkerToCoordinate={}
