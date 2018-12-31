@@ -9,25 +9,27 @@ import {
 export default class Driver extends React.Component {
     constructor(props) {
         super(props)
+
+        const driver = this.props.driver ? 
+                this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+            const prevDriver = this.props.prevDriver ? 
+                this.props.prevDriver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+
+            this.setState({
+                driver: driver,
+                prevDriver: prevDriver,
+            })
     }
 
-    // componentDidUpdate() {
-    //     console.log('COMPONENT DID UPDATE()')
-    //     if(this.props.driver != this.state.driver || this.props.prevDriver != this.state.prevDriver){
-    //         console.log('UPDATING STATE')
-    //         const driver = this.props.driver ? 
-    //             this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
-    //         const prevDriver = this.props.prevDriver ? 
-    //             this.props.prevDriver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+    componentWillReceiveProps(nextProps) {
+        console.log('COMPONENT WILL RECEIVE PROPS()')
+        if(this.props.driver != nextProps.driver || this.props.prevDriver != nextProps.prevDriver){
+            console.log('PASSED TEST')
+            console.log('driver: ', this.props.driver, '\nnextDriver: ', nextProps.driver)
+        }
+    }
 
-    //         this.setState({
-    //             driver: driver,
-    //             prevDriver: prevDriver,
-    //         })
-    //     }
-    // }
 
-/*
     animateDriverToCoord(index, coord, cb) {
         // console.log('animateMarker', coord)
         const nextCoord = {
@@ -35,8 +37,8 @@ export default class Driver extends React.Component {
             longitude: coord.longitude
         };
 
-        this.state.drivers[index].timing(nextCoord).start(() => { cb() });
-    }*/
+        this.prop.driver.timing(nextCoord).start(() => { cb() });
+    }
 
     render() {
         const driver = this.props.driver ? 
@@ -49,7 +51,7 @@ export default class Driver extends React.Component {
             longitude: driver.location.longitude,
         })
 
-        console.log('Driver Component\ndriver: ', driver, '\nprevDriver: ', prevDriver)
+        // console.log('Driver Component\ndriver: ', driver, '\nprevDriver: ', prevDriver)
 
         return(
              <MapView.Marker.Animated
