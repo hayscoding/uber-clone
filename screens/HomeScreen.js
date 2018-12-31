@@ -203,17 +203,6 @@ export default class HomeScreen extends React.Component {
         })
     }
 
-    animateDriver(index, coord, cb) {
-        // console.log('animateMarker', coord)
-        const nextCoord = {
-            latitude: coord.latitude,
-            longitude: coord.longitude
-        };
-
-        this.state.drivers[index].timing(nextCoord).start(() => { cb() });
-    }
-
-
     animateMarkerThruCoords(index, coords) {
         // console.log('INDEX: ', index)
         // console.log('Coords: ', coords)
