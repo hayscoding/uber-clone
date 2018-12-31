@@ -20,7 +20,7 @@ export default class Drivers extends React.Component {
     }
 
     render() {
-        console.log('DRIVERS COMPONENT:\n', )
+        // console.log('DRIVERS COMPONENT:\n', )
 
         return(
             <View>

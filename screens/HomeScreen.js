@@ -54,6 +54,7 @@ export default class HomeScreen extends React.Component {
                 longitudeDelta: 0.045,
             },
             drivers: [],
+            prevDrivers: [],
             route: null,
             coordinate: new MapView.AnimatedRegion({
                 latitude: 30.3019044,
@@ -76,7 +77,7 @@ export default class HomeScreen extends React.Component {
     }
 
     componentDidUpdate() {
-        // console.log('CompnentDidUpdate: ', this.state.drivers)
+        console.log('CompnentDidUpdate:\ndrivers: ', this.state.drivers, '\nprevDrivers: ', this.state.prevDrivers)
     }
 
     componentWillMount() {
@@ -121,7 +122,7 @@ export default class HomeScreen extends React.Component {
                                 )
                         })()
                     }
-                    <Drivers drivers={this.state.drivers}/>
+                    <Drivers drivers={this.state.drivers} />
                 </MapView>
             </View>
         );
@@ -258,6 +259,8 @@ export default class HomeScreen extends React.Component {
 
     updateDriver(driver) {
         InteractionManager.runAfterInteractions(() => {
+            const prevDrivers = this.state.drivers.slice()
+
             const updatedDrivers = this.state.drivers.slice()
             const index = updatedDrivers.findIndex((_driver) => {
                     return driver.uid == _driver.uid
@@ -265,7 +268,7 @@ export default class HomeScreen extends React.Component {
 
             updatedDrivers.splice(index, 1, driver)
 
-            this.setState({drivers: updatedDrivers})
+            this.setState({drivers: updatedDrivers, prevDrivers: prevDrivers})
         })
     }
 
