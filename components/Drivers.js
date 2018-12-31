@@ -14,8 +14,8 @@ export default class Drivers extends React.Component {
     getDrivers() {
         // console.log('GET DRIVERS CALLED\ndrivers: ', this.props.drivers)
         return this.props.drivers.map((driver) => {
-            console.log('getDriver()\ndriver: ', driver, '\nprevDriver: ', this.findPrevDriver(driver))
-            return <Driver driver={driver} />
+            const prevDriver = this.findPrevDriver(driver)
+            return <Driver driver={driver} prevDriver={prevDriver}/>
         })
     }
 

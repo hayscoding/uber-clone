@@ -11,27 +11,18 @@ export default class Driver extends React.Component {
         super(props)
     }
 
-    componentWillMount() {
-    }
-
-    componentDidMount() {
-        // console.log('COMPONENTDIDMOUNT() Driver: ',this.state.driver)
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        // console.log('Driver Updated!!\nprev driver: ', prevProps.driver, '\ncurrent driver: ', this.props.driver)
-    }
-
     render() {
         const driver = this.props.driver ? 
             this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+        const prevDriver = this.props.prevDriver ? 
+            this.props.prevDriver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
 
         const coordinate = new MapView.AnimatedRegion({
             latitude: this.props.driver.location.latitude,
             longitude: this.props.driver.location.longitude,
         })
 
-        // console.log('Driver() COORDINATE: ', coordinate)
+        console.log('Driver Componet\ndriver: ', driver, '\nprevDriver: ', prevDriver)
 
         return(
              <MapView.Marker.Animated
