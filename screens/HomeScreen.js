@@ -77,7 +77,7 @@ export default class HomeScreen extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log('CompnentDidUpdate:\ndrivers: ', this.state.drivers, '\nprevDrivers: ', this.state.prevDrivers)
+        // console.log('CompnentDidUpdate:\ndrivers: ', this.state.drivers, '\nprevDrivers: ', this.state.prevDrivers)
     }
 
     componentWillMount() {
@@ -122,7 +122,7 @@ export default class HomeScreen extends React.Component {
                                 )
                         })()
                     }
-                    <Drivers drivers={this.state.drivers} />
+                    <Drivers drivers={this.state.drivers} prevDrivers={this.state.prevDrivers} />
                 </MapView>
             </View>
         );
@@ -219,7 +219,7 @@ export default class HomeScreen extends React.Component {
         // console.log('Coords: ', coords)
         // var nextCoords = coords
         // nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
-        console.log('ANIMATE MARKER THRU() COORDS: ', index, coords, '\nNextCoords: ', coords.slice(1, coords.length)) //remove first elem)
+        // console.log('ANIMATE MARKER THRU() COORDS: ', index, coords, '\nNextCoords: ', coords.slice(1, coords.length)) //remove first elem)
 
         // if(coords.length != 0)
         if(coords.length != 0){
