@@ -11,7 +11,7 @@
 
 import firebase from 'firebase'
 import GeoFire from 'geofire'
-import { Location } from 'expo'
+import { Location, MapView } from 'expo'
 
 import * as FirebaseAPI from './FirebaseAPI'
 
@@ -99,12 +99,22 @@ export const getUserLocation = (uid, cb) => {
 
 const newDriver = (key, location) => {
 	// console.log('new driver: ', key, location[0], location[1])
+	// const animatedLocation = new MapView.AnimatedRegion({
+ //            latitude: location[0],
+	// 		longitude: location[1],
+	// 		latitudeDelta: 0.045,
+ //        	longitudeDelta: 0.045,
+ //        })
+
+	// console.log('newDriver <-----', animatedLocation)
+
 	const driver = {
 		uid: key,
+		// location: animatedLocation,
 		location: {
-			latitude: location[0],
+            latitude: location[0],
 			longitude: location[1],
-		},
+		}
 	}
 
 	return driver

@@ -13,7 +13,7 @@ import {
 import { DrawerActions } from 'react-navigation-drawer';
 import { 
   WebBrowser, 
-  MapView, 
+  MapView,
   Constants, 
   Location, 
   Permissions,
@@ -233,7 +233,7 @@ export default class HomeScreen extends React.Component {
     setGeoQueryEvents(geoQuery) {
         GeoFireAPI.setReadyRegistration(geoQuery)
         GeoFireAPI.setKeyEnteredRegistration(geoQuery, (driver) => { 
-            this.addNewDriver(driver) 
+            this.addDriver(driver) 
         })
         GeoFireAPI.setKeyMovedRegistration(geoQuery, (driver) => { 
             this.updateDriver(driver) 
@@ -243,24 +243,17 @@ export default class HomeScreen extends React.Component {
         })
     }
 
-    addNewDriver(driver) {
+    addDriver(driver) {
         //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
         InteractionManager.runAfterInteractions(() => {
             // console.log('addNewDriver()\ndriver: ', driver)
-            console.log('GETTING NEW ANIMATED REGION: ', this.createAnimatedRegion(driver.location))
+            // console.log('GETTING NEW ANIMATED Driver: ', driver)
             const updatedDrivers = this.state.drivers.slice()
 
             updatedDrivers.push(driver)
 
             this.setState({drivers: updatedDrivers})
         })
-    }
-
-    createAnimatedRegion(location) {
-        return new MapView.AnimatedRegion({
-                latitude: location.latitude,
-                longitude: location.longitude,
-            })
     }
 
     updateDriver(driver) {
@@ -272,9 +265,7 @@ export default class HomeScreen extends React.Component {
 
             updatedDrivers.splice(index, 1, driver)
 
-            this.animateDriver(index, driver.location, () => {
-                this.setState({drivers: updatedDrivers})
-            })
+            this.setState({drivers: updatedDrivers})
         })
     }
 

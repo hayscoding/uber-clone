@@ -4,7 +4,7 @@ import {
     View, 
     TouchableOpacity, 
 } from 'react-native';
-import { Driver } from '../components/Driver'
+import Driver from '../components/Driver'
 
 export default class Drivers extends React.Component {
     constructor(props) {
