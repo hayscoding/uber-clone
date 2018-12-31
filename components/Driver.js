@@ -15,7 +15,12 @@ export default class Driver extends React.Component {
         const driver = this.props.driver ? 
             this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
 
-        console.log('DRIVER: ', driver)
+        const coordinate = new MapView.AnimatedRegion({
+            latitude: driver.location.latitude,
+            longitude: driver.location.longitude,
+        })
+
+        console.log('Driver() COORDINATE: ', coordinate)
 
         return(
              <MapView.Marker.Animated
