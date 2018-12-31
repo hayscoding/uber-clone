@@ -9,17 +9,24 @@ import {
 export default class Driver extends React.Component {
     constructor(props) {
         super(props)
-
-        const driver = this.props.driver ? 
-            this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
-        const prevDriver = this.props.prevDriver ? 
-            this.props.prevDriver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
-
-        this.state = {
-            driver: driver,
-            prevDriver: prevDriver,
-        }
     }
+
+    // componentDidUpdate() {
+    //     console.log('COMPONENT DID UPDATE()')
+    //     if(this.props.driver != this.state.driver || this.props.prevDriver != this.state.prevDriver){
+    //         console.log('UPDATING STATE')
+    //         const driver = this.props.driver ? 
+    //             this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+    //         const prevDriver = this.props.prevDriver ? 
+    //             this.props.prevDriver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+
+    //         this.setState({
+    //             driver: driver,
+    //             prevDriver: prevDriver,
+    //         })
+    //     }
+    // }
+
 /*
     animateDriverToCoord(index, coord, cb) {
         // console.log('animateMarker', coord)
@@ -32,13 +39,17 @@ export default class Driver extends React.Component {
     }*/
 
     render() {
-        
+        const driver = this.props.driver ? 
+            this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+        const prevDriver = this.props.prevDriver ? 
+            this.props.prevDriver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+
         const coordinate = new MapView.AnimatedRegion({
-            latitude: this.state.driver.location.latitude,
-            longitude: this.state.driver.location.longitude,
+            latitude: driver.location.latitude,
+            longitude: driver.location.longitude,
         })
 
-        console.log('Driver Component\ndriver: ', this.state.driver, '\nprevDriver: ', this.state.prevDriver)
+        console.log('Driver Component\ndriver: ', driver, '\nprevDriver: ', prevDriver)
 
         return(
              <MapView.Marker.Animated
