@@ -12,7 +12,7 @@ export default class Drivers extends React.Component {
     }
 
     getDrivers() {
-        console.log('GET DRIVERS CALLED\ndrivers: ', this.props.drivers)
+        // console.log('GET DRIVERS CALLED\ndrivers: ', this.props.drivers)
         return this.props.drivers.map((driver) => {
             // console.log('getDriver() driver: ', driver)
             return <Driver driver={driver} />

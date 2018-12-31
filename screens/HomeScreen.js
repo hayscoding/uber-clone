@@ -202,6 +202,34 @@ export default class HomeScreen extends React.Component {
         })
     }
 
+    animateDriver(index, coord, cb) {
+        // console.log('animateMarker', coord)
+        const nextCoord = {
+            latitude: coord.latitude,
+            longitude: coord.longitude
+        };
+
+        this.state.drivers[index].timing(nextCoord).start(() => { cb() });
+    }
+
+
+    animateMarkerThruCoords(index, coords) {
+        // console.log('INDEX: ', index)
+        // console.log('Coords: ', coords)
+        // var nextCoords = coords
+        // nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
+        console.log('ANIMATE MARKER THRU() COORDS: ', index, coords, '\nNextCoords: ', coords.slice(1, coords.length)) //remove first elem)
+
+        // if(coords.length != 0)
+        if(coords.length != 0){
+            this.updateMarkerBearing(index, this.getBearing(coords[0], coords[1]))
+
+            this.animateMarker(index, coords[0], () => { this.animateMarkerThruCoords(index, coords.slice(1, coords.length)) })
+        }
+        else 
+            this.animateMarkerThruCoords(index, this.state.polylines[index])
+    }
+
     setGeoQueryEvents(geoQuery) {
         GeoFireAPI.setReadyRegistration(geoQuery)
         GeoFireAPI.setKeyEnteredRegistration(geoQuery, (driver) => { 
@@ -219,12 +247,20 @@ export default class HomeScreen extends React.Component {
         //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
         InteractionManager.runAfterInteractions(() => {
             // console.log('addNewDriver()\ndriver: ', driver)
+            console.log('GETTING NEW ANIMATED REGION: ', this.createAnimatedRegion(driver.location))
             const updatedDrivers = this.state.drivers.slice()
 
             updatedDrivers.push(driver)
 
             this.setState({drivers: updatedDrivers})
         })
+    }
+
+    createAnimatedRegion(location) {
+        return new MapView.AnimatedRegion({
+                latitude: location.latitude,
+                longitude: location.longitude,
+            })
     }
 
     updateDriver(driver) {
@@ -236,7 +272,9 @@ export default class HomeScreen extends React.Component {
 
             updatedDrivers.splice(index, 1, driver)
 
-            this.setState({drivers: updatedDrivers})
+            this.animateDriver(index, driver.location, () => {
+                this.setState({drivers: updatedDrivers})
+            })
         })
     }
 
