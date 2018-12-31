@@ -24,7 +24,7 @@ export default class Driver extends React.Component {
 
         return(
              <MapView.Marker.Animated
-                coordinate={driver.location}
+                coordinate={coordinate}
                 anchor={{x: 0.35, y: 0.32}} //centers car.png image
                 // ref={marker => { this.marker = marker; }}
                 style={{width: 50, height: 50, /*transform: [{rotate: this.state.markerBearings[index]}]*/}}
