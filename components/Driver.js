@@ -39,9 +39,7 @@ export default class Driver extends React.Component {
             const nextCoord = nextProps.driver.location
 
 
-            // this.state.coordinate.timing({
-            //     nextProps
-            // }).start();
+            this.state.coordinate.timing(nextCoord).start();
 
             // this.setState({
             //     coordinate: coordinate,
