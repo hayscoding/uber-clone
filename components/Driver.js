@@ -27,6 +27,7 @@ export default class Driver extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         console.log('COMPONENT WILL RECEIVE PROPS()')
+
         if(this.props.driver != nextProps.driver){
             console.log('PASSED TEST')
 
@@ -34,10 +35,12 @@ export default class Driver extends React.Component {
             //     latitude: nextProps.driver.location.latitude,
             //     longitude: nextProps.driver.location.longitude,
             // })
+            const currCoord = this.props.driver.location
             const nextCoord = nextProps.driver.location
 
-            this.getBearing(nextCoord)
+            
             console.log('PASSED TEST')
+            console.log('getBearing(): ', this.getBearing(currCoord, nextCoord))
             console.log('nextCoord: ', nextCoord)
 
             this.state.coordinate.timing(nextCoord, {duration: 500}).start();
@@ -54,31 +57,30 @@ export default class Driver extends React.Component {
     }
 
 
-    getBearing(nextCoord) {
-            console.log('GET BEARING ', nextCoord)
-        // function toDegrees (radians) {
-        //     return radians * (180 / Math.PI);
-        // }
+    getBearing(fromCoord, toCoord) {
+        function toDegrees (radians) {
+            return radians * (180 / Math.PI);
+        }
 
-        // var bearing = 0
+        var bearing = 0
 
-        // // console.log('getMarkerBearing:\nfromCoord: ', fromCoord, '\ntoCoord: ', toCoord)
-        // if(toCoord != undefined) {
-        //     const λ1 = fromCoord.latitude
-        //     const φ1 = fromCoord.longitude
-        //     const λ2 = toCoord.latitude
-        //     const φ2 = toCoord.longitude
+        // console.log('getMarkerBearing:\nfromCoord: ', fromCoord, '\ntoCoord: ', toCoord)
+        if(toCoord != undefined) {
+            const λ1 = fromCoord.latitude
+            const φ1 = fromCoord.longitude
+            const λ2 = toCoord.latitude
+            const φ2 = toCoord.longitude
 
-        //     var y = Math.sin(λ2-λ1) * Math.cos(φ2);
-        //     var x = Math.cos(φ1)*Math.sin(φ2) -
-        //     Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
-        //         bearing = toDegrees(Math.atan2(y, x));
-        // }
+            var y = Math.sin(λ2-λ1) * Math.cos(φ2);
+            var x = Math.cos(φ1)*Math.sin(φ2) -
+            Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
+                bearing = toDegrees(Math.atan2(y, x));
+        }
 
-        // // console.log('Math.sin:', Math.sin(λ2-λ1))
-        // // console.log('λ1: ', λ1, 'φ1: ', φ1, '\nλ2: ', λ2, 'φ2: ', φ2, '\nx: ', x, 'y: ', y, '\nBearing: ', bearing)
-        // // console.log('Bearing: ', bearing)
-        return 0
+        // console.log('Math.sin:', Math.sin(λ2-λ1))
+        // console.log('λ1: ', λ1, 'φ1: ', φ1, '\nλ2: ', λ2, 'φ2: ', φ2, '\nx: ', x, 'y: ', y, '\nBearing: ', bearing)
+        // console.log('Bearing: ', bearing)
+        return bearing
     }
 
 
