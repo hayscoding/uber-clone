@@ -163,7 +163,7 @@ export const getGeoQuery = (uid, cb) => {
 	getUserLocation(uid, (location) => {
 		const geoQuery = geoFire.query({
 			center: location,
-			radius: 10.5
+			radius: 5
 		})
 
 		cb(geoQuery)

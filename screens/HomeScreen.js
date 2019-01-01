@@ -72,6 +72,10 @@ export default class HomeScreen extends React.Component {
     ###########################################
     */
 
+    componentWillMount() {
+
+    }
+
     componentDidMount() {
 
     }
@@ -86,7 +90,7 @@ export default class HomeScreen extends React.Component {
                 errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
             });
         } else {
-            this._getLocationAsync();
+            this._getLocationAsync(() => { this.test() });
         }
     }
 
@@ -95,7 +99,7 @@ export default class HomeScreen extends React.Component {
             <View style={styles.container}>
                 {this.componentOverlay()}
                 <TouchableOpacity
-                    onPress={() => this.test()/*this.startMarkerAnimation()*/}
+                    onPress={() => {}/*this.startMarkerAnimation()*/}
                     style={{
                         zIndex: 9, 
                         position: 'absolute', 
@@ -176,7 +180,7 @@ export default class HomeScreen extends React.Component {
                 setRegionToCurrentLocation={() => { this.setRegionToCurrentLocation() }} />
     }
 
-    _getLocationAsync = async () => {
+    _getLocationAsync = async (cb) => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
             if (status !== 'granted') {
                 this.setState({
@@ -187,6 +191,10 @@ export default class HomeScreen extends React.Component {
         let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
 
         this.setState({location: location,  region: this.getRegionFromLocation(location)});
+
+        InteractionManager.runAfterInteractions(() => {
+          cb()
+        })
     };
 
     /*
@@ -202,23 +210,6 @@ export default class HomeScreen extends React.Component {
         GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
             this.setGeoQueryEvents(geoQuery)
         })
-    }
-
-    animateMarkerThruCoords(index, coords) {
-        // console.log('INDEX: ', index)
-        // console.log('Coords: ', coords)
-        // var nextCoords = coords
-        // nextCoords = nextCoords.slice(1, nextCoords.length) //remove first elem
-        // console.log('ANIMATE MARKER THRU() COORDS: ', index, coords, '\nNextCoords: ', coords.slice(1, coords.length)) //remove first elem)
-
-        // if(coords.length != 0)
-        if(coords.length != 0){
-            this.updateMarkerBearing(index, this.getBearing(coords[0], coords[1]))
-
-            this.animateMarker(index, coords[0], () => { this.animateMarkerThruCoords(index, coords.slice(1, coords.length)) })
-        }
-        else 
-            this.animateMarkerThruCoords(index, this.state.polylines[index])
     }
 
     setGeoQueryEvents(geoQuery) {
