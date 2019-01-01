@@ -45,7 +45,7 @@ export default class Driver extends React.Component {
 
 
             this.setState({bearing: nextBearing})
-            this.state.coordinate.timing(nextCoord, {duration: 500}).start();
+            this.state.coordinate.timing(nextCoord, {duration: 10000}).start();
 
             // this.setState({
             //     coordinate: coordinate,
