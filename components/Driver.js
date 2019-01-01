@@ -37,12 +37,14 @@ export default class Driver extends React.Component {
             // })
             const currCoord = this.props.driver.location
             const nextCoord = nextProps.driver.location
-
+            const nextBearing = this.getBearing(currCoord, nextCoord)
             
             console.log('PASSED TEST')
-            console.log('getBearing(): ', this.getBearing(currCoord, nextCoord))
+            console.log('nextBearing: ', nextBearing)
             console.log('nextCoord: ', nextCoord)
 
+
+            this.setState({bearing: nextBearing})
             this.state.coordinate.timing(nextCoord, {duration: 500}).start();
 
             // this.setState({
@@ -100,7 +102,7 @@ export default class Driver extends React.Component {
                 coordinate={this.state.coordinate}
                 anchor={{x: 0.35, y: 0.32}} //centers car.png image
                 ref={marker => { this.marker = marker }}
-                style={{width: 50, height: 50, /*transform: [{rotate: this.state.markerBearings[index]}]*/}}
+                style={{width: 50, height: 50, transform: [{rotate: (this.state.bearing-180)+'deg'}]}}
                 // tracksViewChanges={true}
                 //animateMarkerToCoordinate={}
                 >
