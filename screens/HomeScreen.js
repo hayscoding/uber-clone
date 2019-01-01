@@ -154,15 +154,15 @@ export default class HomeScreen extends React.Component {
     }
 
     centerMap = () => {
-        console.log("CENTER MAP CALLED: ", this.state.location)
-        // const { latitude, longitude, latitudeDelta, longitudeDelta } = this.state.location;
+        console.log("CENTER MAP CALLED: ", this.state.region)
+        const { latitude, longitude, latitudeDelta, longitudeDelta } = this.state.region;
 
-        // this.map.animateToRegion({
-        //     latitude,
-        //     longitude,
-        //     latitudeDelta,
-        //     longitudeDelta
-        // })
+        this.map.animateToRegion({
+            latitude,
+            longitude,
+            latitudeDelta,
+            longitudeDelta
+        })
     }
 
     getRegionFromLocation(location) {
