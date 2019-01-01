@@ -98,17 +98,19 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
                 {this.componentOverlay()}
-                <TouchableOpacity
-                    onPress={() => {}/*this.startMarkerAnimation()*/}
-                    style={{
-                        zIndex: 9, 
-                        position: 'absolute', 
-                        top: 400, 
-                        width: 50, 
-                        height: 50, 
-                        backgroundColor: 'black'}} >
-                    <Text>Animate</Text>
-                </TouchableOpacity>
+                {
+                //   <TouchableOpacity
+                //     onPress={() => {}/*this.startMarkerAnimation()*/}
+                //     style={{
+                //         zIndex: 9, 
+                //         position: 'absolute', 
+                //         top: 400, 
+                //         width: 50, 
+                //         height: 50, 
+                //         backgroundColor: 'black'}} >
+                //     <Text>Animate</Text>
+                // </TouchableOpacity>
+              }
                 <MapView
                     initialRegion={this.state.region}
                     showsCompass={false}
@@ -151,6 +153,18 @@ export default class HomeScreen extends React.Component {
         this.setState({destInputOpen: !this.state.destInputOpen})
     }
 
+    centerMap = () => {
+        console.log("CENTER MAP CALLED: ", this.state.location)
+        // const { latitude, longitude, latitudeDelta, longitudeDelta } = this.state.location;
+
+        // this.map.animateToRegion({
+        //     latitude,
+        //     longitude,
+        //     latitudeDelta,
+        //     longitudeDelta
+        // })
+    }
+
     getRegionFromLocation(location) {
         if(location)
             return({  
@@ -177,7 +191,7 @@ export default class HomeScreen extends React.Component {
                 navigation={this.props.navigation}
                 toggleDestinationInput={() => { this.toggleDestinationInput() }}
                 toggleComponentOverlay={() => { this.toggleComponentOverlay() }}
-                setRegionToCurrentLocation={() => { this.setRegionToCurrentLocation() }} />
+                setRegionToCurrentLocation={() => { this.centerMap() }} />
     }
 
     _getLocationAsync = async (cb) => {
