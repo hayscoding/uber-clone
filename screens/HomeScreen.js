@@ -110,6 +110,7 @@ export default class HomeScreen extends React.Component {
                     showsCompass={false}
                     showsUserLocation={true}
                     followsUserLocation={true}
+                    rotateEnabled={false}
                     ref={(map) => {this.map = map}}
                     style={styles.map} >
                     {
