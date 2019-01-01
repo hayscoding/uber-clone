@@ -181,7 +181,7 @@ export default class HomeScreen extends React.Component {
         if(this.state.requestSectionOpen)
             return <RideRequestSection 
                 backCb={() => { this.toggleComponentOverlay() }} 
-                locationCb={() => { this.setRegionToCurrentLocation() }} />
+                locationCb={() => { this.centerMap() }} />
         else if(this.state.destInputOpen && !this.state.requestSectionOpen)
             return <DestinationInput 
                 backCb={() => { this.toggleDestinationInput() }} 
