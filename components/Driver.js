@@ -12,8 +12,6 @@ export default class Driver extends React.Component {
 
         const driver = this.props.driver ? 
                 this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
-        const prevDriver = this.props.prevDriver ? 
-            this.props.prevDriver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
 
         const coordinate = new MapView.AnimatedRegion({
             latitude: driver.location.latitude,
@@ -22,8 +20,8 @@ export default class Driver extends React.Component {
 
         this.state = {
             driver: driver,
-            prevDriver: prevDriver,
             coordinate: coordinate,
+            bearing: 0,
         }
     }
 
@@ -38,19 +36,49 @@ export default class Driver extends React.Component {
             // })
             const nextCoord = nextProps.driver.location
 
+            this.getBearing(nextCoord)
+            console.log('PASSED TEST')
+            console.log('nextCoord: ', nextCoord)
 
             this.state.coordinate.timing(nextCoord, {duration: 500}).start();
 
             // this.setState({
             //     coordinate: coordinate,
             // })
-            console.log('PASSED TEST')
-            console.log('nextCoord: ', nextCoord)
+            
             // this.state.coordinate.timing({
             //     ...nextProps.coordinate,
             //     duration
             // }).start();
         }
+    }
+
+
+    getBearing(nextCoord) {
+            console.log('GET BEARING ', nextCoord)
+        // function toDegrees (radians) {
+        //     return radians * (180 / Math.PI);
+        // }
+
+        // var bearing = 0
+
+        // // console.log('getMarkerBearing:\nfromCoord: ', fromCoord, '\ntoCoord: ', toCoord)
+        // if(toCoord != undefined) {
+        //     const λ1 = fromCoord.latitude
+        //     const φ1 = fromCoord.longitude
+        //     const λ2 = toCoord.latitude
+        //     const φ2 = toCoord.longitude
+
+        //     var y = Math.sin(λ2-λ1) * Math.cos(φ2);
+        //     var x = Math.cos(φ1)*Math.sin(φ2) -
+        //     Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
+        //         bearing = toDegrees(Math.atan2(y, x));
+        // }
+
+        // // console.log('Math.sin:', Math.sin(λ2-λ1))
+        // // console.log('λ1: ', λ1, 'φ1: ', φ1, '\nλ2: ', λ2, 'φ2: ', φ2, '\nx: ', x, 'y: ', y, '\nBearing: ', bearing)
+        // // console.log('Bearing: ', bearing)
+        return 0
     }
 
 
@@ -65,11 +93,6 @@ export default class Driver extends React.Component {
     // }
 
     render() {
-        const driver = this.props.driver ? 
-            this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
-        const prevDriver = this.props.prevDriver ? 
-            this.props.prevDriver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
-
         return(
             <MapView.Marker.Animated
                 coordinate={this.state.coordinate}
