@@ -65,7 +65,11 @@ export default class LoginScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{flex: 1, borderTopWidth: 1, borderTopColor: 'lightgray', justifyContent: 'center'}}>   
-                        <Text style={{ textAlign: 'left', fontSize: 15, color: '#a3a3a3', textAlign: 'center'}}>Get the Uber Clone Course at haysstanford.com</Text>
+                        <Text 
+                            style={{ textAlign: 'left', fontSize: 15, fontWeight: 'bold', color: '#a3a3a3', textAlign: 'left', paddingLeft: 25, color: '#00509b'}}
+                            onPress={() => Linking.openURL('https://www.haysstanford.com/')}>
+                            Get the Video Course at haysstanford.com
+                        </Text>
                     </View>
                 </View>
             </View>
