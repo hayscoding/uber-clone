@@ -125,15 +125,11 @@ export default class VerifyScreen extends React.Component {
                                         placeholder={'(201) 555-0123'}
                                         placeholderTextColor={'#a3a3a3'}
                                     />
-                                    <Button
-                                        onPress={this.onPhoneComplete}
-                                        title="Next"
-                                    />
                                 </View>
                             </View>
                         </View>
                         <TouchableOpacity style={styles.submit}>
-                            <MaterialIcon name="arrow-forward" color="#fff" size={25} onPress={() => { cb() }} />
+                            <MaterialIcon name="arrow-forward" color="#fff" size={25} onPress={this.onPhoneComplete} />
                         </TouchableOpacity>
                     </View>
                 </View>
