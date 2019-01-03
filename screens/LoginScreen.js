@@ -49,10 +49,13 @@ export default class LoginScreen extends React.Component {
                     </View>
                     <View style={{flex: 1,}}>
                         <TouchableOpacity
-                            style={{flex: 1}}
+                            style={{flex: 1, flexDirection: 'row',}}
                             onPress={() => {this.props.navigation.navigate('Verify')}} >
-                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                                <View style={{ flex: 1, paddingLeft: 10 }}>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                                  <Image 
+                                    style={{height: 22, width: 35, borderRadius: 3, marginLeft: 25, marginTop: 3}}
+                                    source={require('../assets/images/us-flag.jpg')} />
+                                <View style={{ flex: 1, paddingLeft: 4 }}>
                                     <Text style={{ textAlign: 'center', fontSize: 20 }}>+1</Text>
                                 </View>
                                 <View style={{ flex: 5, paddingRight: 10 }}>
