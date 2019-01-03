@@ -113,7 +113,7 @@ export default class VerifyScreen extends React.Component {
                                     value={this.state.phone}
                                     onChangeText={this.onPhoneChange}
                                     // maxLength={7}
-                                    placeholder={'Enter your mobile number'}
+                                    placeholder={'(201) 555-0123'}
                                     placeholderTextColor={'#a3a3a3'}
                                 />
                                 <Button
