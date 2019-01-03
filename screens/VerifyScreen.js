@@ -99,38 +99,42 @@ export default class VerifyScreen extends React.Component {
     render() {
         if (!this.state.confirmationResult)
             return (
-                <View style={{flex: 1, backgroundColor: 'red'}}>
-                    <View style={{flex: 1 /* Change to flex 3 for proper style*/, backgroundColor: '#007bff'}}>
-                        <Image 
-                            style={{}}
-                            source={require('../assets/images/uber_text_logo.png')} 
-                        />
+                <View style={{flex: 1, backgroundColor: 'white'}}>
+                    <View style={{height: 50, marginTop: 40, marginLeft: 25}}>
+                        <MaterialIcon name="arrow-back" color="#000" size={25} onPress={() => { cb() }} />
                     </View>
-                    <View style={{ flex: 2, backgroundColor: 'white' }}>
-                        <Text style={{}}>Get moving with Uber</Text>
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                            <View style={{ flex: 1, paddingLeft: 10 }}>
-                                <Text style={{ textAlign: 'center', fontSize: 20 }}>+1</Text>
+                    <View style={{ flex: 2, backgroundColor: 'white', justifyContent: 'flex-start'}}>
+                        <View style={{height: 100}}>
+                            <View style={{flex: 1, paddingLeft: 25, justifyContent: 'flex-start',}}>
+                                <Text style={{fontSize: 20, paddingBottom: 10,}}>Enter your mobile number</Text>
                             </View>
-                            <View style={{ flex: 5, paddingRight: 10 }}>
-                                <TextInput 
-                                    style={{ textAlign: 'left', fontSize: 20}}
-                                    keyboardType="phone-pad"
-                                    value={this.state.phone}
-                                    onChangeText={this.onPhoneChange}
-                                    // maxLength={7}
-                                    placeholder={'(201) 555-0123'}
-                                    placeholderTextColor={'#a3a3a3'}
-                                />
-                                <Button
-                                    onPress={this.onPhoneComplete}
-                                    title="Next"
-                                />
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                                <Image 
+                                    style={{height: 22, width: 35, borderRadius: 3, marginLeft: 25, marginTop: 3}}
+                                    source={require('../assets/images/us-flag.jpg')} />
+                                <View style={{ flex: 1, paddingLeft: 10 }}>
+                                    <Text style={{ textAlign: 'center', fontSize: 20 }}>+1</Text>
+                                </View>
+                                <View style={{ flex: 5, paddingRight: 10 }}>
+                                    <TextInput 
+                                        style={{ textAlign: 'left', fontSize: 20}}
+                                        keyboardType="phone-pad"
+                                        value={this.state.phone}
+                                        onChangeText={this.onPhoneChange}
+                                        // maxLength={7}
+                                        placeholder={'(201) 555-0123'}
+                                        placeholderTextColor={'#a3a3a3'}
+                                    />
+                                    <Button
+                                        onPress={this.onPhoneComplete}
+                                        title="Next"
+                                    />
+                                </View>
                             </View>
-                            <TouchableOpacity style={{}}>
-                                <MaterialIcon name="my-location" color="#000000" size={25} onPress={() => { cb() }} />
-                            </TouchableOpacity>
                         </View>
+                        <TouchableOpacity style={styles.submit}>
+                            <MaterialIcon name="arrow-forward" color="#fff" size={25} onPress={() => { cb() }} />
+                        </TouchableOpacity>
                     </View>
                 </View>
             )
@@ -153,19 +157,17 @@ export default class VerifyScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    next: {
-    zIndex: 9, 
-    position: 'absolute', 
-    width: 45, 
-    height: 45, 
-    backgroundColor: '#fff',
-    left: WIDTH-70,
-    borderRadius: 50,
-    shadowColor: '#000000',
-    elevation: 7,
-    shadowRadius: 5,
-    shadowOpacity: 1.0,
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
+    submit: {
+        alignSelf: 'flex-end',
+        width: 60, 
+        height: 60, 
+        margin: 25,
+        backgroundColor: '#000',
+        borderRadius: 50,
+        shadowColor: '#000000',
+        shadowRadius: 5,
+        shadowOpacity: 1.0,
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
 })
