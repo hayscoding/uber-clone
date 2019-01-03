@@ -9,7 +9,7 @@ import {
     Button, 
     Image,
 } from 'react-native'
-import {Linking, WebBrowser,} from 'expo'
+import { Linking, WebBrowser } from 'expo'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
@@ -44,7 +44,7 @@ export default class LoginScreen extends React.Component {
                     <Text style={{position: 'absolute', top: HEIGHT/3+60, left: WIDTH/2-30, fontSize: 50, textAlign: 'center', marginBottom: 20}}>{'\uD83D\uDE0E'}</Text>
                 </View>
                 <View style={{ flex: 2, backgroundColor: 'white', justifyContent: 'space-around'}}>
-                    <View style={{flex: 1, paddingLeft: 25, justifyContent: 'center'}}>
+                    <View style={{flex: 1, paddingLeft: 25, justifyContent: 'flex-end',}}>
                         <Text style={{fontFamily: 'sans-serif-thin', fontSize: 30, }}>Get moving with Uber</Text>
                     </View>
                     <View style={{flex: 1,}}>
@@ -63,6 +63,9 @@ export default class LoginScreen extends React.Component {
                                 </View>
                             </View>
                         </TouchableOpacity>
+                    </View>
+                    <View style={{flex: 1, borderTopWidth: 1, borderTopColor: 'lightgray', justifyContent: 'center'}}>   
+                        <Text style={{ textAlign: 'left', fontSize: 15, color: '#a3a3a3', textAlign: 'center'}}>Get the Uber Clone Course at haysstanford.com</Text>
                     </View>
                 </View>
             </View>
