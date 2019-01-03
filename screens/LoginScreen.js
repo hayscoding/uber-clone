@@ -43,21 +43,24 @@ export default class LoginScreen extends React.Component {
                     {/*Winky face to indicate that this is an Uber Clone ;)*/}
                     <Text style={{position: 'absolute', top: HEIGHT/3+60, left: WIDTH/2-30, fontSize: 50, textAlign: 'center', marginBottom: 20}}>{'\uD83D\uDE0E'}</Text>
                 </View>
-                <View style={{ flex: 2, backgroundColor: 'white' }}>
-                    <Text style={{}}>Get moving with Uber</Text>
-                    <TouchableOpacity
-                        style={{flex: 1}}
-                        onPress={() => {this.props.navigation.navigate('Verify')}}
-                    >
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                            <View style={{ flex: 1, paddingLeft: 10 }}>
-                                <Text style={{ textAlign: 'center', fontSize: 20 }}>+1</Text>
+                <View style={{ flex: 2, backgroundColor: 'white', justifyContent: 'space-around'}}>
+                    <View style={{flex: 1, paddingLeft: 25, justifyContent: 'center'}}>
+                        <Text style={{fontFamily: 'sans-serif-thin', fontSize: 30, }}>Get moving with Uber</Text>
+                    </View>
+                    <View style={{flex: 1,}}>
+                        <TouchableOpacity
+                            style={{flex: 1}}
+                            onPress={() => {this.props.navigation.navigate('Verify')}} >
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                                <View style={{ flex: 1, paddingLeft: 10 }}>
+                                    <Text style={{ textAlign: 'center', fontSize: 20 }}>+1</Text>
+                                </View>
+                                <View style={{ flex: 5, paddingRight: 10 }}>
+                                    <Text style={{ textAlign: 'left', fontSize: 20, color: '#a3a3a3'}}>Enter your mobile number</Text>
+                                </View>
                             </View>
-                            <View style={{ flex: 5, paddingRight: 10 }}>
-                                <Text style={{ textAlign: 'left', fontSize: 20, color: '#a3a3a3'}}>Enter your mobile number</Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         )
