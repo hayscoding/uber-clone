@@ -6,14 +6,20 @@ import {
     TextInput, 
     Button, 
     Image,
+    Dimensions,
+    StyleSheet,
+    TouchableOpacity,
 } from 'react-native'
 import {Linking, WebBrowser,} from 'expo'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import * as FirebaseAPI from '../utils/FirebaseAPI'
 
 const captchaUrl = `https://uber-clone-course.firebaseapp.com/?appurl=`+Linking.makeUrl('')
+
+const WIDTH = Dimensions.get('window').width
 
 export default class VerifyScreen extends React.Component {
     static navigationOptions = {
@@ -121,6 +127,9 @@ export default class VerifyScreen extends React.Component {
                                     title="Next"
                                 />
                             </View>
+                            <TouchableOpacity style={{}}>
+                                <MaterialIcon name="my-location" color="#000000" size={25} onPress={() => { cb() }} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -142,3 +151,21 @@ export default class VerifyScreen extends React.Component {
             )
     }
 }
+
+const styles = StyleSheet.create({
+    next: {
+    zIndex: 9, 
+    position: 'absolute', 
+    width: 45, 
+    height: 45, 
+    backgroundColor: '#fff',
+    left: WIDTH-70,
+    borderRadius: 50,
+    shadowColor: '#000000',
+    elevation: 7,
+    shadowRadius: 5,
+    shadowOpacity: 1.0,
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+})
