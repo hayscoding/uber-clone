@@ -30,7 +30,7 @@ export default class LoginScreen extends React.Component {
     render() {
         return(
             <View style={{flex: 1, backgroundColor: 'red'}}>
-                <View style={{flex: 1 /* Change to flex 3 for proper style*/, backgroundColor: '#007bff'}}>
+                <View style={{flex: 3, backgroundColor: '#007bff'}}>
                     <Image 
                         style={{}}
                         source={require('../assets/images/uber_text_logo.png')} 
