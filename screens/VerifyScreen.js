@@ -101,7 +101,7 @@ export default class VerifyScreen extends React.Component {
             return (
                 <View style={{flex: 1, backgroundColor: 'white'}}>
                     <View style={{height: 50, marginTop: 40, marginLeft: 25}}>
-                        <MaterialIcon name="arrow-back" color="#000" size={25} onPress={() => { cb() }} />
+                        <MaterialIcon name="arrow-back" color="#000" size={25} onPress={() => { this.props.navigation.navigate('Login') }} />
                     </View>
                     <View style={{ flex: 2, backgroundColor: 'white', justifyContent: 'flex-start'}}>
                         <View style={{height: 100}}>
