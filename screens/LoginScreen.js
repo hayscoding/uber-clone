@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     ScrollView,
     TextInput, 
+    Dimensions,
     Button, 
     Image,
 } from 'react-native'
@@ -15,6 +16,9 @@ import 'firebase/auth'
 import * as FirebaseAPI from '../utils/FirebaseAPI'
 
 const captchaUrl = `https://uber-clone-course.firebaseapp.com/?appurl=`+Linking.makeUrl('')
+
+const WIDTH = Dimensions.get('window').width
+const HEIGHT = Dimensions.get('window').height
 
 export default class LoginScreen extends React.Component {
     static navigationOptions = {
@@ -30,10 +34,14 @@ export default class LoginScreen extends React.Component {
     render() {
         return(
             <View style={{flex: 1, backgroundColor: 'red'}}>
-                <View style={{flex: 3, backgroundColor: '#007bff', justifyContent: 'center', alignItems: 'center'}}>
-                    <Image 
-                        style={{height: 100, width: 100, backgroundColor: 'white'}}
-                        source={require('../assets/images/uber_text_logo.png')} />
+                <View style={{flex: 3, backgroundColor: '#007bff', justifyContent: 'center', alignItems: 'center', }}>
+                    <View style={{padding: 20, backgroundColor: 'white'}}>
+                        <Image 
+                            style={{height: 75, width: 75}}
+                            source={require('../assets/images/uber_text_logo.png')} />
+                    </View>
+                    {/*Winky face to indicate that this is an Uber Clone ;)*/}
+                    <Text style={{position: 'absolute', top: HEIGHT/3+60, left: WIDTH/2-30, fontSize: 50, textAlign: 'center', marginBottom: 20}}>{'\uD83D\uDE0E'}</Text>
                 </View>
                 <View style={{ flex: 2, backgroundColor: 'white' }}>
                     <Text style={{}}>Get moving with Uber</Text>
