@@ -3,6 +3,7 @@ import {
     Text, 
     View, 
     ScrollView,
+    KeyboardAvoidingView,
     TextInput, 
     Button, 
     Image,
@@ -99,7 +100,7 @@ export default class VerifyScreen extends React.Component {
     render() {
         if (!this.state.confirmationResult)
             return (
-                <View style={{flex: 1, backgroundColor: 'white'}}>
+                <KeyboardAvoidingView style={{flex: 1, backgroundColor: 'white'}} behavior="padding" enabled>
                     <View style={{height: 50, marginTop: 40, marginLeft: 25}}>
                         <MaterialIcon name="arrow-back" color="#000" size={25} onPress={() => { this.props.navigation.navigate('Login') }} />
                     </View>
@@ -128,11 +129,11 @@ export default class VerifyScreen extends React.Component {
                                 </View>
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.submit}>
-                            <MaterialIcon name="arrow-forward" color="#fff" size={25} onPress={this.onPhoneComplete} />
-                        </TouchableOpacity>
                     </View>
-                </View>
+                    <TouchableOpacity style={styles.submit}>
+                        <MaterialIcon name="arrow-forward" color="#fff" size={25} onPress={this.onPhoneComplete} />
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
             )
         else
             return (
