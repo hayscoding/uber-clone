@@ -59,6 +59,14 @@ export default class VerifyScreen extends React.Component {
         this.navIfSignIn()
     }
 
+    validatePhone = () => {
+        console.log('validatePhone()')
+        if(this.state.phone != '') {
+            // console.log('test: ', /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(this.state.phone))
+            console.log('test: ', /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/.test(this.state.phone))
+        }
+    }
+
     onPhoneComplete = async () => {
         let token = null
 
@@ -131,7 +139,7 @@ export default class VerifyScreen extends React.Component {
                         </View>
                     </View>
                     <TouchableOpacity style={styles.submit}>
-                        <MaterialIcon name="arrow-forward" color="#fff" size={25} onPress={this.onPhoneComplete} />
+                        <MaterialIcon name="arrow-forward" color="#fff" size={25} onPress={() => {this.validatePhone()}} />
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
             )
