@@ -41,10 +41,7 @@ export default class VerifyScreen extends React.Component {
 
     onPhoneChange = (phone) => {
         if(phone.length == 4) {
-            var updatedPhone = phone.split('')
-            updatedPhone.splice(0, 0, '(')
-            updatedPhone.splice(4, 0, ') ')
-            updatedPhone = updatedPhone.join('')
+            var updatedPhone = this.addParentheses(phone)
 
 
             // updatedPhone.splice(3, 0, '-')
@@ -54,6 +51,17 @@ export default class VerifyScreen extends React.Component {
         } else
             this.setState({phone: phone})
 
+    }
+
+    addParentheses = (phone) => {
+        console.log('add parens called')
+        var updatedPhone = phone.split('')
+
+        updatedPhone.splice(0, 0, '(')
+        updatedPhone.splice(4, 0, ') ')
+        updatedPhone = updatedPhone.join('')
+
+        return updatedPhone
     }
 
     onCodeChange = (code) => {
