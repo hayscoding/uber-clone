@@ -40,10 +40,14 @@ export default class VerifyScreen extends React.Component {
     }
 
     onPhoneChange = (phone) => {
-        if(phone.length > 3) {
+        if(phone.length == 4) {
             var updatedPhone = phone.split('')
-            updatedPhone.splice(3, 0, '-')
+            updatedPhone.splice(0, 0, '(')
+            updatedPhone.splice(4, 0, ') ')
             updatedPhone = updatedPhone.join('')
+
+
+            // updatedPhone.splice(3, 0, '-')
 
             console.log('updatedPhone: ', updatedPhone)
             this.setState({phone: updatedPhone})
