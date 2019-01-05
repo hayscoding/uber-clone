@@ -194,7 +194,7 @@ export default class VerifyScreen extends React.Component {
                                         keyboardType="phone-pad"
                                         value={this.state.phone}
                                         onChangeText={this.onPhoneChange}
-                                        // maxLength={7}
+                                        maxLength={14}
                                         placeholder={'(201) 555-0123'}
                                         placeholderTextColor={'#a3a3a3'}
                                     />
