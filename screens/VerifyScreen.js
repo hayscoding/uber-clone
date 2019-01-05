@@ -218,18 +218,28 @@ export default class VerifyScreen extends React.Component {
             )
         else
             return (
-                <ScrollView style={{padding: 20, marginTop: 20}}>
-                    <TextInput
-                        value={this.state.code}
-                        onChangeText={this.onCodeChange}
-                        keyboardType="numeric"
-                        placeholder="Code from SMS"
-                    />
-                    <Button
-                        onPress={this.onSignIn}
-                        title="Sign in"
-                    />
-                </ScrollView>
+                <KeyboardAvoidingView style={{flex: 1, backgroundColor: 'white'}} behavior="padding" enabled>
+                    <View style={{ flex: 2, backgroundColor: 'white', justifyContent: 'flex-start'}}>
+                        <View style={{height: 100, marginTop: 60}}>
+                            <View style={{flex: 1, paddingLeft: 25, justifyContent: 'flex-start',}}>
+                                <Text style={{fontSize: 20, paddingBottom: 10,}}>Enter your code from SMS</Text>
+                            </View>
+                            <TextInput
+                                style={{ textAlign: 'left', paddingLeft: 26, fontSize: 30}}
+                                value={this.state.code}
+                                onChangeText={this.onCodeChange}
+                                blurOnSubmit={false}
+                                keyboardType="numeric"
+                                maxLength={6}
+                                autoFocus={true}
+                                placeholder="_ _ _ _ _ _"
+                            />
+                        </View>
+                    </View>
+                    <TouchableOpacity style={styles.submit}>
+                        <MaterialIcon name="arrow-forward" color="#fff" size={25} onPress={() => {this.onSignIn()}} />
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
             )
     }
 }
