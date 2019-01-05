@@ -132,14 +132,16 @@ export default class VerifyScreen extends React.Component {
 
     validatePhone = () => {
         console.log('validatePhone()')
-        if(this.state.phone != '') {
-            // console.log('test: ', /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(this.state.phone))
-            console.log('test: ', /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/.test(this.state.phone))
+        //Regex validates true for (555) 555-5555 & 1234567890
+        if(/^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/.test(this.state.phone) ) {
+            this.onPhoneComplete()
         }
     }
 
     onPhoneComplete = async () => {
         let token = null
+        const phone = '+1 '+this.state.phone
+        console.log('onPhoneComplete() phone: ', phone)
 
         const listener = ({url}) => {
             WebBrowser.dismissBrowser()
@@ -159,7 +161,7 @@ export default class VerifyScreen extends React.Component {
         // console.log('token: ', token)
 
         if (token) {
-            FirebaseAPI.signInWithPhoneAndCaptcha(this.state.phone, token, (confirmationResult) => {
+            FirebaseAPI.signInWithPhoneAndCaptcha(phone, token, (confirmationResult) => {
                 this.setState({confirmationResult})
             })
         }
@@ -198,7 +200,7 @@ export default class VerifyScreen extends React.Component {
                                 <View style={{ flex: 5, paddingRight: 10 }}>
                                     <TextInput 
                                         style={{ textAlign: 'left', fontSize: 20}}
-                                        keyboardType="phone-pad"
+                                        keyboardType="number-pad"
                                         value={this.state.phone}
                                         onChangeText={this.onPhoneChange}
                                         maxLength={14}
