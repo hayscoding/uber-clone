@@ -51,6 +51,11 @@ export default class VerifyScreen extends React.Component {
 
             console.log('updatedPhone: ', updatedPhone)
             this.setState({phone: updatedPhone})
+        } else if(phone.length == 10) {
+            var updatedPhone = this.addDash(phone)
+
+            console.log('updatedPhone: ', updatedPhone)
+            this.setState({phone: updatedPhone})
         } else
             this.setState({phone: phone})
 
@@ -58,6 +63,10 @@ export default class VerifyScreen extends React.Component {
 
     hasParentheses = (phone) => {
         return phone.includes('(')
+    }
+
+    hasDash = (phone) => {
+        return phone.includes('-')
     }
 
     addParentheses = (phone) => {
@@ -80,6 +89,22 @@ export default class VerifyScreen extends React.Component {
         updatedPhone = updatedPhone.join('')
 
         return updatedPhone
+    }
+
+    addDash = (phone) => {
+        console.log('add dash called')
+        var updatedPhone = phone.split('')
+
+        updatedPhone.splice(9, 0, '-')
+        updatedPhone = updatedPhone.join('')
+
+        return updatedPhone
+
+    }
+
+    removeDash = (phone) => {
+        console.log('remove dash called')
+
     }
 
     onCodeChange = (code) => {
