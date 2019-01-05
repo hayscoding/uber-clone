@@ -232,12 +232,13 @@ export default class VerifyScreen extends React.Component {
                                 keyboardType="numeric"
                                 maxLength={6}
                                 autoFocus={true}
+                                onSubmitEditing={() => { this.onSignIn() }}
                                 placeholder="_ _ _ _ _ _"
                             />
                         </View>
                     </View>
                     <TouchableOpacity style={styles.submit}>
-                        <MaterialIcon name="arrow-forward" color="#fff" size={25} onPress={() => {this.onSignIn()}} />
+                        <MaterialIcon name="arrow-forward" color="#fff" size={25} onPress={() => { this.onSignIn() }} />
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
             )
