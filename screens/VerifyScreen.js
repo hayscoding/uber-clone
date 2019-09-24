@@ -160,17 +160,15 @@ export default class VerifyScreen extends React.Component {
 
             if (token) {
                 FirebaseAPI.signInWithPhoneAndCaptcha(phone, token, (confirmationResult) => {
-                    console.log('SIGN IN WITH PHONE CAPTCHA CALLED')
                     this.setState({confirmationResult})
                 })
             }
+
+            Linking.removeEventListener('url', listener)
         }
 
         Linking.addEventListener('url', listener)
-        console.log('OPEN CAPTCHA CALLED')
         console.log('browser: ', await WebBrowser.openBrowserAsync(captchaUrl)) //open recaptcha screen
-        console.log('OPEN CAPTCHA FINISHED')
-        // Linking.removeEventListener('url', listener)
     }
 
     navIfSignIn = () => {
