@@ -11,7 +11,8 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native'
-import { Linking, WebBrowser,} from 'expo'
+import { Linking } from 'expo';
+import * as WebBrowser from 'expo-web-browser';
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
