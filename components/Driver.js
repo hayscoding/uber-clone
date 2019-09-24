@@ -9,13 +9,15 @@ export default class Driver extends React.Component {
     constructor(props) {
         super(props)
 
-        const driver = this.props.driver ? 
-                this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+        const driver = /*this.props.driver ? 
+                this.props.driver :*/ { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
 
-        const coordinate = new MapView.AnimatedRegion({
-            latitude: driver.location.latitude,
-            longitude: driver.location.longitude,
-        })
+        // const coordinate = new MapView.AnimatedRegion({
+        //     latitude: driver.location.latitude,
+        //     longitude: driver.location.longitude,
+        // })
+
+        const coordinate = { latitude: 0, longitude: 0 }
 
         this.state = {
             driver: driver,
