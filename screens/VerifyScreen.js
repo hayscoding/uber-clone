@@ -19,7 +19,9 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import * as FirebaseAPI from '../utils/FirebaseAPI'
 
+// console.log('Linking: ', Linking)
 const captchaUrl = `https://uber-clone-course.firebaseapp.com/?appurl=`+Linking.makeUrl('')
+console.log('CAPTCHA URL: ', captchaUrl)
 
 const WIDTH = Dimensions.get('window').width
 
@@ -145,7 +147,7 @@ export default class VerifyScreen extends React.Component {
         console.log('onPhoneComplete() phone: ', phone)
 
         const listener = ({url}) => {
-            WebBrowser.dismissBrowser()
+            // WebBrowser.dismissBrowser()
         	console.log('listener: ', url)
 
             const tokenEncoded = Linking.parse(url).queryParams['token']
@@ -153,19 +155,22 @@ export default class VerifyScreen extends React.Component {
             if (tokenEncoded){
                 token = decodeURIComponent(tokenEncoded)
             }
+
+            console.log('token: ', token)
+
+            if (token) {
+                FirebaseAPI.signInWithPhoneAndCaptcha(phone, token, (confirmationResult) => {
+                    console.log('SIGN IN WITH PHONE CAPTCHA CALLED')
+                    this.setState({confirmationResult})
+                })
+            }
         }
 
         Linking.addEventListener('url', listener)
-        await WebBrowser.openBrowserAsync(captchaUrl) //open recaptcha screen
-        Linking.removeEventListener('url', listener)
-
-        // console.log('token: ', token)
-
-        if (token) {
-            FirebaseAPI.signInWithPhoneAndCaptcha(phone, token, (confirmationResult) => {
-                this.setState({confirmationResult})
-            })
-        }
+        console.log('OPEN CAPTCHA CALLED')
+        console.log('browser: ', await WebBrowser.openBrowserAsync(captchaUrl)) //open recaptcha screen
+        console.log('OPEN CAPTCHA FINISHED')
+        // Linking.removeEventListener('url', listener)
     }
 
     navIfSignIn = () => {
