@@ -11,7 +11,8 @@
 
 import firebase from 'firebase'
 import GeoFire from 'geofire'
-import { Location, MapView } from 'expo'
+import MapView from 'react-native-maps';
+import * as Location from 'expo-location';
 
 import * as FirebaseAPI from './FirebaseAPI'
 

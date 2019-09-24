@@ -2,9 +2,8 @@ import React from 'react';
 import {
     Image, View,
 } from 'react-native';
-import { 
-    MapView, 
-} from 'expo';
+import MapView from 'react-native-maps';
+
 
 export default class Driver extends React.Component {
     constructor(props) {
