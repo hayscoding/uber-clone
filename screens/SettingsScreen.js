@@ -9,12 +9,12 @@ export default class SettingsScreen extends React.Component {
   };
 
   signOut() {
-  	FirebaseAPI.signOut()
+  	FirebaseAPI.signOut(() => {
+      this.props.navigation.navigate('Login')
+    })
   }
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
     return (
     	<View style={{flex: 1}}>
     		<TouchableOpacity

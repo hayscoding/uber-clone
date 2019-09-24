@@ -1,10 +1,27 @@
+/*
+<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>
+----------------------------------------------------------------
+    Author: Hays Stanford
+    Website: www.haysstanford.com
+    Github: github.com/HaysS
+    Twitter: twitter.com/thehaysstanford
+
+    Description: 
+        - Contains common functions for user actions using
+        Firebase Real-time Database.
+        - Specifically designed for use with any project 
+        utilizing Firebase & individual user accounts.
+----------------------------------------------------------------
+<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>
+*/
+
 import firebase from 'firebase'
 
 //Automatically set to 'production' when published through Expo
 var env = process.env.NODE_ENV || 'development';
 // var env = 'production'
 var config = require('../config')[env];
-
+ 
 export function storeNewUser(user) {
     ifUserNotFound(user.uid, () => storeUser(user))
 }
@@ -42,8 +59,9 @@ export function getUser(uid, cb) {
         })
 }
 
-export function signOut() {
+export function signOut(cb) {
 	firebase.auth().signOut()
+    cb()
 }
 
 export const signInWithPhoneAndCaptcha = async (phone, token, cb) => {
@@ -62,33 +80,10 @@ export const signInWithPhoneAndCaptcha = async (phone, token, cb) => {
     }
 }
 
+export const getAuth = (cb) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+        cb(user)
+        unsubscribe()
+    })
+}
 
-// export function setInvisibleRecaptcha() {
-// 	console.log('setInvisibleRecaptcha() called.')
-// 	window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-// 	  'size': 'invisible',
-// 	  'callback': function(response) {
-// 	    // reCAPTCHA solved, allow signInWithPhoneNumber.
-// 	    console.log('invisible reCAPTCHA success.')
-// 	    onSignInSubmit();
-// 	  }
-// 	});
-// }
-
-// export function signInWithPhoneNumber() {
-// 	var phoneNumber = '5555555555';
-// 	var appVerifier = window.recaptchaVerifier;
-
-// 	firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-// 	    .then(function (confirmationResult) {
-// 	      // SMS sent. Prompt user to type the code from the message, then sign the
-// 	      // user in with confirmationResult.confirm(code).
-// 	      console.log('firebase signInWithPhoneNumber: Success.')
-// 	      window.confirmationResult = confirmationResult;
-// 	    }).catch(function (error) {
-// 	      // Error; SMS not sent
-// 	      // ...
-// 	      console.log('firebase signInWithPhoneNumber: Error, here is msg: ', error)
-// 	    });
-// }
-// 	

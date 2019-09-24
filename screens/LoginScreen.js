@@ -1,83 +1,78 @@
-import React from 'react';
-import { 
-  View, 
-  StyleSheet, 
-  ScrollView, 
-  Animated,
-  Image,
-  TextInput,
-  Text,
+import * as React from 'react'
+import {
+    Text, 
+    View,
+    TouchableOpacity,
+    ScrollView,
+    TextInput, 
+    Dimensions,
+    Button, 
+    Image,
 } from 'react-native'
-import { DrawerItems, SafeAreaView } from 'react-navigation';
+import { Linking, WebBrowser } from 'expo'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 import * as FirebaseAPI from '../utils/FirebaseAPI'
 
-export default class LinksScreen extends React.Component {
-  static navigationOptions = {
-    headerMode: 'none',
-    headerVisible: false,
-    header: null,
-  };
+const captchaUrl = `https://uber-clone-course.firebaseapp.com/?appurl=`+Linking.makeUrl('')
 
-  constructor(props) {
-    super(props);
+const WIDTH = Dimensions.get('window').width
+const HEIGHT = Dimensions.get('window').height
 
-    this.state = {
-      phone: null,
-      navigation: this.props.navigation,
+export default class LoginScreen extends React.Component {
+    static navigationOptions = {
+        headerMode: 'none',
+        headerVisible: false,
+        header: null,
+      };
+
+    constructor(props) {
+        super(props)
     }
-  }
 
-  componentWillMount() {
-    // FirebaseAPI.setInvisibleRecaptcha()
-  }
-
-  verifyNumber(e) {
-    e.preventDefault();
-
-    console.log('verifying phone number...')
-
-    this.state.navigation.navigate('Main')
-    // FirebaseAPI.signInWithPhoneNumber()
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={{flex: 1 /* Change to flex 3 for proper style*/, backgroundColor: '#007bff'}}>
-          <Image 
-            style={{}}
-            source={require('../assets/images/uber_text_logo.png')} 
-          />
-        </View>
-        <View style={{ flex: 2, backgroundColor: 'white' }}>
-          <Text style={{}}>Get moving with Uber</Text>
-          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-            <View style={{ flex: 1, paddingLeft: 10 }}>
-              <Text style={{ textAlign: 'center', fontSize: 20 }}>+1</Text>
+    render() {
+        return(
+            <View style={{flex: 1, backgroundColor: 'red'}}>
+                <View style={{flex: 3, backgroundColor: '#007bff', justifyContent: 'center', alignItems: 'center', }}>
+                    <View style={{padding: 20, backgroundColor: 'white'}}>
+                        <Image 
+                            style={{height: 75, width: 75}}
+                            source={require('../assets/images/uber_text_logo.png')} />
+                    </View>
+                    {/*Winky face to indicate that this is an Uber Clone ;)*/}
+                    <Text style={{position: 'absolute', top: HEIGHT/3+60, left: WIDTH/2-30, fontSize: 50, textAlign: 'center', marginBottom: 20}}>{'\uD83D\uDE0E'}</Text>
+                </View>
+                <View style={{ flex: 2, backgroundColor: 'white', justifyContent: 'space-around'}}>
+                    <View style={{flex: 1, paddingLeft: 25, justifyContent: 'flex-end',}}>
+                        <Text style={{fontFamily: 'sans-serif-thin', fontSize: 30, }}>Get moving with Uber</Text>
+                    </View>
+                    <View style={{flex: 1,}}>
+                        <TouchableOpacity
+                            style={{flex: 1, flexDirection: 'row',}}
+                            onPress={() => {this.props.navigation.navigate('Verify')}} >
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                                  <Image 
+                                    style={{height: 22, width: 35, borderRadius: 3, marginLeft: 25, marginTop: 3}}
+                                    source={require('../assets/images/us-flag.jpg')} />
+                                <View style={{ flex: 1, paddingLeft: 4 }}>
+                                    <Text style={{ textAlign: 'center', fontSize: 20 }}>+1</Text>
+                                </View>
+                                <View style={{ flex: 5, paddingRight: 10 }}>
+                                    <Text style={{ textAlign: 'left', fontSize: 20, color: '#a3a3a3'}}>Enter your mobile number</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{flex: 1, borderTopWidth: 1, borderTopColor: 'lightgray', justifyContent: 'center'}}>   
+                        <Text 
+                            style={{ textAlign: 'left', fontSize: 15, fontWeight: 'bold', color: '#a3a3a3', textAlign: 'left', paddingLeft: 25, color: '#00509b'}}
+                            onPress={() => Linking.openURL('https://www.haysstanford.com/')}>
+                            Get the Video Course at haysstanford.com
+                        </Text>
+                    </View>
+                </View>
             </View>
-            <View style={{ flex: 5, paddingRight: 10 }}>
-              <TextInput 
-                style={{ textAlign: 'left', fontSize: 20}}
-                keyboardType="number-pad"
-                onChangeText={(num) => this.setState({phone: num})}
-                onSubmitEditing={this.verifyNumber.bind(this)}
-                value={this.state.num}
-                maxLength={7}
-                placeholder={'Enter your mobile number'}
-                placeholderTextColor={'#a3a3a3'}
-              />
-            </View>
-          </View>
-        </View>
-      </View>
-    );
-  }
+        )
+    }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'red',
-  },
-});

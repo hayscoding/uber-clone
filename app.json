@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "uber-clone-internal-sim",
+    "name": "uber-clone",
     "description": "",
-    "slug": "uber-clone-internal-sim",
+    "slug": "uber-clone",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [

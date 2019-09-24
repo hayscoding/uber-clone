@@ -13,7 +13,7 @@ import {
 import { DrawerActions } from 'react-navigation-drawer';
 import { 
   WebBrowser, 
-  MapView, 
+  MapView,
   Constants, 
   Location, 
   Permissions,
@@ -26,99 +26,278 @@ import { DestinationButton } from '../components/DestinationButton';
 import { CurrentLocationButton } from '../components/CurrentLocationButton';
 import { RideRequestSection } from '../components/RideRequestSection';
 import { SuggestedDestinationButton } from '../components/SuggestedDestinationButton';
+import { HomeScreenButtons } from '../components/HomeScreenButtons'
 import DestinationInput from '../components/DestinationInput';
+import Drivers from '../components/Drivers'
 
 import * as DirectionsAPI from '../utils/DirectionsAPI'
 import * as FirebaseAPI from '../utils/FirebaseAPI'
+import * as GeoFireAPI from '../utils/GeoFireAPI'
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      location: null,
-      region: {
-        latitude: 30.29877,
-        longitude: -97.74719,
-        latitudeDelta: 0.045,
-        longitudeDelta: 0.045,
-      },
-      route: null,
-      coordinate: new MapView.AnimatedRegion({
-        latitude: 30.3019044,
-        longitude: -97.7355154,
-      }),
-      markerCoordinates: null,
-      markerBearings: [],
-      polylines: [],
-      errorMessage: null,
-      requestSectionOpen: false,
-      destinationInputOpen: false,
-      animating: false,
+    static navigationOptions = {
+        header: null,
     };
-  }
 
-  componentDidMount() {
-    DirectionsAPI.getSimulatorPolylines((polylines) => {
-      this.setState({polylines: polylines, markerCoordinates: this.getCoordinateFromPolylines(polylines), markerBearings: this.getInitBearings(polylines)})
-    })
-  }
+    constructor(props) {
+        super(props);
 
-  componentWillMount() {
-    if (Platform.OS === 'android' && !Constants.isDevice) {
-      this.setState({
-        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-      });
-    } else {
-      this._getLocationAsync();
+        this.state = {
+            location: null,
+            region: {
+                latitude: 30.29877,
+                longitude: -97.74719,
+                latitudeDelta: 0.045,
+                longitudeDelta: 0.045,
+            },
+            drivers: [],
+            prevDrivers: [],
+            route: null,
+            coordinate: new MapView.AnimatedRegion({
+                latitude: 30.3019044,
+                longitude: -97.7355154,
+            }),
+            errorMessage: null,
+            requestSectionOpen: false,
+            destinationInputOpen: false,
+        };
     }
-  }
 
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
+    /*
+    ###########################################
+    Lifecycle Functions
+    ###########################################
+    */
+
+    componentWillMount() {
+
     }
 
-    let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
+    componentDidMount() {
 
-    this.setState({location: location,  region: this.getRegionFromLocation(location)});
-  };
+    }
 
-  getRegionFromLocation(location) {
-    if(location)
-      return({  //Users current position
-        latitude: location.coords.latitude, 
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.045, //Deltas set the zoom of the map on screen
-        longitudeDelta: 0.045,
-      })
-    else
-      return null
+    componentDidUpdate() {
+        // console.log('CompnentDidUpdate:\ndrivers: ', this.state.drivers, '\nprevDrivers: ', this.state.prevDrivers)
+    }
+
+    componentWillMount() {
+        if (Platform.OS === 'android' && !Constants.isDevice) {
+            this.setState({
+                errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+            });
+        } else {
+            this._getLocationAsync(() => { this.test() });
+        }
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                {this.componentOverlay()}
+                {
+                //   <TouchableOpacity
+                //     onPress={() => {}/*this.startMarkerAnimation()*/}
+                //     style={{
+                //         zIndex: 9, 
+                //         position: 'absolute', 
+                //         top: 400, 
+                //         width: 50, 
+                //         height: 50, 
+                //         backgroundColor: 'black'}} >
+                //     <Text>Animate</Text>
+                // </TouchableOpacity>
+              }
+                <MapView
+                    initialRegion={this.state.region}
+                    showsCompass={false}
+                    showsUserLocation={true}
+                    followsUserLocation={true}
+                    rotateEnabled={false}
+                    ref={(map) => {this.map = map}}
+                    style={styles.map} >
+                    {
+                        (() => {
+                            if(this.state.route != null)
+                                return (
+                                    <MapView.Polyline
+                                        coordinates={this.state.route}
+                                        strokeWidth={4}/>
+                                )
+                        })()
+                    }
+                    <Drivers drivers={this.state.drivers} prevDrivers={this.state.prevDrivers} />
+                </MapView>
+            </View>
+        );
+    }
+
+    /*
+    ###########################################
+    General Functions
+    ###########################################
+    */
+
+    setRegionToCurrentLocation() {
+        this.setState({region: this.getRegionFromLocation(this.state.location)})
+    }
+
+    toggleComponentOverlay() {
+        this.setState({requestSectionOpen: !this.state.requestSectionOpen})
+    }
+
+    toggleDestinationInput() {
+        this.setState({destInputOpen: !this.state.destInputOpen})
+    }
+
+    centerMap = () => {
+        console.log("CENTER MAP CALLED: ", this.state.region)
+        const { latitude, longitude, latitudeDelta, longitudeDelta } = this.state.region;
+
+        this.map.animateToRegion({
+            latitude,
+            longitude,
+            latitudeDelta,
+            longitudeDelta
+        })
+    }
+
+    getRegionFromLocation(location) {
+        if(location)
+            return({  
+                latitude: location.coords.latitude, //Users current position
+                longitude: location.coords.longitude,
+                latitudeDelta: 0.045, //Deltas set the zoom of the map on screen
+                longitudeDelta: 0.045,
+            })
+        else
+            return null
+    }
+
+    componentOverlay() {
+        if(this.state.requestSectionOpen)
+            return <RideRequestSection 
+                backCb={() => { this.toggleComponentOverlay() }} 
+                locationCb={() => { this.centerMap() }} />
+        else if(this.state.destInputOpen && !this.state.requestSectionOpen)
+            return <DestinationInput 
+                backCb={() => { this.toggleDestinationInput() }} 
+                coordsCb={(coords) => { this.setState({route: coords}) }} />
+        else
+            return <HomeScreenButtons 
+                navigation={this.props.navigation}
+                toggleDestinationInput={() => { this.toggleDestinationInput() }}
+                toggleComponentOverlay={() => { this.toggleComponentOverlay() }}
+                setRegionToCurrentLocation={() => { this.centerMap() }} />
+    }
+
+    _getLocationAsync = async (cb) => {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+            if (status !== 'granted') {
+                this.setState({
+                    errorMessage: 'Permission to access location was denied',
+                });
+        }
+
+        let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
+
+        this.setState({location: location,  region: this.getRegionFromLocation(location)});
+
+        InteractionManager.runAfterInteractions(() => {
+          cb()
+        })
+    };
+
+    /*
+    ###########################################
+    Driver Functions
+    ###########################################
+    */
+
+    test() {
+        console.log('test pressed')
+        GeoFireAPI.watchLocation(firebase.auth().currentUser.uid)
+
+        GeoFireAPI.getGeoQuery(firebase.auth().currentUser.uid, (geoQuery) => {
+            this.setGeoQueryEvents(geoQuery)
+        })
+    }
+
+    setGeoQueryEvents(geoQuery) {
+        GeoFireAPI.setReadyRegistration(geoQuery)
+        GeoFireAPI.setKeyEnteredRegistration(geoQuery, (driver) => { 
+            this.addDriver(driver) 
+        })
+        GeoFireAPI.setKeyMovedRegistration(geoQuery, (driver) => { 
+            this.updateDriver(driver) 
+        })
+        GeoFireAPI.setKeyExitedRegistration(geoQuery, (driver) => { 
+            this.removeDriver(driver) 
+        })
+    }
+
+    addDriver(driver) {
+        //Must keep state calls in runAfterInteractions() to prevent simultaneous setState() calls
+        InteractionManager.runAfterInteractions(() => {
+            // console.log('addNewDriver()\ndriver: ', driver)
+            // console.log('GETTING NEW ANIMATED Driver: ', driver)
+            const updatedDrivers = this.state.drivers.slice()
+
+            updatedDrivers.push(driver)
+
+            this.setState({drivers: updatedDrivers})
+        })
+    }
+
+    updateDriver(driver) {
+        InteractionManager.runAfterInteractions(() => {
+            const prevDrivers = this.state.drivers.slice()
+
+            const updatedDrivers = this.state.drivers.slice()
+            const index = updatedDrivers.findIndex((_driver) => {
+                    return driver.uid == _driver.uid
+                })
+
+            updatedDrivers.splice(index, 1, driver)
+
+            this.setState({drivers: updatedDrivers, prevDrivers: prevDrivers})
+        })
+    }
+
+    removeDriver(driver) {
+        InteractionManager.runAfterInteractions(() => {
+            const updatedDrivers = this.state.drivers.slice()
+            const index = updatedDrivers.findIndex((_driver) => {
+                    return driver.uid == _driver.uid
+                })
+
+            updatedDrivers.splice(index, 1)
+
+            this.setState({drivers: updatedDrivers})
+        })
+    }
+}
+    
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  map: {
+    width: WIDTH, 
+    height: HEIGHT, 
+    zIndex: 0,
   }
+});
 
-  setRegionToCurrentLocation() {
-    this.setState({region: this.getRegionFromLocation(this.state.location)})
-  }
 
-  toggleComponentOverlay() {
-    this.setState({requestSectionOpen: !this.state.requestSectionOpen})
-  }
+/*
 
-  toggleDestinationInput() {
-    this.setState({destInputOpen: !this.state.destInputOpen})
-  }
-
-  getInitBearings(polylines) {
+ getInitBearings(polylines) {
     const bearings = []
 
     for(var i = 0; i < polylines.length; i++)
@@ -127,22 +306,30 @@ export default class HomeScreen extends React.Component {
     return bearings
   }
 
-  //Iterates through all polylines & returns an array of the 1st coordinate for each polyline
-  getCoordinateFromPolylines(polylines) {
-    var coordinates = []
 
-    polylines.forEach((polyline) => {
-      coordinates.push(new MapView.AnimatedRegion({
-        latitude: polyline[0].latitude,
-        longitude: polyline[0].longitude,
-        latitudeDelta: 0.045,
-        longitudeDelta: 0.045,
-      }))
-    })
 
-    // console.log('setCoords return: ', coordinates)
-    return coordinates
-  }
+  animatedMarker(index) {
+    // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
+    // console.log('markerBearing: ', this.state.markerBearings[index])
+    if(this.state.markerCoordinates != null && this.state.markerBearings[index] != undefined)
+      return(
+        <MapView.Marker.Animated
+          coordinate={this.state.markerCoordinates[index]}
+          anchor={{x: 0.35, y: 0.32}} //centers car.png image
+          // ref={marker => { this.marker = marker; }}
+          style={{width: 50, height: 50, transform: [{rotate: this.state.markerBearings[index]}]}}
+          //rotation={}
+          tracksViewChanges={true}
+          //animateMarkerToCoordinate={}
+        >
+          <Image source={require('../assets/images/car.png')}
+            style={{ 
+              width: 32, 
+              height: 32, 
+            }}/>
+        </MapView.Marker.Animated>
+      )
+    }
 
   animate(coord, cb) {
     // console.log('ANIMATE() COORDS:\nlat: ', coord.latitude, '\n: ', coord.longitude)
@@ -251,129 +438,4 @@ export default class HomeScreen extends React.Component {
     return bearing
   }
 
-  animatedMarker(index) {
-    // console.log('animatedCarMarker(): ', this.state.markerCoordinates)
-    // console.log('markerBearing: ', this.state.markerBearings[index])
-    if(this.state.markerCoordinates != null && this.state.markerBearings[index] != undefined)
-      return(
-        <MapView.Marker.Animated
-          coordinate={this.state.markerCoordinates[index]}
-          anchor={{x: 0.35, y: 0.32}} //centers car.png image
-          // ref={marker => { this.marker = marker; }}
-          style={{width: 50, height: 50, transform: [{rotate: this.state.markerBearings[index]}]}}
-          //rotation={}
-          tracksViewChanges={true}
-          //animateMarkerToCoordinate={}
-        >
-          <Image source={require('../assets/images/car.png')}
-            style={{ 
-              width: 32, 
-              height: 32, 
-            }}/>
-        </MapView.Marker.Animated>
-      )
-  }
-
-  mainButtons() {
-    return(
-      <View>
-        <Icon name="md-menu" color="#000000" size={32} style={styles.menuIcon}
-            onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}
-          />
-        <DestinationButton cb={() => { this.toggleDestinationInput() }}/>
-        <SuggestedDestinationButton cb={() => { this.toggleComponentOverlay() }}/>
-        <CurrentLocationButton cb={() => { this.setRegionToCurrentLocation() }} />
-      </View>
-    )
-  }
-
-  componentOverlay() {
-    if(this.state.requestSectionOpen)
-      return <RideRequestSection 
-        backCb={() => { this.toggleComponentOverlay() }} 
-        locationCb={() => { this.setRegionToCurrentLocation() }} 
-      />
-    else if(this.state.destInputOpen && !this.state.requestSectionOpen)
-      return <DestinationInput 
-        backCb={() => { this.toggleDestinationInput() }} 
-        coordsCb={(coords) => { this.setState({route: coords}) }}
-      />
-    else
-      return this.mainButtons()
-  }
-
-  test() {
-    console.log('test pressed')
-    // FirebaseAPI.getUser(firebase.auth().currentUser.uid, (user) => {
-    //   console.log('test user: ', user)
-    // })
-    // FirebaseAPI.storeNewUser(firebase.auth().currentUser)
-  }
-
-  render() {
-    // console.log("HOMESCREEN OUTPUT: \n", 
-    //   "LOCATION COORDS: ", this.state.location.coords,
-    //   "REGION: ", this.state.region
-    // );
-    // {
-    //   latitude: 30.30225,
-    //   longitude: -97.7455,
-    //   latitudeDelta: 0.025,
-    //   longitudeDelta: 0.025,
-    // }
-    // console.log('render() markerCoordinates: ', this.state.markerCoordinates)
-
-
-    return (
-      <View style={styles.container}>
-        {this.componentOverlay()}
-        <TouchableOpacity
-          onPress={() => this.startMarkerAnimation()}
-          style={{zIndex: 9, position: 'absolute', top: 400, width: 50, height: 50, backgroundColor: 'black'}}
-        >
-          <Text>Animate</Text>
-        </TouchableOpacity>
-        <MapView
-          initialRegion={this.state.region}
-          showsCompass={false}
-          showsUserLocation={true}
-          followsUserLocation={true}
-          ref={(map) => {this.map = map}}
-          style={styles.map}>
-           {(() => {
-            if(this.state.route != null)
-              return(
-                <MapView.Polyline
-                  coordinates={this.state.route}
-                  strokeWidth={4}
-                />
-              )
-            })()
-           }
-            {this.animatedMarker(0)}
-            {this.animatedMarker(1)}
-            {this.animatedMarker(2)}
-            {this.animatedMarker(3)}
-        </MapView>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  menuIcon: {
-    zIndex: 9, 
-    position: 'absolute', 
-    top: 40, 
-    left: 20,
-  },
-  map: {
-    width: WIDTH, 
-    height: HEIGHT, 
-    zIndex: 0,
-  }
-});
+*/
