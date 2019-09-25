@@ -9,15 +9,15 @@ export default class Driver extends React.Component {
     constructor(props) {
         super(props)
 
-        const driver = /*this.props.driver ? 
-                this.props.driver :*/ { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
+        const driver = this.props.driver ? 
+                this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
 
-        // const coordinate = new MapView.AnimatedRegion({
-        //     latitude: driver.location.latitude,
-        //     longitude: driver.location.longitude,
-        // })
-
-        const coordinate = { latitude: 0, longitude: 0 }
+        let coordinate = new MapView.AnimatedRegion({
+            latitude: driver.location.latitude,
+            longitude: driver.location.longitude,
+            latitudeDelta: 0,
+            longitudeDelta: 0,
+        })
 
         this.state = {
             driver: driver,
@@ -98,6 +98,7 @@ export default class Driver extends React.Component {
     // }
 
     render() {
+        // console.log('COORDINATE: ', this.state.coordinate)
         return(
             <MapView.Marker.Animated
                 coordinate={this.state.coordinate}
