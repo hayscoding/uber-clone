@@ -11,13 +11,11 @@ import {
   InteractionManager,
 } from 'react-native';
 import { DrawerActions } from 'react-navigation-drawer';
-import { 
-  WebBrowser, 
-  MapView,
-  Constants, 
-  Location, 
-  Permissions,
-} from 'expo';
+import MapView from 'react-native-maps';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions'
+import * as Location from 'expo-location';
+import * as WebBrowser from 'expo-web-browser';
 import Icon from 'react-native-vector-icons/Ionicons';
 import firebase from 'firebase'
 

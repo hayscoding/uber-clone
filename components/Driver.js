@@ -2,9 +2,8 @@ import React from 'react';
 import {
     Image, View,
 } from 'react-native';
-import { 
-    MapView, 
-} from 'expo';
+import MapView from 'react-native-maps';
+
 
 export default class Driver extends React.Component {
     constructor(props) {
@@ -13,9 +12,11 @@ export default class Driver extends React.Component {
         const driver = this.props.driver ? 
                 this.props.driver : { uid: 'noDriversPassed', location: { latitude: 0, longitude: 0 }}
 
-        const coordinate = new MapView.AnimatedRegion({
+        let coordinate = new MapView.AnimatedRegion({
             latitude: driver.location.latitude,
             longitude: driver.location.longitude,
+            latitudeDelta: 0,
+            longitudeDelta: 0,
         })
 
         this.state = {
@@ -97,6 +98,7 @@ export default class Driver extends React.Component {
     // }
 
     render() {
+        // console.log('COORDINATE: ', this.state.coordinate)
         return(
             <MapView.Marker.Animated
                 coordinate={this.state.coordinate}
